@@ -25,7 +25,7 @@ pub use gradient::{
 pub use image::Format;
 
 /// Describes the color content of a filled or stroked shape.
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Debug)]
 pub enum Brush {
     /// Solid color brush.
     Solid(Color),
