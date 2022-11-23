@@ -61,6 +61,64 @@ impl From<SweepGradient> for Brush {
     }
 }
 
+/// Reference to a brush.
+///
+/// This is useful for methods that would like to accept brushes by reference. Defining
+/// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
+/// directly without cloning or allocating.
+#[derive(Clone, PartialEq, Debug)]
+pub enum BrushRef<'a> {
+    /// Solid color brush.
+    Solid(Color),
+    /// Linear gradient brush.
+    LinearGradient(&'a LinearGradient),
+    /// Radial gradient brush.
+    RadialGradient(&'a RadialGradient),
+    /// Sweep gradient brush.
+    SweepGradient(&'a SweepGradient),
+}
+
+impl From<Color> for BrushRef<'_> {
+    fn from(color: Color) -> Self {
+        Self::Solid(color)
+    }
+}
+
+impl<'a> From<&'a Color> for BrushRef<'_> {
+    fn from(color: &'a Color) -> Self {
+        Self::Solid(*color)
+    }
+}
+
+impl<'a> From<&'a LinearGradient> for BrushRef<'a> {
+    fn from(gradient: &'a LinearGradient) -> Self {
+        Self::LinearGradient(gradient)
+    }
+}
+
+impl<'a> From<&'a RadialGradient> for BrushRef<'a> {
+    fn from(gradient: &'a RadialGradient) -> Self {
+        Self::RadialGradient(gradient)
+    }
+}
+
+impl<'a> From<&'a SweepGradient> for BrushRef<'a> {
+    fn from(gradient: &'a SweepGradient) -> Self {
+        Self::SweepGradient(gradient)
+    }
+}
+
+impl<'a> From<&'a Brush> for BrushRef<'a> {
+    fn from(brush: &'a Brush) -> Self {
+        match brush {
+            Brush::Solid(color) => Self::Solid(*color),
+            Brush::LinearGradient(gradient) => Self::LinearGradient(gradient),
+            Brush::RadialGradient(gradient) => Self::RadialGradient(gradient),
+            Brush::SweepGradient(gradient) => Self::SweepGradient(gradient),
+        }
+    }
+}
+
 /// Defines how a brush is extended when the content does not
 /// fill a shape.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
