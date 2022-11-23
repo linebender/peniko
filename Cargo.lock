@@ -10,8 +10,9 @@ checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
 
 [[package]]
 name = "kurbo"
-version = "0.8.3"
-source = "git+https://github.com/linebender/kurbo#79e5787a57f12d4965fcea01ab9442ecf6795775"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e119590a03caff1f7a582e8ee8c2164ddcc975791701188132fd1d1b518d3871"
 dependencies = [
  "arrayvec",
 ]

@@ -63,47 +63,6 @@ impl Color {
         Self { r, g, b, a }
     }
 
-    /// Creates a color from hue, saturation, and lightness values.
-    pub fn hsl(h: f64, s: f64, l: f64) -> Self {
-        Self::hsla(h, s, l, 1.0)
-    }
-
-    /// Creates a color from hue, saturation, lightness and alpha values.
-    pub fn hsla(h: f64, s: f64, l: f64, a: f64) -> Self {
-        let mut r = l;
-        let mut g = l;
-        let mut b = l;
-        if s != 0.0 {
-            let q = if l < 0.5 {
-                (1.0 + s) * l
-            } else {
-                l + s - l * s
-            };
-            let p = 2.0 * l - q;
-            fn from_hue(p: f64, q: f64, mut t: f64) -> f64 {
-                if t < 0.0 {
-                    t += 1.0;
-                }
-                if t > 1.0 {
-                    t -= 1.0;
-                }
-                if t < 1.0 / 6.0 {
-                    p + (q - p) * 6.0 * t
-                } else if t < 1.0 / 2.0 {
-                    q
-                } else if t < 2.0 / 3.0 {
-                    p + (q - p) * (2.0 / 3.0 - t) * 6.0
-                } else {
-                    p
-                }
-            }
-            r = from_hue(p, q, h + 1.0 / 3.0);
-            g = from_hue(p, q, h);
-            b = from_hue(p, q, h - 1.0 / 3.0);
-        }
-        Self::rgba(r, g, b, a)
-    }
-
     /// Create a color from a CIEL\*a\*b\* polar (also known as CIE HCL)
     /// specification.
     ///
@@ -121,7 +80,6 @@ impl Color {
     /// Currently out-of-gamut values are clipped to the nearest sRGB color,
     /// which is perhaps not ideal (the clipping might change the hue). See
     /// <https://github.com/d3/d3-color/issues/33> for discussion.
-    #[allow(non_snake_case)]
     pub fn hlc(h: f64, l: f64, c: f64) -> Self {
         Self::hlca(h, l, c, 1.0)
     }
