@@ -95,38 +95,38 @@ impl Stroke {
     }
 
     /// Builder method for setting the join style.
-    pub fn join(mut self, join: Join) -> Self {
+    pub fn with_join(mut self, join: Join) -> Self {
         self.join = join;
         self
     }
 
     /// Builder method for setting the limit for miter joins.
-    pub fn miter_limit(mut self, limit: f32) -> Self {
+    pub fn with_miter_limit(mut self, limit: f32) -> Self {
         self.miter_limit = limit;
         self
     }
 
     /// Builder method for setting the cap style for the start of the stroke.
-    pub fn start_cap(mut self, cap: Cap) -> Self {
+    pub fn with_start_cap(mut self, cap: Cap) -> Self {
         self.start_cap = cap;
         self
     }
 
     /// Builder method for setting the cap style for the end of the stroke.
-    pub fn end_cap(mut self, cap: Cap) -> Self {
+    pub fn with_end_cap(mut self, cap: Cap) -> Self {
         self.end_cap = cap;
         self
     }
 
     /// Builder method for setting the cap style.
-    pub fn caps(mut self, cap: Cap) -> Self {
+    pub fn with_caps(mut self, cap: Cap) -> Self {
         self.start_cap = cap;
         self.end_cap = cap;
         self
     }
 
     /// Builder method for setting the dashing parameters.
-    pub fn dash<P>(mut self, offset: f32, pattern: P) -> Self
+    pub fn with_dashes<P>(mut self, offset: f32, pattern: P) -> Self
     where
         P: IntoIterator,
         P::Item: Borrow<f32>,
@@ -140,7 +140,7 @@ impl Stroke {
 
     /// Builder method for setting whether or not the stroke should be affected
     /// by the scale of any applied transform.
-    pub fn scale(mut self, yes: bool) -> Self {
+    pub fn with_scale(mut self, yes: bool) -> Self {
         self.scale = yes;
         self
     }

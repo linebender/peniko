@@ -14,27 +14,17 @@
 //
 // Also licensed under MIT license, at your choice.
 
-mod color;
-mod gradient;
-mod image;
-
-pub use color::Color;
-pub use gradient::{
-    ColorStop, ColorStops, ColorStopsSource, LinearGradient, RadialGradient, SweepGradient,
-};
-pub use image::Format;
+use super::{Color, Gradient, Image};
 
 /// Describes the color content of a filled or stroked shape.
 #[derive(Clone, PartialEq, Debug)]
 pub enum Brush {
     /// Solid color brush.
     Solid(Color),
-    /// Linear gradient brush.
-    LinearGradient(LinearGradient),
-    /// Radial gradient brush.
-    RadialGradient(RadialGradient),
-    /// Sweep gradient brush.
-    SweepGradient(SweepGradient),
+    /// Gradient brush.
+    Gradient(Gradient),
+    /// Image brush.
+    Image(Image),
 }
 
 impl From<Color> for Brush {
@@ -43,21 +33,9 @@ impl From<Color> for Brush {
     }
 }
 
-impl From<LinearGradient> for Brush {
-    fn from(g: LinearGradient) -> Self {
-        Self::LinearGradient(g)
-    }
-}
-
-impl From<RadialGradient> for Brush {
-    fn from(g: RadialGradient) -> Self {
-        Self::RadialGradient(g)
-    }
-}
-
-impl From<SweepGradient> for Brush {
-    fn from(g: SweepGradient) -> Self {
-        Self::SweepGradient(g)
+impl From<Gradient> for Brush {
+    fn from(g: Gradient) -> Self {
+        Self::Gradient(g)
     }
 }
 
@@ -70,12 +48,10 @@ impl From<SweepGradient> for Brush {
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
-    /// Linear gradient brush.
-    LinearGradient(&'a LinearGradient),
-    /// Radial gradient brush.
-    RadialGradient(&'a RadialGradient),
-    /// Sweep gradient brush.
-    SweepGradient(&'a SweepGradient),
+    /// Gradient brush.
+    Gradient(&'a Gradient),
+    /// Image brush.
+    Image(&'a Image),
 }
 
 impl From<Color> for BrushRef<'_> {
@@ -90,21 +66,15 @@ impl<'a> From<&'a Color> for BrushRef<'_> {
     }
 }
 
-impl<'a> From<&'a LinearGradient> for BrushRef<'a> {
-    fn from(gradient: &'a LinearGradient) -> Self {
-        Self::LinearGradient(gradient)
+impl<'a> From<&'a Gradient> for BrushRef<'a> {
+    fn from(gradient: &'a Gradient) -> Self {
+        Self::Gradient(gradient)
     }
 }
 
-impl<'a> From<&'a RadialGradient> for BrushRef<'a> {
-    fn from(gradient: &'a RadialGradient) -> Self {
-        Self::RadialGradient(gradient)
-    }
-}
-
-impl<'a> From<&'a SweepGradient> for BrushRef<'a> {
-    fn from(gradient: &'a SweepGradient) -> Self {
-        Self::SweepGradient(gradient)
+impl<'a> From<&'a Image> for BrushRef<'a> {
+    fn from(image: &'a Image) -> Self {
+        Self::Image(image)
     }
 }
 
@@ -112,9 +82,8 @@ impl<'a> From<&'a Brush> for BrushRef<'a> {
     fn from(brush: &'a Brush) -> Self {
         match brush {
             Brush::Solid(color) => Self::Solid(*color),
-            Brush::LinearGradient(gradient) => Self::LinearGradient(gradient),
-            Brush::RadialGradient(gradient) => Self::RadialGradient(gradient),
-            Brush::SweepGradient(gradient) => Self::SweepGradient(gradient),
+            Brush::Gradient(gradient) => Self::Gradient(gradient),
+            Brush::Image(image) => Self::Image(image),
         }
     }
 }

@@ -17,8 +17,6 @@
 // Borrows code heavily from the piet (https://github.com/linebender/piet/) Color
 // type.
 
-use crate::ParseError;
-
 /// 32-bit RGBA color.
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default, Debug)]
 pub struct Color {
@@ -56,10 +54,10 @@ impl Color {
     /// The interpretation is the same as rgba32, and no greater precision is
     /// (currently) assumed.
     pub fn rgba(r: f64, g: f64, b: f64, a: f64) -> Self {
-        let r = (r.max(0.0).min(1.0) * 255.0).round() as u8;
-        let g = (g.max(0.0).min(1.0) * 255.0).round() as u8;
-        let b = (b.max(0.0).min(1.0) * 255.0).round() as u8;
-        let a = (a.max(0.0).min(1.0) * 255.0).round() as u8;
+        let r = (r.clamp(0.0, 1.0) * 255.0).round() as u8;
+        let g = (g.clamp(0.0, 1.0) * 255.0).round() as u8;
+        let b = (b.clamp(0.0, 1.0) * 255.0).round() as u8;
+        let a = (a.clamp(0.0, 1.0) * 255.0).round() as u8;
         Self { r, g, b, a }
     }
 
@@ -140,8 +138,16 @@ impl Color {
     ///
     /// Currently accepts CSS style hexidecimal colors of the forms #RGB, #RGBA,
     /// #RRGGBB, #RRGGBBAA or the name of an SVG color such as "aliceblue".
-    pub fn parse(s: &str) -> Result<Self, ParseError> {
+    pub fn parse(s: &str) -> Option<Self> {
         parse_color(s)
+    }
+
+    /// Returns the color with the alpha component multiplied by the specified
+    /// factor.
+    pub fn with_alpha_factor(self, alpha: f32) -> Self {
+        let mut result = self;
+        result.a = ((result.a as f32) * alpha) as u8;
+        result
     }
 
     /// Premultiplies the color by the alpha component.
@@ -472,15 +478,12 @@ impl From<[u8; 4]> for Color {
     }
 }
 
-fn parse_color(s: &str) -> Result<Color, ParseError> {
+fn parse_color(s: &str) -> Option<Color> {
     let s = s.trim();
     if let Some(stripped) = s.strip_prefix('#') {
-        match get_4bit_hex_channels(stripped) {
-            Ok(channels) => Ok(color_from_4bit_hex(channels)),
-            Err(e) => Err(e),
-        }
+        Some(color_from_4bit_hex(get_4bit_hex_channels(stripped)?))
     } else {
-        Ok(match s {
+        Some(match s {
             "aliceblue" => Color::ALICE_BLUE,
             "antiquewhite" => Color::ANTIQUE_WHITE,
             "aqua" => Color::AQUA,
@@ -623,14 +626,14 @@ fn parse_color(s: &str) -> Result<Color, ParseError> {
             "whitesmoke" => Color::WHITE_SMOKE,
             "yellow" => Color::YELLOW,
             "yellowgreen" => Color::YELLOW_GREEN,
-            _ => return Err(ParseError::InvalidColorName),
+            _ => return None,
         })
     }
 }
 
 // The following hex color parsing code taken from piet:
 
-const fn get_4bit_hex_channels(hex_str: &str) -> Result<[u8; 8], ParseError> {
+const fn get_4bit_hex_channels(hex_str: &str) -> Option<[u8; 8]> {
     let mut four_bit_channels = match hex_str.as_bytes() {
         &[b'#', r, g, b] | &[r, g, b] => [r, r, g, g, b, b, b'f', b'f'],
         &[b'#', r, g, b, a] | &[r, g, b, a] => [r, r, g, g, b, b, a, a],
@@ -640,7 +643,7 @@ const fn get_4bit_hex_channels(hex_str: &str) -> Result<[u8; 8], ParseError> {
         &[b'#', r0, r1, g0, g1, b0, b1, a0, a1] | &[r0, r1, g0, g1, b0, b1, a0, a1] => {
             [r0, r1, g0, g1, b0, b1, a0, a1]
         }
-        _ => return Err(ParseError::InvalidLength),
+        _ => return None,
     };
 
     // convert to hex in-place
@@ -650,17 +653,12 @@ const fn get_4bit_hex_channels(hex_str: &str) -> Result<[u8; 8], ParseError> {
         let ascii = four_bit_channels[i];
         let as_hex = match hex_from_ascii_byte(ascii) {
             Ok(hex) => hex,
-            Err(byte) => {
-                return Err(ParseError::InvalidHexDigit {
-                    ch: byte as _,
-                    index: i,
-                })
-            }
+            Err(_) => return None,
         };
         four_bit_channels[i] = as_hex;
         i += 1;
     }
-    Ok(four_bit_channels)
+    Some(four_bit_channels)
 }
 
 const fn color_from_4bit_hex(components: [u8; 8]) -> Color {
