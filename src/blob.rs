@@ -48,16 +48,6 @@ where
     }
 }
 
-impl<T> From<&[T]> for Blob<T>
-where
-    T: Copy + 'static,
-{
-    fn from(slice: &[T]) -> Self {
-        let boxed: Box<[T]> = slice.into();
-        Self::new(Arc::new(boxed))
-    }
-}
-
 impl<T> Blob<T> {
     /// Creates a new blob from the given data and generates a unique
     /// identifier.
