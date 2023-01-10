@@ -1,18 +1,5 @@
 // Copyright 2022 The peniko authors and piet authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Also licensed under MIT license, at your choice.
+// SPDX-License-Identifier: Apache-2.0 OR MIT
 
 // Borrows code heavily from the piet (https://github.com/linebender/piet/) Color
 // type.
@@ -146,35 +133,17 @@ impl Color {
     /// factor.
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
         let mut result = self;
-        result.a = ((result.a as f32) * alpha) as u8;
+        result.a = ((result.a as f32) * alpha).round() as u8;
         result
-    }
-
-    /// Premultiplies the color by the alpha component.
-    pub fn to_premul(self) -> Self {
-        let a = self.a as f64 * (1.0 / 255.0);
-        let r = (self.r as f64 * a).round() as u8;
-        let g = (self.g as f64 * a).round() as u8;
-        let b = (self.b as f64 * a).round() as u8;
-        Self { r, g, b, a: self.a }
-    }
-
-    /// Un-premultiplies the color by the alpha component.
-    pub fn to_separate(self) -> Self {
-        let a = 1.0 / (self.a as f64 * (1.0 / 255.0) + f64::EPSILON);
-        let r = (self.r as f64 * a).round() as u8;
-        let g = (self.g as f64 * a).round() as u8;
-        let b = (self.b as f64 * a).round() as u8;
-        Self { r, g, b, a: self.a }
     }
 
     /// Returns the color as a packed premultiplied value.
     pub fn to_premul_u32(self) -> u32 {
-        let Self { r, g, b, a } = self.to_premul();
-        let r = r as u32;
-        let g = g as u32;
-        let b = b as u32;
-        (r << 24) | (g << 16) | (b << 8) | a as u32
+        let a = self.a as f64 * (1.0 / 255.0);
+        let r = (self.r as f64 * a).round() as u32;
+        let g = (self.g as f64 * a).round() as u32;
+        let b = (self.b as f64 * a).round() as u32;
+        (r << 24) | (g << 16) | (b << 8) | self.a as u32
     }
 }
 

@@ -1,18 +1,5 @@
 // Copyright 2022 The peniko authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     https://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Also licensed under MIT license, at your choice.
+// SPDX-License-Identifier: Apache-2.0 OR MIT
 
 use std::fmt;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -48,6 +35,26 @@ impl<T> Clone for Blob<T> {
 impl<T> AsRef<[T]> for Blob<T> {
     fn as_ref(&self) -> &[T] {
         self.data()
+    }
+}
+
+impl<T> From<Vec<T>> for Blob<T>
+where
+    T: 'static,
+{
+    fn from(vec: Vec<T>) -> Self {
+        let boxed: Box<[T]> = vec.into();
+        Self::new(Arc::new(boxed))
+    }
+}
+
+impl<T> From<&[T]> for Blob<T>
+where
+    T: Copy + 'static,
+{
+    fn from(slice: &[T]) -> Self {
+        let boxed: Box<[T]> = slice.into();
+        Self::new(Arc::new(boxed))
     }
 }
 
