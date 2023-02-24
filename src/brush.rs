@@ -41,6 +41,17 @@ pub enum BrushRef<'a> {
     Image(&'a Image),
 }
 
+impl<'a> BrushRef<'a> {
+    /// Converts the reference to an owned brush.
+    pub fn to_owned(&self) -> Brush {
+        match self {
+            Self::Solid(color) => Brush::Solid(*color),
+            Self::Gradient(gradient) => Brush::Gradient((*gradient).clone()),
+            Self::Image(image) => Brush::Image((*image).clone()),
+        }
+    }
+}
+
 impl From<Color> for BrushRef<'_> {
     fn from(color: Color) -> Self {
         Self::Solid(color)
