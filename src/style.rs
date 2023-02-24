@@ -135,3 +135,67 @@ impl Stroke {
 
 /// Collection of values representing lengths in a dash pattern.
 pub type Dashes = SmallVec<[f32; 4]>;
+
+/// Describes draw style-- either a fill or stroke.
+#[derive(Clone, Debug)]
+pub enum Style {
+    /// Filled draw operation.
+    Fill(Fill),
+    /// Stroked draw operation.
+    Stroke(Stroke),
+}
+
+impl From<Fill> for Style {
+    fn from(fill: Fill) -> Self {
+        Self::Fill(fill)
+    }
+}
+
+impl From<Stroke> for Style {
+    fn from(stroke: Stroke) -> Self {
+        Self::Stroke(stroke)
+    }
+}
+
+/// Reference to a draw style.
+///
+/// This is useful for methods that would like to accept draw styles by reference. Defining
+/// the type as `impl<Into<DrawRef>>` allows accepting types like `&Stroke` or `Fill`
+/// directly without cloning or allocating.
+pub enum StyleRef<'a> {
+    /// Filled draw operation.
+    Fill(Fill),
+    /// Stroked draw operation.
+    Stroke(&'a Stroke),
+}
+
+impl<'a> StyleRef<'a> {
+    /// Converts the reference to an owned draw.
+    pub fn to_owned(&self) -> Style {
+        match self {
+            Self::Fill(fill) => Style::Fill(*fill),
+            Self::Stroke(stroke) => Style::Stroke((*stroke).clone()),
+        }
+    }
+}
+
+impl From<Fill> for StyleRef<'_> {
+    fn from(fill: Fill) -> Self {
+        Self::Fill(fill)
+    }
+}
+
+impl<'a> From<&'a Stroke> for StyleRef<'a> {
+    fn from(stroke: &'a Stroke) -> Self {
+        Self::Stroke(stroke)
+    }
+}
+
+impl<'a> From<&'a Style> for StyleRef<'a> {
+    fn from(draw: &'a Style) -> Self {
+        match draw {
+            Style::Fill(fill) => Self::Fill(*fill),
+            Style::Stroke(stroke) => Self::Stroke(stroke),
+        }
+    }
+}

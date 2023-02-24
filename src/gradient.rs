@@ -60,7 +60,7 @@ impl From<(f32, Color)> for ColorStop {
 pub type ColorStops = SmallVec<[ColorStop; 4]>;
 
 /// Properties for the supported gradient types.
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum GradientKind {
     /// Gradient that transitions between two or more colors along a line.
     Linear {
