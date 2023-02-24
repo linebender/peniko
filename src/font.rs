@@ -4,7 +4,7 @@
 use super::Blob;
 
 /// Owned shareable font resource.
-#[derive(Clone)]
+#[derive(Clone, PartialEq, Debug)]
 pub struct Font {
     /// Blob containing the content of the font file.
     pub data: Blob<u8>,
