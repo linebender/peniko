@@ -7,7 +7,7 @@ use std::sync::{Arc, Weak};
 
 /// Shared data with an associated unique identifier.
 pub struct Blob<T> {
-    data: Arc<dyn AsRef<[T]>>,
+    data: Arc<dyn AsRef<[T]> + Send + Sync>,
     id: u64,
 }
 
@@ -40,7 +40,7 @@ impl<T> AsRef<[T]> for Blob<T> {
 
 impl<T> From<Vec<T>> for Blob<T>
 where
-    T: 'static,
+    T: 'static + Send + Sync,
 {
     fn from(vec: Vec<T>) -> Self {
         let boxed: Box<[T]> = vec.into();
@@ -48,15 +48,33 @@ where
     }
 }
 
+static ID_COUNTER: AtomicU64 = AtomicU64::new(0);
+
 impl<T> Blob<T> {
     /// Creates a new blob from the given data and generates a unique
     /// identifier.
-    pub fn new(data: Arc<dyn AsRef<[T]>>) -> Self {
-        static ID_COUNTER: AtomicU64 = AtomicU64::new(0);
+    pub fn new(data: Arc<dyn AsRef<[T]> + Send + Sync>) -> Self {
         Self {
             data,
             id: ID_COUNTER.fetch_add(1, Ordering::Relaxed),
         }
+    }
+
+    /// Creates a new blob from the given data and identifier.
+    ///
+    /// Note that while this function is not unsafe, usage of this in combination
+    /// with `new` (or with identifiers that are not uniquely associated with the given data)
+    /// can lead to inconsistencies.
+    ///
+    /// This is primarily for libraries that wish to interop with vello but are
+    /// unable to depend on our resource types.
+    pub fn from_raw_parts(data: Arc<dyn AsRef<[T]> + Send + Sync>, id: u64) -> Self {
+        Self { data, id }
+    }
+
+    /// Consumes self and returns the inner components of the blob.
+    pub fn into_raw_parts(self) -> (Arc<dyn AsRef<[T]> + Send + Sync>, u64) {
+        (self.data, self.id)
     }
 
     /// Returns the length of the data.
@@ -90,7 +108,7 @@ impl<T> Blob<T> {
 
 /// Weak reference to a shared blob.
 pub struct WeakBlob<T> {
-    data: Weak<dyn AsRef<[T]>>,
+    data: Weak<dyn AsRef<[T]> + Send + Sync>,
     id: u64,
 }
 
