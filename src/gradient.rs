@@ -11,7 +11,7 @@ use core::{
     hash::{Hash, Hasher},
 };
 
-/// Offset and color of a transition point in a gradient.
+/// Offset and color of a transition point in a [gradient](Gradient).
 #[derive(Copy, Clone, PartialOrd, Default, Debug)]
 pub struct ColorStop {
     /// Normalized offset of the stop.
@@ -59,7 +59,7 @@ impl From<(f32, Color)> for ColorStop {
 /// Collection of color stops.
 pub type ColorStops = SmallVec<[ColorStop; 4]>;
 
-/// Properties for the supported gradient types.
+/// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
 pub enum GradientKind {
     /// Gradient that transitions between two or more colors along a line.

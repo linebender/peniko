@@ -1,6 +1,16 @@
 // Copyright 2022 The peniko authors.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
+//! A Rust 2D graphics type library
+//!
+//! The `peniko` library builds on top of [`kurbo`] and provides a set of generic types that define
+//! styles for rendering and composition.
+//!
+//! The name "peniko" is Esperanto for "brush" which is one family of types that the library
+//! contains.
+//!
+//! [`kurbo`]: https://crates.io/crates/kurbo
+
 mod blend;
 mod blob;
 mod brush;

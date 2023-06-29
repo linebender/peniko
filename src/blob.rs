@@ -106,7 +106,7 @@ impl<T> Blob<T> {
     }
 }
 
-/// Weak reference to a shared blob.
+/// Weak reference to a shared [blob](Blob).
 pub struct WeakBlob<T> {
     data: Weak<dyn AsRef<[T]> + Send + Sync>,
     id: u64,

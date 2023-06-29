@@ -1,7 +1,7 @@
 // Copyright 2022 The peniko authors.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-/// Defines the color mixing function for a blend operation.
+/// Defines the color mixing function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[repr(C)]
 pub enum Mix {
@@ -53,7 +53,7 @@ pub enum Mix {
     Clip = 128,
 }
 
-/// Defines the layer composition function for a blend operation.
+/// Defines the layer composition function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[repr(C)]
 pub enum Compose {
@@ -90,7 +90,7 @@ pub enum Compose {
     PlusLighter = 13,
 }
 
-/// Blend mode consisting of color mixing and composition functions.
+/// Blend mode consisting of [color mixing](Mix) and [composition functions](Compose).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct BlendMode {
     /// The color mixing function.
