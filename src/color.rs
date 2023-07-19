@@ -123,7 +123,7 @@ impl Color {
 
     /// Parses a color from a string.
     ///
-    /// Currently accepts CSS style hexidecimal colors of the forms #RGB, #RGBA,
+    /// Currently accepts CSS style hexadecimal colors of the forms #RGB, #RGBA,
     /// #RRGGBB, #RRGGBBAA or the name of an SVG color such as "aliceblue".
     pub fn parse(s: &str) -> Option<Self> {
         parse_color(s)
