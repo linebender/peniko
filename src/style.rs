@@ -13,7 +13,7 @@ pub enum Fill {
     EvenOdd,
 }
 
-/// Defines the connection between two segments of a stroke.
+/// Defines the connection between two segments of a [stroke](Stroke).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Join {
     /// A straight line connecting the segments.
@@ -24,7 +24,7 @@ pub enum Join {
     Round,
 }
 
-/// Defines the shape to be drawn at the ends of a stroke.
+/// Defines the shape to be drawn at the ends of a [stroke](Stroke).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Cap {
     /// Flat cap.
@@ -136,7 +136,9 @@ impl Stroke {
 /// Collection of values representing lengths in a dash pattern.
 pub type Dashes = SmallVec<[f32; 4]>;
 
-/// Describes draw style-- either a fill or stroke.
+/// Describes draw style-- either a [fill](Fill) or [stroke](Stroke).
+///
+/// See also [`StyleRef`] which can be used to avoid allocations.
 #[derive(Clone, Debug)]
 pub enum Style {
     /// Filled draw operation.
@@ -157,7 +159,7 @@ impl From<Stroke> for Style {
     }
 }
 
-/// Reference to a draw style.
+/// Reference to a [draw style](Style).
 ///
 /// This is useful for methods that would like to accept draw styles by reference. Defining
 /// the type as `impl<Into<DrawRef>>` allows accepting types like `&Stroke` or `Fill`

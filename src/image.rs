@@ -3,7 +3,7 @@
 
 use super::{Blob, Extend};
 
-/// Defines the pixel format of an image.
+/// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Format {
     /// 32-bit RGBA with 8-bit channels.
@@ -40,7 +40,7 @@ pub struct Image {
 }
 
 impl Image {
-    /// Creates a new image with the given data, format and dimensions.
+    /// Creates a new image with the given data, [format](Format) and dimensions.
     pub fn new(data: Blob<u8>, format: Format, width: u32, height: u32) -> Self {
         Self {
             data,
@@ -51,7 +51,7 @@ impl Image {
         }
     }
 
-    /// Builder method for setting the image extend mode.
+    /// Builder method for setting the image [extend mode](Extend).
     pub fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
         self

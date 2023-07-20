@@ -4,6 +4,8 @@
 use super::{Color, Gradient, Image};
 
 /// Describes the color content of a filled or stroked shape.
+///
+/// See also [`BrushRef`] which can be used to avoid allocations.
 #[derive(Clone, PartialEq, Debug)]
 pub enum Brush {
     /// Solid color brush.
@@ -26,7 +28,7 @@ impl From<Gradient> for Brush {
     }
 }
 
-/// Reference to a brush.
+/// Reference to a [brush](Brush).
 ///
 /// This is useful for methods that would like to accept brushes by reference. Defining
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`

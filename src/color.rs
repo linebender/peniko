@@ -28,7 +28,7 @@ impl Color {
         Self { r, g, b, a }
     }
 
-    /// Create a color from three floating point values, each in the range 0.0 to 1.0.
+    /// Create a color from three floating point values, each in the range `0.0` to `1.0`.
     ///
     /// The interpretation is the same as rgb8, and no greater precision is
     /// (currently) assumed.
@@ -36,7 +36,7 @@ impl Color {
         Self::rgba(r, g, b, 1.0)
     }
 
-    /// Create a color from four floating point values, each in the range 0.0 to 1.0.
+    /// Create a color from four floating point values, each in the range `0.0` to `1.0`.
     ///
     /// The interpretation is the same as rgba32, and no greater precision is
     /// (currently) assumed.
@@ -71,7 +71,7 @@ impl Color {
 
     /// Create a color from a CIEL\*a\*b\* polar specification and alpha.
     ///
-    /// The `a` value represents alpha in the range 0.0 to 1.0.
+    /// The `a` value represents alpha in the range `0.0` to `1.0`.
     #[allow(non_snake_case)]
     #[allow(clippy::many_single_char_names)]
     #[allow(clippy::unreadable_literal)]
