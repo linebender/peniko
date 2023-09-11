@@ -19,11 +19,13 @@ pub struct Color {
 
 impl Color {
     /// Creates a new RGB color with 255 alpha.
+    #[must_use]
     pub const fn rgb8(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b, a: 255 }
     }
 
     /// Creates a new RGBA color.
+    #[must_use]
     pub const fn rgba8(r: u8, g: u8, b: u8, a: u8) -> Self {
         Self { r, g, b, a }
     }
@@ -32,6 +34,7 @@ impl Color {
     ///
     /// The interpretation is the same as rgb8, and no greater precision is
     /// (currently) assumed.
+    #[must_use]
     pub fn rgb(r: f64, g: f64, b: f64) -> Self {
         Self::rgba(r, g, b, 1.0)
     }
@@ -40,6 +43,7 @@ impl Color {
     ///
     /// The interpretation is the same as rgba32, and no greater precision is
     /// (currently) assumed.
+    #[must_use]
     pub fn rgba(r: f64, g: f64, b: f64, a: f64) -> Self {
         let r = (r.clamp(0.0, 1.0) * 255.0).round() as u8;
         let g = (g.clamp(0.0, 1.0) * 255.0).round() as u8;
@@ -65,6 +69,7 @@ impl Color {
     /// Currently out-of-gamut values are clipped to the nearest sRGB color,
     /// which is perhaps not ideal (the clipping might change the hue). See
     /// <https://github.com/d3/d3-color/issues/33> for discussion.
+    #[must_use]
     pub fn hlc(h: f64, l: f64, c: f64) -> Self {
         Self::hlca(h, l, c, 1.0)
     }
@@ -75,6 +80,7 @@ impl Color {
     #[allow(non_snake_case)]
     #[allow(clippy::many_single_char_names)]
     #[allow(clippy::unreadable_literal)]
+    #[must_use]
     pub fn hlca(h: f64, l: f64, c: f64, a: f64) -> Color {
         let alpha = a;
         // The reverse transformation from Lab to XYZ, see
@@ -125,12 +131,14 @@ impl Color {
     ///
     /// Currently accepts CSS style hexadecimal colors of the forms #RGB, #RGBA,
     /// #RRGGBB, #RRGGBBAA or the name of an SVG color such as "aliceblue".
+    #[must_use]
     pub fn parse(s: &str) -> Option<Self> {
         parse_color(s)
     }
 
     /// Returns the color with the alpha component multiplied by the specified
     /// factor.
+    #[must_use]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
         let mut result = self;
         result.a = ((result.a as f32) * alpha).round() as u8;
@@ -138,6 +146,7 @@ impl Color {
     }
 
     /// Returns the color as a packed premultiplied value.
+    #[must_use]
     pub fn to_premul_u32(self) -> u32 {
         let a = self.a as f64 * (1.0 / 255.0);
         let r = (self.r as f64 * a).round() as u32;

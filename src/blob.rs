@@ -73,31 +73,37 @@ impl<T> Blob<T> {
     }
 
     /// Consumes self and returns the inner components of the blob.
+    #[must_use]
     pub fn into_raw_parts(self) -> (Arc<dyn AsRef<[T]> + Send + Sync>, u64) {
         (self.data, self.id)
     }
 
     /// Returns the length of the data.
+    #[must_use]
     pub fn len(&self) -> usize {
         self.data().len()
     }
 
     /// Returns true if the blob is empty.
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.len() == 0
     }
 
     /// Returns a reference to the underlying data.
+    #[must_use]
     pub fn data(&self) -> &[T] {
         self.data.as_ref().as_ref()
     }
 
     /// Returns the unique identifier associated with the data.
+    #[must_use]
     pub fn id(&self) -> u64 {
         self.id
     }
 
     /// Downgrades the shared blob to a weak reference.
+    #[must_use]
     pub fn downgrade(&self) -> WeakBlob<T> {
         WeakBlob {
             data: Arc::downgrade(&self.data),
@@ -123,12 +129,14 @@ impl<T> Clone for WeakBlob<T> {
 
 impl<T> WeakBlob<T> {
     /// Returns the unique identifier associated with the data.
+    #[must_use]
     pub fn id(&self) -> u64 {
         self.id
     }
 
     /// Upgrades the weak reference. Returns `None` if the inner value has been
     /// dropped.
+    #[must_use]
     pub fn upgrade(&self) -> Option<Blob<T>> {
         Some(Blob {
             data: self.data.upgrade()?,

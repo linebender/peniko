@@ -39,6 +39,7 @@ impl cmp::Eq for ColorStop {}
 impl ColorStop {
     /// Returns the color stop with the alpha component multiplied by the specified
     /// factor.
+    #[must_use]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
         Self {
             offset: self.offset,
@@ -178,12 +179,14 @@ impl Gradient {
     }
 
     /// Builder method for setting the gradient extend mode.
+    #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
         self
     }
 
     /// Builder method for setting the color stop collection.
+    #[must_use]
     pub fn with_stops(mut self, stops: impl ColorStopsSource) -> Self {
         self.stops.clear();
         stops.collect_stops(&mut self.stops);

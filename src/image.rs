@@ -15,6 +15,7 @@ impl Format {
     /// of the given dimensions.
     ///
     /// A result of `None` indicates an overflow in the size calculation.
+    #[must_use]
     pub fn size_in_bytes(self, width: u32, height: u32) -> Option<usize> {
         match self {
             Self::Rgba8 => 4usize
@@ -41,6 +42,7 @@ pub struct Image {
 
 impl Image {
     /// Creates a new image with the given data, [format](Format) and dimensions.
+    #[must_use]
     pub fn new(data: Blob<u8>, format: Format, width: u32, height: u32) -> Self {
         Self {
             data,
@@ -52,6 +54,7 @@ impl Image {
     }
 
     /// Builder method for setting the image [extend mode](Extend).
+    #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
         self
