@@ -74,6 +74,7 @@ impl Default for Stroke {
 
 impl Stroke {
     /// Creates a new stroke with the specified width.
+    #[must_use]
     pub fn new(width: f32) -> Self {
         Self {
             width,
@@ -82,30 +83,35 @@ impl Stroke {
     }
 
     /// Builder method for setting the join style.
+    #[must_use]
     pub fn with_join(mut self, join: Join) -> Self {
         self.join = join;
         self
     }
 
     /// Builder method for setting the limit for miter joins.
+    #[must_use]
     pub fn with_miter_limit(mut self, limit: f32) -> Self {
         self.miter_limit = limit;
         self
     }
 
     /// Builder method for setting the cap style for the start of the stroke.
+    #[must_use]
     pub fn with_start_cap(mut self, cap: Cap) -> Self {
         self.start_cap = cap;
         self
     }
 
     /// Builder method for setting the cap style for the end of the stroke.
+    #[must_use]
     pub fn with_end_cap(mut self, cap: Cap) -> Self {
         self.end_cap = cap;
         self
     }
 
     /// Builder method for setting the cap style.
+    #[must_use]
     pub fn with_caps(mut self, cap: Cap) -> Self {
         self.start_cap = cap;
         self.end_cap = cap;
@@ -113,6 +119,7 @@ impl Stroke {
     }
 
     /// Builder method for setting the dashing parameters.
+    #[must_use]
     pub fn with_dashes<P>(mut self, offset: f32, pattern: P) -> Self
     where
         P: IntoIterator,
@@ -127,6 +134,7 @@ impl Stroke {
 
     /// Builder method for setting whether or not the stroke should be affected
     /// by the scale of any applied transform.
+    #[must_use]
     pub fn with_scale(mut self, yes: bool) -> Self {
         self.scale = yes;
         self
@@ -173,6 +181,7 @@ pub enum StyleRef<'a> {
 
 impl<'a> StyleRef<'a> {
     /// Converts the reference to an owned draw.
+    #[must_use]
     pub fn to_owned(&self) -> Style {
         match self {
             Self::Fill(fill) => Style::Fill(*fill),

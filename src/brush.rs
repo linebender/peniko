@@ -45,6 +45,7 @@ pub enum BrushRef<'a> {
 
 impl<'a> BrushRef<'a> {
     /// Converts the reference to an owned brush.
+    #[must_use]
     pub fn to_owned(&self) -> Brush {
         match self {
             Self::Solid(color) => Brush::Solid(*color),
