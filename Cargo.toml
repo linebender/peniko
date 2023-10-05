@@ -12,5 +12,5 @@ homepage = "https://github.com/linebender/peniko"
 readme = "README.md"
 
 [dependencies]
-kurbo = "0.9.5"
+kurbo = "0.10.2"
 smallvec = "1.8.0"
