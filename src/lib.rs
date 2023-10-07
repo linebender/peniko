@@ -11,6 +11,8 @@
 //!
 //! [`kurbo`]: https://crates.io/crates/kurbo
 
+#![warn(clippy::doc_markdown)]
+
 mod blend;
 mod blob;
 mod brush;
