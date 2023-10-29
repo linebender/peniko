@@ -16,8 +16,22 @@ rust-version = "1.70"
 default = ["std"]
 std = ["kurbo/std"]
 libm = ["kurbo/libm"]
+serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+
+[package.metadata.docs.rs]
+features = ["serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
 kurbo = { version = "0.11.0", default-features = false }
 smallvec = "1.13.2"
+
+[dependencies.serde]
+version = "1.0.105"
+optional = true
+default-features = false
+features = ["alloc", "derive"]
+
+[dependencies.serde_bytes]
+version = "0.11.12"
+optional = true

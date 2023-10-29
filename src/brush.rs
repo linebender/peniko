@@ -7,6 +7,7 @@ use super::{Color, Gradient, Image};
 ///
 /// See also [`BrushRef`] which can be used to avoid allocations.
 #[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
     Solid(Color),
@@ -40,6 +41,7 @@ impl Default for Brush {
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
 /// directly without cloning or allocating.
 #[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize))]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
@@ -98,6 +100,7 @@ impl<'a> From<&'a Brush> for BrushRef<'a> {
 /// Defines how a brush is extended when the content does not
 /// fill a shape.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Extend {
     /// Extends the image by repeating the edge color of the brush.
     #[default]

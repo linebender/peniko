@@ -3,6 +3,7 @@
 
 /// Defines the color mixing function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(C)]
 pub enum Mix {
     /// Default attribute which specifies no blending. The blending formula simply selects the source color.
@@ -55,6 +56,7 @@ pub enum Mix {
 
 /// Defines the layer composition function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(C)]
 pub enum Compose {
     /// No regions are enabled.
@@ -92,6 +94,7 @@ pub enum Compose {
 
 /// Blend mode consisting of [color mixing](Mix) and [composition functions](Compose).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct BlendMode {
     /// The color mixing function.
     pub mix: Mix,
