@@ -98,6 +98,8 @@ impl<'a> From<&'a Brush> for BrushRef<'a> {
 /// Defines how a brush is extended when the content does not
 /// fill a shape.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Extend {
     /// Extends the image by repeating the edge color of the brush.
     #[default]

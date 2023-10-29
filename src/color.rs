@@ -9,6 +9,8 @@ use kurbo::common::FloatFuncs as _;
 
 /// 32-bit RGBA color.
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default, Debug)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Color {
     /// Red component.
     pub r: u8,
