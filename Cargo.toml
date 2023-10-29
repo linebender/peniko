@@ -18,6 +18,23 @@ default = ["std"]
 std = ["kurbo/std"]
 libm = ["kurbo/libm"]
 
+[package.metadata.docs.rs]
+features = ["serde", "schemars"]
+
 [dependencies]
 kurbo = { version = "0.11", default-features = false }
 smallvec = "1.8.0"
+
+[dependencies.schemars]
+version = "0.8.6"
+optional = true
+
+[dependencies.serde]
+version = "1.0.105"
+optional = true
+default-features = false
+features = ["alloc", "derive"]
+
+[features]
+serde = ["smallvec/serde", "kurbo/serde", "dep:serde"]
+schemars = ["kurbo/schemars", "dep:schemars"]
