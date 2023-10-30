@@ -29,6 +29,8 @@ impl Format {
 
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Image {
     /// Blob containing the image data.
     pub data: Blob<u8>,

@@ -35,6 +35,10 @@ optional = true
 default-features = false
 features = ["alloc", "derive"]
 
+[dependencies.serde_bytes]
+version = "0.11.12"
+optional = true
+
 [features]
-serde = ["smallvec/serde", "kurbo/serde", "dep:serde"]
+serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
 schemars = ["kurbo/schemars", "dep:schemars"]

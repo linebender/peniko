@@ -14,6 +14,35 @@ pub struct Blob<T> {
     id: u64,
 }
 
+#[cfg(feature = "serde")]
+impl<T> serde::Serialize for Blob<T>
+where
+    [T]: serde_bytes::Serialize,
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        serde_bytes::serialize(self.data(), serializer)
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de, T> serde::de::Deserialize<'de> for Blob<T>
+where
+    T: serde::de::Deserialize<'de> + Sync + Send + 'static,
+    Box<[u8]>: AsRef<[T]>,
+{
+    fn deserialize<D>(des: D) -> Result<Self, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        let byte_buf: serde_bytes::ByteBuf = serde_bytes::Deserialize::deserialize(des)?;
+        let boxed_slice: Box<[u8]> = byte_buf.into_boxed_slice();
+        Ok(Blob::new(Arc::new(boxed_slice)))
+    }
+}
+
 impl<T> fmt::Debug for Blob<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Blob")
