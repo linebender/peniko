@@ -104,6 +104,12 @@ impl<T> Blob<T> {
         self.id
     }
 
+    /// Returns the number of existing strong pointers to this blob.
+    #[must_use]
+    pub fn strong_count(&self) -> usize {
+        Arc::strong_count(&self.data)
+    }
+
     /// Downgrades the shared blob to a weak reference.
     #[must_use]
     pub fn downgrade(&self) -> WeakBlob<T> {
