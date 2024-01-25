@@ -28,6 +28,12 @@ impl From<Gradient> for Brush {
     }
 }
 
+impl Default for Brush {
+    fn default() -> Self {
+        Self::Solid(Color::default())
+    }
+}
+
 /// Reference to a [brush](Brush).
 ///
 /// This is useful for methods that would like to accept brushes by reference. Defining
