@@ -20,10 +20,6 @@ styles for rendering and composition.
 The name "peniko" is Esperanto for "brush" which is one family of types that the library
 contains.
 
-This library is in early development stages and will initially contain the relevant types
-from [piet-scene] but the intent is to be a generally useful set of primitives for vector
-graphics and text.
-
 ## Community
 
 [![Xi Zulip, #kurbo stream](https://img.shields.io/badge/Xi%20Zulip-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
