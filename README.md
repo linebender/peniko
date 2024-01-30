@@ -4,7 +4,7 @@
 
 **A Rust 2D graphics type library**
 
-[![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Xi%20Zulip-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
+[![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Linebender%20Zulip-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
 [![dependency status](https://deps.rs/repo/github/linebender/peniko/status.svg)](https://deps.rs/repo/github/linebender/peniko)
 [![MIT/Apache 2.0](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](#license)
 [![kurbo version 0.10](https://img.shields.io/badge/kurbo-v0.10-orange.svg)](https://crates.io/crates/wgpu)
@@ -22,7 +22,7 @@ contains.
 
 ## Community
 
-[![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Xi%20Zulip-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
+[![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Linebender%20Zulip-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
 
 Discussion of peniko development happens in the Linebender Zulip at <https://xi.zulipchat.com/>, specifically the [#kurbo stream](https://xi.zulipchat.com/#narrow/stream/260979-kurbo).
 All public content can be read without logging in
