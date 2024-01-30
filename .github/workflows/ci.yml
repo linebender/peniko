@@ -106,10 +106,10 @@ jobs:
       #   run: cargo clippy --workspace --tests --benches --examples --no-default-features -- -D warnings
 
       - name: cargo clippy (default features)
-        run: cargo clippy --workspace --lib --bins -- -D warnings -A doc_markdown
+        run: cargo clippy --workspace --lib --bins -- -D warnings -A clippy::doc_markdown
 
       - name: cargo clippy (default features) (auxiliary)
-        run: cargo clippy --workspace --tests --benches --examples -- -D warnings -A doc_markdown
+        run: cargo clippy --workspace --tests --benches --examples -- -D warnings -A clippy::doc_markdown
 
       # As above
       # - name: cargo clippy (all features)
