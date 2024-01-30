@@ -89,6 +89,8 @@ jobs:
         # We don't have any platform specific code, so only run this job once
         os: [ubuntu-latest]
     name: cargo clippy (minimum supported rust version)
+    env:
+      RUSTFLAGS: "--cfg peniko_msrv"
     steps:
       - uses: actions/checkout@v4
 
@@ -132,8 +134,6 @@ jobs:
           components: clippy
 
       - name: cargo clippy (wasm)
-        env:
-          RUSTFLAGS: "--cfg peniko_msrv"
         run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
 
   docs:
