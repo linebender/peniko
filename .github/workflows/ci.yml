@@ -133,6 +133,8 @@ jobs:
 
       - name: cargo clippy (wasm)
         run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
+        env:
+          RUSTFLAGS: --cfg peniko_msrv
 
   docs:
     name: cargo doc
