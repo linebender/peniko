@@ -8,9 +8,9 @@
 [![dependency status](https://deps.rs/repo/github/linebender/peniko/status.svg)](https://deps.rs/repo/github/linebender/peniko)
 [![MIT/Apache 2.0](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](#license)
 [![kurbo version 0.10](https://img.shields.io/badge/kurbo-v0.10-orange.svg)](https://crates.io/crates/wgpu)
+[![Build status](https://github.com/linebender/peniko/workflows/CI/badge.svg)](https://github.com/linebender/peniko/actions)
 <!-- [![Crates.io](https://img.shields.io/crates/v/peniko.svg)](https://crates.io/crates/peniko) -->
 <!-- [![Docs](https://docs.rs/peniko/badge.svg)](https://docs.rs/peniko) -->
-<!-- [![Build status](https://github.com/linebender/peniko/workflows/CI/badge.svg)](https://github.com/linebender/peniko/actions) -->
 
 </div>
 
