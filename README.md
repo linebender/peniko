@@ -1,6 +1,6 @@
 <div align="center">
 
-# peniko
+# Peniko
 
 **A Rust 2D graphics type library**
 
@@ -14,17 +14,17 @@
 
 </div>
 
-The peniko library builds on top of [kurbo] and provides a set of generic types that define
+The Peniko library builds on top of [kurbo] and provides a set of generic types that define
 styles for rendering and composition.
 
-The name "peniko" is Esperanto for "brush" which is one family of types that the library
+The name "Peniko" is Esperanto for "brush" which is one family of types that the library
 contains.
 
 ## Community
 
 [![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Linebender-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
 
-Discussion of peniko development happens in the Linebender Zulip at <https://xi.zulipchat.com/>, specifically the [#kurbo stream](https://xi.zulipchat.com/#narrow/stream/260979-kurbo).
+Discussion of Peniko development happens in the Linebender Zulip at <https://xi.zulipchat.com/>, specifically the [#kurbo stream](https://xi.zulipchat.com/#narrow/stream/260979-kurbo).
 All public content can be read without logging in
 
 ## License
