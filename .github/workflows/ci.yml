@@ -45,7 +45,7 @@ jobs:
         # We don't have any platform specific code, but we do need to build on each platform
         os: [windows-latest, macos-latest, ubuntu-latest]
     name: cargo clippy + test
-    steps:test
+    steps:
       - uses: actions/checkout@v4
 
       - name: install stable toolchain
@@ -118,21 +118,21 @@ jobs:
       # - name: cargo clippy (all features) (auxiliary)
       #   run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
 
- clippy-stable-wasm:
-   runs-on: ubuntu-latest
-   name: cargo test (wasm32)
-   steps:
-     - uses: actions/checkout@v4
+  clippy-stable-wasm:
+    runs-on: ubuntu-latest
+    name: cargo test (wasm32)
+    steps:
+      - uses: actions/checkout@v4
 
-     - name: install stable toolchain
-       uses: dtolnay/rust-toolchain@master
-       with:
-         toolchain: ${{ env.RUST_STABLE_VER }}
-         targets: wasm32-unknown-unknown
-         components: clippy
+      - name: install stable toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_STABLE_VER }}
+          targets: wasm32-unknown-unknown
+          components: clippy
 
-     - name: cargo clippy (wasm)
-       run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
+      - name: cargo clippy (wasm)
+        run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
 
   docs:
     name: cargo doc
