@@ -1,24 +1,154 @@
+env:
+  # We aim to always test with the latest stable Rust toolchain, however we pin to a specific
+  # version like 1.70. Note that we only specify MAJOR.MINOR and not PATCH so that bugfixes still
+  # come automatically. If the version specified here is no longer the latest stable version,
+  # then please feel free to submit a PR that adjusts it along with the potential clippy fixes.
+  RUST_STABLE_VER: "1.75" # In quotes because otherwise 1.70 would be interpreted as 1.7
+  # If updating, ensure that it is also updated in Cargo.toml
+  # Explanation of the version choice
+  MINIMUM_SUPPORTED_RUST_VERSION: "1.70"
+
+
+# Rationale
+#
+# We don't run clippy with --all-targets because then even --lib and --bins are compiled with
+# dev dependencies enabled, which does not match how they would be compiled by users.
+# A dev dependency might enable a feature of a regular dependency that we need, but testing
+# with --all-targets would not catch that. Thus we split --lib & --bins into a separate step.
+
 name: CI
+
 on:
-  push:
-    branches:
-      - main
   pull_request:
+  merge_group:
 
 jobs:
-  lint:
+  rustfmt:
     runs-on: ubuntu-latest
+    name: cargo fmt
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: install stable toolchain
         uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: "stable"
-          components: rustfmt, clippy
+          toolchain: ${{ env.RUST_STABLE_VER }}
+          components: rustfmt
 
       - name: cargo fmt
-        run: cargo fmt --all -- --check
+        run: cargo fmt --all --check
 
-      - name: cargo clippy
-        run: cargo clippy --all-targets -- -D warnings
+  test-stable:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # We don't have any platform specific code, but we do need to build on each platform
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    name: cargo clippy + test
+    steps:test
+      - uses: actions/checkout@v4
+
+      - name: install stable toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_STABLE_VER }}
+          components: clippy
+
+      # Our dependency tree is so small, caching is slower
+      # - name: restore cache
+      #   uses: Swatinem/rust-cache@v2
+
+      # We don't currently have features, so there's no need to run these checks
+      # - name: cargo clippy (no default features)
+      #   run: cargo clippy --workspace --lib --bins --no-default-features -- -D warnings
+
+      # - name: cargo clippy (no default features) (auxiliary)
+      #   run: cargo clippy --workspace --tests --benches --examples --no-default-features -- -D warnings
+
+      - name: cargo clippy (default features)
+        run: cargo clippy --workspace --lib --bins -- -D warnings
+
+      - name: cargo clippy (default features) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples -- -D warnings
+
+      # As above
+      # - name: cargo clippy (all features)
+      #   run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
+
+      # - name: cargo clippy (all features) (auxiliary)
+      #   run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
+
+      # At the time of writing, we don't have any tests. Nevertheless, it's better to still run this
+      - name: cargo test
+        run: cargo test --workspace --all-features
+  
+  clippy-msrv:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # We don't have any platform specific code, so only run this job once
+        os: [ubuntu-latest]
+    name: cargo clippy (minimum supported rust version)
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install msrv toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.MINIMUM_SUPPORTED_RUST_VERSION }}
+          components: clippy
+
+      # We don't currently have features, so there's no need to run these checks
+      # - name: cargo clippy (no default features)
+      #   run: cargo clippy --workspace --lib --bins --no-default-features -- -D warnings
+
+      # - name: cargo clippy (no default features) (auxiliary)
+      #   run: cargo clippy --workspace --tests --benches --examples --no-default-features -- -D warnings
+
+      - name: cargo clippy (default features)
+        run: cargo clippy --workspace --lib --bins -- -D warnings
+
+      - name: cargo clippy (default features) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples -- -D warnings
+
+      # As above
+      # - name: cargo clippy (all features)
+      #   run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
+
+      # - name: cargo clippy (all features) (auxiliary)
+      #   run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
+
+ clippy-stable-wasm:
+   runs-on: ubuntu-latest
+   name: cargo test (wasm32)
+   steps:
+     - uses: actions/checkout@v4
+
+     - name: install stable toolchain
+       uses: dtolnay/rust-toolchain@master
+       with:
+         toolchain: ${{ env.RUST_STABLE_VER }}
+         targets: wasm32-unknown-unknown
+         components: clippy
+
+     - name: cargo clippy (wasm)
+       run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
+
+  docs:
+    name: cargo doc
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install nightly toolchain
+        uses: dtolnay/rust-toolchain@nightly
+
+      - name: restore cache
+        uses: Swatinem/rust-cache@v2
+
+      # We test documentation using nightly to match docs.rs. This prevents potential breakages
+      - name: cargo doc
+        run: cargo doc --workspace --all-features --no-deps --document-private-items -Zunstable-options -Zrustdoc-scrape-examples
