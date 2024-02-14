@@ -17,6 +17,8 @@ rust-version = "1.70"
 default = ["std"]
 std = ["kurbo/std"]
 libm = ["kurbo/libm"]
+serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+schemars = ["kurbo/schemars", "dep:schemars"]
 
 [package.metadata.docs.rs]
 features = ["serde", "schemars"]
@@ -38,7 +40,3 @@ features = ["alloc", "derive"]
 [dependencies.serde_bytes]
 version = "0.11.12"
 optional = true
-
-[features]
-serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
-schemars = ["kurbo/schemars", "dep:schemars"]
