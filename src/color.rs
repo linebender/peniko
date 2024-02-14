@@ -3,6 +3,9 @@
 
 // Borrows code heavily from the piet (https://github.com/linebender/piet/) Color
 // type.
+#[cfg(all(not(feature = "std"), feature = "libm"))]
+#[allow(unused_imports)]
+use kurbo::common::FloatFuncs as _;
 
 /// 32-bit RGBA color.
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Default, Debug)]
@@ -93,7 +96,7 @@ impl Color {
                 3. * d * d * (t - 4. / 29.)
             }
         }
-        let th = h * (std::f64::consts::PI / 180.);
+        let th = h * (core::f64::consts::PI / 180.);
         let a = c * th.cos();
         let b = c * th.sin();
         let ll = (l + 16.) * (1. / 116.);

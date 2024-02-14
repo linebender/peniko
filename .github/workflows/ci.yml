@@ -58,12 +58,11 @@ jobs:
       # - name: restore cache
       #   uses: Swatinem/rust-cache@v2
 
-      # We don't currently have features, so there's no need to run these checks
-      # - name: cargo clippy (no default features)
-      #   run: cargo clippy --workspace --lib --bins --no-default-features -- -D warnings
+      - name: cargo clippy (no default features with libm)
+        run: cargo clippy --workspace --lib --bins --no-default-features --features libm -- -D warnings
 
-      # - name: cargo clippy (no default features) (auxiliary)
-      #   run: cargo clippy --workspace --tests --benches --examples --no-default-features -- -D warnings
+      - name: cargo clippy (no default features with libm) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples --no-default-features --features libm -- -D warnings
 
       - name: cargo clippy (default features)
         run: cargo clippy --workspace --lib --bins -- -D warnings
@@ -71,17 +70,22 @@ jobs:
       - name: cargo clippy (default features) (auxiliary)
         run: cargo clippy --workspace --tests --benches --examples -- -D warnings
 
-      # As above
-      # - name: cargo clippy (all features)
-      #   run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
+      - name: cargo clippy (all features)
+        run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
 
-      # - name: cargo clippy (all features) (auxiliary)
-      #   run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
+      - name: cargo clippy (all features) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
 
       # At the time of writing, we don't have any tests. Nevertheless, it's better to still run this
       - name: cargo test
         run: cargo test --workspace --all-features
-  
+
+      - run: rustup target add armv7a-none-eabi
+
+      # We use armv7a as a no_std with AtomicU64
+      - name: cargo build (no-default-features + libm, no_std target)
+        run: cargo build --no-default-features --features libm --target armv7a-none-eabi
+
   clippy-msrv:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -100,12 +104,11 @@ jobs:
           toolchain: ${{ env.MINIMUM_SUPPORTED_RUST_VERSION }}
           components: clippy
 
-      # We don't currently have features, so there's no need to run these checks
-      # - name: cargo clippy (no default features)
-      #   run: cargo clippy --workspace --lib --bins --no-default-features -- -D warnings
+      - name: cargo clippy (no default features with libm)
+        run: cargo clippy --workspace --lib --bins --no-default-features --features libm -- -D warnings
 
-      # - name: cargo clippy (no default features) (auxiliary)
-      #   run: cargo clippy --workspace --tests --benches --examples --no-default-features -- -D warnings
+      - name: cargo clippy (no default features with libm) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples --no-default-features --features libm -- -D warnings
 
       - name: cargo clippy (default features)
         run: cargo clippy --workspace --lib --bins -- -D warnings -A clippy::doc_markdown
@@ -113,12 +116,17 @@ jobs:
       - name: cargo clippy (default features) (auxiliary)
         run: cargo clippy --workspace --tests --benches --examples -- -D warnings -A clippy::doc_markdown
 
-      # As above
-      # - name: cargo clippy (all features)
-      #   run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
+      - name: cargo clippy (all features)
+        run: cargo clippy --workspace --lib --bins --all-features -- -D warnings
 
-      # - name: cargo clippy (all features) (auxiliary)
-      #   run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
+      - name: cargo clippy (all features) (auxiliary)
+        run: cargo clippy --workspace --tests --benches --examples --all-features -- -D warnings
+
+      - run: rustup target add armv7a-none-eabi
+
+      # We use armv7a as a no_std with AtomicU64
+      - name: cargo build (no-default-features + libm, no_std target)
+        run: cargo build --no-default-features --features libm --target armv7a-none-eabi
 
   clippy-stable-wasm:
     runs-on: ubuntu-latest
@@ -135,6 +143,9 @@ jobs:
 
       - name: cargo clippy (wasm)
         run: cargo clippy --all-targets --target wasm32-unknown-unknown -- -D warnings
+
+      - name: cargo build (no-default-features + libm, wasm32)
+        run: cargo build --no-default-features --features libm --target wasm32-unknown-unknown
 
   docs:
     name: cargo doc

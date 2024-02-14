@@ -1,9 +1,12 @@
 // Copyright 2022 The peniko authors.
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use std::fmt;
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Weak};
+use core::fmt;
+use core::sync::atomic::{AtomicU64, Ordering};
+extern crate alloc;
+use alloc::boxed::Box;
+use alloc::sync::{Arc, Weak};
+use alloc::vec::Vec;
 
 /// Shared data with an associated unique identifier.
 pub struct Blob<T> {
