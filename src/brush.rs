@@ -7,7 +7,6 @@ use super::{Color, Gradient, Image};
 ///
 /// See also [`BrushRef`] which can be used to avoid allocations.
 #[derive(Clone, PartialEq, Debug)]
-#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
@@ -43,7 +42,6 @@ impl Default for Brush {
 /// directly without cloning or allocating.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize))]
-#[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
