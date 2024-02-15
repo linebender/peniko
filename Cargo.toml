@@ -19,5 +19,6 @@ std = ["kurbo/std"]
 libm = ["kurbo/libm"]
 
 [dependencies]
+# NOTE: Make sure to keep this in sync with the version badge in README.md
 kurbo = { version = "0.11", default-features = false }
 smallvec = "1.8.0"
