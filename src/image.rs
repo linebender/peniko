@@ -1,4 +1,4 @@
-// Copyright 2022 The peniko authors.
+// Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 use super::{Blob, Extend};

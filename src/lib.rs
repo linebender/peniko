@@ -1,4 +1,4 @@
-// Copyright 2022 The peniko authors.
+// Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 //! A Rust 2D graphics type library
