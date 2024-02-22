@@ -1,4 +1,4 @@
-// Copyright 2022 The peniko authors.
+// Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 /// Defines the color mixing function for a [blend operation](BlendMode).

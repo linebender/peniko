@@ -1,4 +1,4 @@
-// Copyright 2022 The peniko authors and piet authors.
+// Copyright 2022 the Peniko Authors and the Piet Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
 // Borrows code heavily from the piet (https://github.com/linebender/piet/) Color
