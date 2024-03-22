@@ -27,13 +27,13 @@ kurbo = { version = "0.11.0", default-features = false }
 smallvec = "1.13.2"
 
 [dependencies.serde]
-version = "1.0.105"
+version = "1.0.197"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
 
 [dependencies.serde_bytes]
-version = "0.11.12"
+version = "0.11.14"
 optional = true
 default-features = false
 features = ["alloc"]
