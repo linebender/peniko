@@ -12,9 +12,7 @@
 //! [`kurbo`]: https://crates.io/crates/kurbo
 
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
-// doc_markdown was updated in https://github.com/rust-lang/rust-clippy/pull/11735
-// to be more accurate, but our MSRV is earlier than that
-#![cfg_attr(not(peniko_msrv), warn(clippy::doc_markdown))]
+#![warn(clippy::doc_markdown)]
 
 mod blend;
 mod blob;

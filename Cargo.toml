@@ -1,16 +1,15 @@
 [package]
 name = "peniko"
 version = "0.1.0"
-license = "MIT OR Apache-2.0"
+license = "Apache-2.0 OR MIT"
 edition = "2021"
 description = "Primitive types for styling vector graphics"
 keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
 repository = "https://github.com/linebender/peniko"
 readme = "README.md"
-# We support from Rust 1.70 to ensure that CI uses the sparse registry protocol
-# If updating, ensure that it is also updated in .github/workflows/ci.yaml, and
-# update the documented reason
+# We support from Rust 1.70 to ensure that CI uses the sparse registry protocol.
+# Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 rust-version = "1.70"
 
 [features]
@@ -20,5 +19,5 @@ libm = ["kurbo/libm"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
-kurbo = { version = "0.11", default-features = false }
-smallvec = "1.8.0"
+kurbo = { version = "0.11.0", default-features = false }
+smallvec = "1.13.2"
