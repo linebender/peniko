@@ -8,9 +8,8 @@ keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
 repository = "https://github.com/linebender/peniko"
 readme = "README.md"
-# We support from Rust 1.70 to ensure that CI uses the sparse registry protocol
-# If updating, ensure that it is also updated in .github/workflows/ci.yaml, and
-# update the documented reason
+# We support from Rust 1.70 to ensure that CI uses the sparse registry protocol.
+# Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 rust-version = "1.70"
 
 [features]

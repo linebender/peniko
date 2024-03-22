@@ -20,6 +20,16 @@ styles for rendering and composition.
 The name "Peniko" is Esperanto for "brush" which is one family of types that the library
 contains.
 
+## Minimum supported Rust Version (MSRV)
+
+This version of Peniko has been verified to compile with Rust 1.70 and later.
+
+Note that since then, one of Peniko's dependencies might have released a new version with a higher requirement.
+Thus if you encounter a compilation issue due to a dependency, you should downgrade it via `cargo update -p package_name --precise 0.1.1` (with a real name and version).
+
+Future versions of Peniko might increase the Rust version requirement.
+It will not be treated as a breaking change and as such can even happen with small patch releases.
+
 ## Community
 
 [![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Linebender-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
