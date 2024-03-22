@@ -1,7 +1,7 @@
 [package]
 name = "peniko"
 version = "0.1.0"
-license = "MIT OR Apache-2.0"
+license = "Apache-2.0 OR MIT"
 edition = "2021"
 description = "Primitive types for styling vector graphics"
 keywords = ["graphics", "vector", "style"]
@@ -20,5 +20,5 @@ libm = ["kurbo/libm"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
-kurbo = { version = "0.11", default-features = false }
-smallvec = "1.8.0"
+kurbo = { version = "0.11.0", default-features = false }
+smallvec = "1.13.2"
