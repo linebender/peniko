@@ -35,3 +35,5 @@ features = ["alloc", "derive"]
 [dependencies.serde_bytes]
 version = "0.11.12"
 optional = true
+default-features = false
+features = ["alloc"]
