@@ -41,7 +41,6 @@ impl Default for Brush {
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
 /// directly without cloning or allocating.
 #[derive(Clone, PartialEq, Debug)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize))]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
