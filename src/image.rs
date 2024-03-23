@@ -5,6 +5,7 @@ use super::{Blob, Extend};
 
 /// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Format {
     /// 32-bit RGBA with 8-bit channels.
     Rgba8,
@@ -27,6 +28,7 @@ impl Format {
 
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Image {
     /// Blob containing the image data.
     pub data: Blob<u8>,

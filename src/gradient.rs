@@ -13,6 +13,7 @@ use core::{
 
 /// Offset and color of a transition point in a [gradient](Gradient).
 #[derive(Copy, Clone, PartialOrd, Default, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ColorStop {
     /// Normalized offset of the stop.
     pub offset: f32,
@@ -62,6 +63,7 @@ pub type ColorStops = SmallVec<[ColorStop; 4]>;
 
 /// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GradientKind {
     /// Gradient that transitions between two or more colors along a line.
     Linear {
@@ -95,6 +97,7 @@ pub enum GradientKind {
 
 /// Definition of a gradient that transitions between two or more colors.
 #[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Gradient {
     /// Kind and properties of the gradient.
     pub kind: GradientKind,
