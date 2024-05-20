@@ -10,6 +10,7 @@ repository = "https://github.com/linebender/peniko"
 readme = "README.md"
 # We support from Rust 1.70 to ensure that CI uses the sparse registry protocol.
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
+# TODO: When this hits 1.74, move lint configuration into this file via a lints table.
 rust-version = "1.70"
 
 [features]

@@ -6,10 +6,7 @@ use super::{Color, Extend};
 use kurbo::Point;
 use smallvec::SmallVec;
 
-use core::{
-    cmp,
-    hash::{Hash, Hasher},
-};
+use core::hash::{Hash, Hasher};
 
 /// Offset and color of a transition point in a [gradient](Gradient).
 #[derive(Copy, Clone, PartialOrd, Default, Debug)]
@@ -29,13 +26,13 @@ impl Hash for ColorStop {
 }
 
 // Override PartialEq to use to_bits for the offset to match with the Hash impl
-impl cmp::PartialEq for ColorStop {
+impl PartialEq for ColorStop {
     fn eq(&self, other: &Self) -> bool {
         self.offset.to_bits() == other.offset.to_bits() && self.color == other.color
     }
 }
 
-impl cmp::Eq for ColorStop {}
+impl Eq for ColorStop {}
 
 impl ColorStop {
     /// Returns the color stop with the alpha component multiplied by the specified
