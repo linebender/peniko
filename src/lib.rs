@@ -12,7 +12,7 @@
 //! [`kurbo`]: https://crates.io/crates/kurbo
 
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
-#![warn(clippy::doc_markdown)]
+#![warn(clippy::doc_markdown, unused_qualifications)]
 
 mod blend;
 mod blob;
