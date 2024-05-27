@@ -12,6 +12,20 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 ### Added
 
+...
+
+### Changed
+
+...
+
+### Fixed
+
+...
+
+## 0.1.1 (2024-05-27)
+
+### Added
+
 - [#26](https://github.com/linebender/peniko/pull/26) - Add `serde` feature to enable serde support by [@ratmice](https://github.com/ratmice)
 
 ## 0.1.0 (2024-02-15)
