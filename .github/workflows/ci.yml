@@ -34,13 +34,6 @@ env:
 # Using cargo-hack also allows us to more easily test the feature matrix of our packages.
 # We use --each-feature & --optional-deps which will run a separate check for every feature.
 #
-# We use macos-14 explictly instead of macos-latest because:
-#   * macos-latest currently points to macos-12
-#   * macos-14 comes with the M1 CPU which compiles our code much faster than the older runners
-# This explicit dependency can be switched back to macos-latest once it points to macos-14,
-# which is expected to happen sometime in Q2 FY24 (April – June 2024).
-# https://github.blog/changelog/2024-01-30-github-actions-macos-14-sonoma-is-now-available/
-#
 # The MSRV jobs run only cargo check because different clippy versions can disagree on goals and
 # running tests introduces dev dependencies which may require a higher MSRV than the bare package.
 #
@@ -254,4 +247,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: check typos
-        uses: crate-ci/typos@v1.21.0
+        uses: crate-ci/typos@v1.22.9
