@@ -38,8 +38,10 @@ pub struct Image {
     pub width: u32,
     /// Height of the image.
     pub height: u32,
-    /// Extend mode
+    /// Extend mode.
     pub extend: Extend,
+    /// An additional alpha multiplier to use with the image.
+    pub alpha: u8,
 }
 
 impl Image {
@@ -52,6 +54,8 @@ impl Image {
             width,
             height,
             extend: Extend::Pad,
+            // Opaque
+            alpha: u8::MAX,
         }
     }
 
