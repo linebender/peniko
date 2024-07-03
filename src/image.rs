@@ -65,4 +65,12 @@ impl Image {
         self.extend = mode;
         self
     }
+
+    /// Returns the brush with the alpha component multiplied by the specified
+    /// factor.
+    #[must_use]
+    pub fn with_alpha_factor(mut self, alpha: f32) -> Self {
+        self.alpha = ((self.alpha as f32) * alpha).round() as u8;
+        self
+    }
 }

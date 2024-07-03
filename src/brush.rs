@@ -95,11 +95,7 @@ impl<'a> BrushRef<'a> {
                         .map(|stop| stop.with_alpha_factor(alpha as f32))
                         .collect(),
                 }),
-                BrushRef::Image(image) => {
-                    let mut result = image.clone();
-                    result.alpha = ((result.alpha as f32) * alpha).round() as u8;
-                    result.into()
-                }
+                BrushRef::Image(image) => image.clone().with_alpha_factor(alpha).into(),
             }
         }
     }
