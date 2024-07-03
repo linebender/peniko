@@ -85,14 +85,14 @@ impl<'a> BrushRef<'a> {
             self.to_owned()
         } else {
             match *self {
-                BrushRef::Solid(color) => color.with_alpha_factor(alpha as f32).into(),
+                BrushRef::Solid(color) => color.with_alpha_factor(alpha).into(),
                 BrushRef::Gradient(gradient) => Brush::Gradient(Gradient {
                     kind: gradient.kind,
                     extend: gradient.extend,
                     stops: gradient
                         .stops
                         .iter()
-                        .map(|stop| stop.with_alpha_factor(alpha as f32))
+                        .map(|stop| stop.with_alpha_factor(alpha))
                         .collect(),
                 }),
                 BrushRef::Image(image) => image.clone().with_alpha_factor(alpha).into(),
