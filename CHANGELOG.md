@@ -12,7 +12,7 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 ### Added
 
-...
+- [#40](https://github.com/linebender/peniko/pull/40) - Breaking change: An `alpha` multiplier to `Image` by [@DJMcNab](https://github.com/DJMcNab)
 
 ### Changed
 

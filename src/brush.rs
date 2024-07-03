@@ -29,9 +29,25 @@ impl From<Gradient> for Brush {
     }
 }
 
+impl From<Image> for Brush {
+    fn from(value: Image) -> Self {
+        Self::Image(value)
+    }
+}
+
 impl Default for Brush {
     fn default() -> Self {
         Self::Solid(Color::default())
+    }
+}
+
+impl Brush {
+    /// Returns the brush with the alpha component multiplied by the specified
+    /// factor.
+    #[must_use]
+    pub fn with_alpha_factor(&self, alpha: f32) -> Self {
+        let result: BrushRef = self.into();
+        result.with_alpha_factor(alpha)
     }
 }
 
@@ -40,7 +56,7 @@ impl Default for Brush {
 /// This is useful for methods that would like to accept brushes by reference. Defining
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
 /// directly without cloning or allocating.
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
@@ -58,6 +74,29 @@ impl<'a> BrushRef<'a> {
             Self::Solid(color) => Brush::Solid(*color),
             Self::Gradient(gradient) => Brush::Gradient((*gradient).clone()),
             Self::Image(image) => Brush::Image((*image).clone()),
+        }
+    }
+
+    /// Returns the brush with the alpha component multiplied by the specified
+    /// factor.
+    #[must_use]
+    pub fn with_alpha_factor(&self, alpha: f32) -> Brush {
+        if alpha == 1.0 {
+            self.to_owned()
+        } else {
+            match *self {
+                BrushRef::Solid(color) => color.with_alpha_factor(alpha).into(),
+                BrushRef::Gradient(gradient) => Brush::Gradient(Gradient {
+                    kind: gradient.kind,
+                    extend: gradient.extend,
+                    stops: gradient
+                        .stops
+                        .iter()
+                        .map(|stop| stop.with_alpha_factor(alpha))
+                        .collect(),
+                }),
+                BrushRef::Image(image) => image.clone().with_alpha_factor(alpha).into(),
+            }
         }
     }
 }

@@ -1,6 +1,10 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
+#[cfg(all(not(feature = "std"), feature = "libm"))]
+#[allow(unused_imports)]
+use kurbo::common::FloatFuncs as _;
+
 use super::{Blob, Extend};
 
 /// Defines the pixel format of an [image](Image).
@@ -38,8 +42,10 @@ pub struct Image {
     pub width: u32,
     /// Height of the image.
     pub height: u32,
-    /// Extend mode
+    /// Extend mode.
     pub extend: Extend,
+    /// An additional alpha multiplier to use with the image.
+    pub alpha: u8,
 }
 
 impl Image {
@@ -52,6 +58,8 @@ impl Image {
             width,
             height,
             extend: Extend::Pad,
+            // Opaque
+            alpha: u8::MAX,
         }
     }
 
@@ -59,6 +67,13 @@ impl Image {
     #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image alpha.
+    #[must_use]
+    pub fn with_alpha_factor(mut self, alpha: f32) -> Self {
+        self.alpha = ((self.alpha as f32) * alpha).round() as u8;
         self
     }
 }
