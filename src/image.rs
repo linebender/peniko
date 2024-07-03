@@ -1,6 +1,10 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
+#[cfg(all(not(feature = "std"), feature = "libm"))]
+#[allow(unused_imports)]
+use kurbo::common::FloatFuncs as _;
+
 use super::{Blob, Extend};
 
 /// Defines the pixel format of an [image](Image).
