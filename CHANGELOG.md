@@ -8,11 +8,16 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-## Unreleased
+The latest published Peniko release is [0.1.1](#011-2024-05-27) which was released on 2024-05-27.
+You can find its changes [documented below](#011-2024-05-27).
+
+## [Unreleased]
+
+This release has an [MSRV] of 1.70.
 
 ### Added
 
-- [#40](https://github.com/linebender/peniko/pull/40) - Breaking change: An `alpha` multiplier to `Image` by [@DJMcNab](https://github.com/DJMcNab)
+- Breaking change: An `alpha` multiplier to `Image` ([#40][] by [@DJMcNab][])
 
 ### Changed
 
@@ -22,12 +27,28 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 ...
 
-## 0.1.1 (2024-05-27)
+## [0.1.1][] (2024-05-27)
+
+This release has an [MSRV] of 1.70.
 
 ### Added
 
-- [#26](https://github.com/linebender/peniko/pull/26) - Add `serde` feature to enable serde support by [@ratmice](https://github.com/ratmice)
+- `serde` feature to enable serde support ([#26] by [@ratmice][])
 
-## 0.1.0 (2024-02-15)
+## [0.1.0][] (2024-02-15)
+
+This release has an [MSRV] of 1.70.
 
 - Initial release
+
+[MSRV]: README.md#minimum-supported-rust-version-msrv
+
+[#26]: https://github.com/linebender/peniko/pull/26
+
+[@ratmice]: https://github.com/ratmice
+[@DJMcNab]: https://github.com/DJMcNab
+[#40]: https://github.com/linebender/peniko/pull/40
+
+[Unreleased]: https://github.com/linebender/peniko/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/linebender/peniko/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/linebender/peniko/releases/tag/v0.1.0
