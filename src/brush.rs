@@ -45,9 +45,22 @@ impl Brush {
     /// Returns the brush with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
-    pub fn with_alpha_factor(&self, alpha: f32) -> Self {
-        let result: BrushRef = self.into();
-        result.with_alpha_factor(alpha)
+    pub fn with_alpha_factor(self, alpha: f32) -> Brush {
+        if alpha == 1.0 {
+            self
+        } else {
+            match self {
+                Brush::Solid(color) => color.with_alpha_factor(alpha).into(),
+                Brush::Gradient(mut gradient) => {
+                    gradient
+                        .stops
+                        .iter_mut()
+                        .for_each(|stop| *stop = stop.with_alpha_factor(alpha));
+                    gradient.into()
+                }
+                Brush::Image(image) => image.with_alpha_factor(alpha).into(),
+            }
+        }
     }
 }
 
@@ -74,29 +87,6 @@ impl<'a> BrushRef<'a> {
             Self::Solid(color) => Brush::Solid(*color),
             Self::Gradient(gradient) => Brush::Gradient((*gradient).clone()),
             Self::Image(image) => Brush::Image((*image).clone()),
-        }
-    }
-
-    /// Returns the brush with the alpha component multiplied by the specified
-    /// factor.
-    #[must_use]
-    pub fn with_alpha_factor(&self, alpha: f32) -> Brush {
-        if alpha == 1.0 {
-            self.to_owned()
-        } else {
-            match *self {
-                BrushRef::Solid(color) => color.with_alpha_factor(alpha).into(),
-                BrushRef::Gradient(gradient) => Brush::Gradient(Gradient {
-                    kind: gradient.kind,
-                    extend: gradient.extend,
-                    stops: gradient
-                        .stops
-                        .iter()
-                        .map(|stop| stop.with_alpha_factor(alpha))
-                        .collect(),
-                }),
-                BrushRef::Image(image) => image.clone().with_alpha_factor(alpha).into(),
-            }
         }
     }
 }
