@@ -18,6 +18,7 @@ This release has an [MSRV] of 1.70.
 ### Added
 
 - Breaking change: An `alpha` multiplier to `Image` ([#40][] by [@DJMcNab][])
+- `mint` feature to enable `mint` support in kurbo ([#46][] by [@waywardmonkeys][])
 
 ### Changed
 
@@ -44,10 +45,12 @@ This release has an [MSRV] of 1.70.
 [MSRV]: README.md#minimum-supported-rust-version-msrv
 
 [#26]: https://github.com/linebender/peniko/pull/26
-
-[@ratmice]: https://github.com/ratmice
-[@DJMcNab]: https://github.com/DJMcNab
 [#40]: https://github.com/linebender/peniko/pull/40
+[#46]: https://github.com/linebender/peniko/pull/46
+
+[@DJMcNab]: https://github.com/DJMcNab
+[@ratmice]: https://github.com/ratmice
+[@waywardmonkeys]: https://github.com/waywardmonkeys
 
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.1.1...HEAD
 [0.1.1]: https://github.com/linebender/peniko/compare/v0.1.0...v0.1.1

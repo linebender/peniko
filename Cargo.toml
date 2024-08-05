@@ -17,6 +17,7 @@ rust-version = "1.70"
 default = ["std"]
 std = ["kurbo/std"]
 libm = ["kurbo/libm"]
+mint = ["kurbo/mint"]
 serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
 
 [package.metadata.docs.rs]
