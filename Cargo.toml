@@ -78,34 +78,38 @@ rust.missing_debug_implementations = "warn"
 rust.unused_qualifications = "warn"
 rust.single_use_lifetimes = "warn"
 
-# clippy.exhaustive_enums = "warn"
-# clippy.dbg_macro = "warn"
-# clippy.match_same_arms = "warn"
+clippy.dbg_macro = "warn"
+clippy.match_same_arms = "warn"
 # clippy.cast_possible_truncation = "warn"
-# clippy.missing_assert_message = "warn"
-# clippy.return_self_not_must_use = "warn"
-# clippy.wildcard_imports = "warn"
-# rust.elided_lifetimes_in_paths = "warn"
+clippy.missing_assert_message = "warn"
+clippy.return_self_not_must_use = "warn"
+clippy.wildcard_imports = "warn"
+rust.elided_lifetimes_in_paths = "warn"
 # clippy.use_self = "warn"
 
 # Aspirational lints, not enabled for one reason or another
 
-rust.missing_docs = "warn"     # We have many as-yet undocumented items
-rust.unreachable_pub = "warn"  # Potentially controversial code style
-rust.unnameable_types = "warn" # Requires lint_reasons rustc feature for exceptions
-# clippy.todo = "warn" # We have a lot of "real" todos
-# clippy.missing_errors_doc = "warn" # Can be quite noisy?
-# clippy.missing_panics_doc = "warn" # Can be quite noisy?
-# clippy.partial_pub_fields = "warn" # Potentially controversial code style
-# clippy.shadow_unrelated = "warn" # Potentially controversial code style
+rust.missing_docs = "warn"
+rust.unreachable_pub = "warn"
+rust.unnameable_types = "warn"
+clippy.todo = "warn"
+clippy.missing_errors_doc = "warn"
+clippy.missing_panics_doc = "warn"
+clippy.partial_pub_fields = "warn"
+clippy.shadow_unrelated = "warn"
 
 # This catches duplicated dependencies in the tree, which we don't have much control over
 # We should use cargo deny for this, anyway
-# clippy.cargo = "warn"
+clippy.cargo = { level = "warn", priority = -1 }
 
-# Lints which we still set in individual crates lib.rs
+# Lints which we set in `lib.rs`, instead of at a package level.
+
 # False positives with example targets - https://github.com/rust-lang/rust/issues/57274
 # rust.unused_crate_dependencies = "warn"
 # Examples often do want to print
 # clippy.print_stdout = "warn" # Note that this is allowed in Masonry
 # clippy.print_stderr = "warn" # Note that this is allowed in Masonry
+
+# Explicit per-crate exceptions
+# Should be manually checked occasionally. Most enums are correctly exhaustive, as this is a vocabulary crate.
+# clippy.exhaustive_enums = "warn"

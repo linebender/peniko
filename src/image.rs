@@ -10,6 +10,7 @@ use super::{Blob, Extend};
 /// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[non_exhaustive]
 pub enum Format {
     /// 32-bit RGBA with 8-bit channels.
     Rgba8,

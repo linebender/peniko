@@ -44,7 +44,7 @@ where
 }
 
 impl<T> fmt::Debug for Blob<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Blob")
             .field("id", &self.id)
             .finish_non_exhaustive()

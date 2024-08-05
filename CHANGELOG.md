@@ -22,7 +22,7 @@ This release has an [MSRV] of 1.74.
 
 ### Changed
 
-...
+- Breaking: Mark `Format` as `#[non_exhaustive]` ([#XXX][] by [@DJMcNab][])
 
 ### Fixed
 

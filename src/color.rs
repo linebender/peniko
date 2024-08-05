@@ -85,8 +85,7 @@ impl Color {
     #[allow(clippy::many_single_char_names)]
     #[allow(clippy::unreadable_literal)]
     #[must_use]
-    pub fn hlca(h: f64, l: f64, c: f64, a: f64) -> Color {
-        let alpha = a;
+    pub fn hlca(h: f64, l: f64, c: f64, alpha: f64) -> Color {
         // The reverse transformation from Lab to XYZ, see
         // https://en.wikipedia.org/wiki/CIELAB_color_space
         fn f_inv(t: f64) -> f64 {
