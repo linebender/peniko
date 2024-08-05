@@ -23,7 +23,7 @@ impl Format {
     #[must_use]
     pub fn size_in_bytes(self, width: u32, height: u32) -> Option<usize> {
         match self {
-            Self::Rgba8 => 4usize
+            Self::Rgba8 => 4_usize
                 .checked_mul(width as usize)
                 .and_then(|x| x.checked_mul(height as usize)),
         }
