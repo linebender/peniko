@@ -42,6 +42,7 @@ impl From<Stroke> for Style {
 /// This is useful for methods that would like to accept draw styles by reference. Defining
 /// the type as `impl<Into<DrawRef>>` allows accepting types like `&Stroke` or `Fill`
 /// directly without cloning or allocating.
+#[allow(variant_size_differences)] // We don't expect this enum to be operated on in bulk.
 pub enum StyleRef<'a> {
     /// Filled draw operation.
     Fill(Fill),
