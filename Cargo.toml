@@ -88,7 +88,7 @@ clippy.missing_errors_doc = "warn"
 clippy.missing_panics_doc = "warn"
 clippy.partial_pub_fields = "warn"
 clippy.shadow_unrelated = "warn"
-# clippy.use_self = "warn"
+clippy.use_self = "warn"
 
 # This catches duplicated dependencies in the tree, which we don't have much control over
 # We should use cargo deny for this, anyway

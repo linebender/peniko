@@ -85,7 +85,7 @@ impl Color {
     #[allow(clippy::many_single_char_names)]
     #[allow(clippy::unreadable_literal)]
     #[must_use]
-    pub fn hlca(h: f64, l: f64, c: f64, alpha: f64) -> Color {
+    pub fn hlca(h: f64, l: f64, c: f64, alpha: f64) -> Self {
         // The reverse transformation from Lab to XYZ, see
         // https://en.wikipedia.org/wiki/CIELAB_color_space
         fn f_inv(t: f64) -> f64 {
@@ -127,7 +127,7 @@ impl Color {
                 1.055 * u.powf(1. / 2.4) - 0.055
             }
         }
-        Color::rgba(gamma(r_lin), gamma(g_lin), gamma(b_lin), alpha)
+        Self::rgba(gamma(r_lin), gamma(g_lin), gamma(b_lin), alpha)
     }
 
     /// Parses a color from a string.
@@ -160,6 +160,7 @@ impl Color {
 }
 
 /// Named SVG colors.
+#[allow(clippy::use_self)]
 impl Color {
     /// Alice blue (240, 248, 255, 255)
     pub const ALICE_BLUE: Color = Color::rgba8(240, 248, 255, 255);
