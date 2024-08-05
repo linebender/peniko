@@ -39,7 +39,7 @@ where
     {
         let byte_buf: serde_bytes::ByteBuf = serde_bytes::Deserialize::deserialize(des)?;
         let boxed_slice: Box<[u8]> = byte_buf.into_boxed_slice();
-        Ok(Blob::new(Arc::new(boxed_slice)))
+        Ok(Self::new(Arc::new(boxed_slice)))
     }
 }
 
