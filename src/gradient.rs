@@ -196,6 +196,7 @@ impl Gradient {
 
 /// Trait for types that represent a source of color stops.
 pub trait ColorStopsSource {
+    /// Append the stops represented within `self` into `vec`.
     fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>);
 }
 

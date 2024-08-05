@@ -79,7 +79,7 @@ pub enum BrushRef<'a> {
     Image(&'a Image),
 }
 
-impl<'a> BrushRef<'a> {
+impl BrushRef<'_> {
     /// Converts the reference to an owned brush.
     #[must_use]
     pub fn to_owned(&self) -> Brush {

@@ -153,6 +153,7 @@ impl<T> Blob<T> {
 }
 
 /// Weak reference to a shared [blob](Blob).
+#[derive(Debug)]
 pub struct WeakBlob<T> {
     data: Weak<dyn AsRef<[T]> + Send + Sync>,
     id: u64,

@@ -12,6 +12,7 @@
 //! [`kurbo`]: https://crates.io/crates/kurbo
 
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
+#![warn(unused_crate_dependencies)]
 
 mod blend;
 mod blob;
