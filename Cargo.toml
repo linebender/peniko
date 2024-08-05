@@ -8,10 +8,10 @@ keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
 repository = "https://github.com/linebender/peniko"
 readme = "README.md"
-# We support from Rust 1.70 to ensure that CI uses the sparse registry protocol.
+# We support from Rust 1.74 to be able to use the lints table in this file.
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
-# TODO: When this hits 1.74, move lint configuration into this file via a lints table.
-rust-version = "1.70"
+# and with the MSRV in the `Unreleased` section of CHANGELOG.md.
+rust-version = "1.74"
 
 [features]
 default = ["std"]
@@ -39,3 +39,73 @@ version = "0.11.14"
 optional = true
 default-features = false
 features = ["alloc"]
+
+[lints]
+rust.unsafe_code = "forbid"
+
+rust.keyword_idents_2024 = "forbid"
+rust.non_ascii_idents = "forbid"
+rust.unsafe_op_in_unsafe_fn = "forbid"
+rust.non_local_definitions = "forbid"
+
+rust.unexpected_cfgs = "warn"
+rust.unused_lifetimes = "warn"
+rust.unit_bindings = "warn"
+rust.unused_import_braces = "warn"
+rust.trivial_numeric_casts = "warn"
+rust.unused_macro_rules = "warn"
+rust.variant_size_differences = "warn"
+
+clippy.allow_attributes_without_reason = "warn"
+clippy.collection_is_never_read = "warn"
+clippy.debug_assert_with_mut_call = "warn"
+# This is marked as `allow` within masonry due to https://github.com/linebender/xilem/issues/449.
+clippy.doc_markdown = "warn"
+clippy.fn_to_numeric_cast_any = "forbid"
+clippy.infinite_loop = "warn"
+clippy.large_include_file = "warn"
+clippy.large_stack_arrays = "warn"
+clippy.mismatching_type_param_order = "warn"
+clippy.missing_fields_in_debug = "warn"
+clippy.same_functions_in_if_condition = "warn"
+clippy.semicolon_if_nothing_returned = "warn"
+clippy.should_panic_without_expect = "warn"
+clippy.unseparated_literal_suffix = "warn"
+
+# Follow-ups for their own PRs, too noisy to go in lint group PR
+
+# rust.let_underscore_drop = "warn"
+# rust.missing_debug_implementations = "warn"
+# rust.unused_qualifications = "warn"
+# rust.single_use_lifetimes = "warn"
+# clippy.exhaustive_enums = "warn"
+# clippy.dbg_macro = "warn"
+# clippy.match_same_arms = "warn"
+# clippy.cast_possible_truncation = "warn"
+# clippy.missing_assert_message = "warn"
+# clippy.return_self_not_must_use = "warn"
+# clippy.wildcard_imports = "warn"
+# rust.elided_lifetimes_in_paths = "warn"
+# clippy.use_self = "warn"
+
+# Aspirational lints, not enabled for one reason or another
+
+# rust.missing_docs = "warn" # We have many as-yet undocumented items
+# rust.unreachable_pub = "warn" # Potentially controversial code style
+# rust.unnameable_types = "warn" # Requires lint_reasons rustc feature for exceptions
+# clippy.todo = "warn" # We have a lot of "real" todos
+# clippy.missing_errors_doc = "warn" # Can be quite noisy?
+# clippy.missing_panics_doc = "warn" # Can be quite noisy?
+# clippy.partial_pub_fields = "warn" # Potentially controversial code style
+# clippy.shadow_unrelated = "warn" # Potentially controversial code style
+
+# This catches duplicated dependencies in the tree, which we don't have much control over
+# We should use cargo deny for this, anyway
+# clippy.cargo = "warn"
+
+# Lints which we still set in individual crates lib.rs
+# False positives with example targets - https://github.com/rust-lang/rust/issues/57274
+# rust.unused_crate_dependencies = "warn"
+# Examples often do want to print
+# clippy.print_stdout = "warn" # Note that this is allowed in Masonry
+# clippy.print_stderr = "warn" # Note that this is allowed in Masonry
