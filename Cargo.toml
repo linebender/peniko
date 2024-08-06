@@ -8,10 +8,10 @@ keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
 repository = "https://github.com/linebender/peniko"
 readme = "README.md"
-# We support from Rust 1.74 to be able to use the lints table in this file.
+# We support from Rust 1.70 so that CI uses the sparse protocol.
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
-rust-version = "1.74"
+rust-version = "1.70"
 
 [features]
 default = ["std"]

@@ -22,7 +22,7 @@ contains.
 
 ## Minimum supported Rust Version (MSRV)
 
-This version of Peniko has been verified to compile with **Rust 1.74** and later.
+This version of Peniko has been verified to compile with **Rust 1.70** and later.
 
 Future versions of Peniko might increase the Rust version requirement.
 It will not be treated as a breaking change and as such can even happen with small patch releases.
