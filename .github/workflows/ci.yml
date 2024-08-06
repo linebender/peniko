@@ -40,12 +40,22 @@ env:
 # For no_std checks we target x86_64-unknown-none, because this target doesn't support std
 # and as such will error out if our dependency tree accidentally tries to use std.
 # https://doc.rust-lang.org/stable/rustc/platform-support/x86_64-unknown-none.html
+#
+# We don't save caches in the merge-group cases, because those caches will never be re-used (apart 
+# from the very rare cases where there are multiple PRs in the merge queue).
+# This is because GitHub doesn't share caches between merge queues and `main`.
 
 name: CI
 
 on:
   pull_request:
   merge_group:
+  # We run on push, even though the commit is the same as when we ran in merge_group. 
+  # This allows the cache to be primed.
+  # See https://github.com/orgs/community/discussions/66430
+  push:
+    branches:
+      - main
 
 jobs:
   fmt:
@@ -82,6 +92,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install stable toolchain
         uses: dtolnay/rust-toolchain@master
@@ -112,6 +124,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install stable toolchain
         uses: dtolnay/rust-toolchain@master
@@ -142,6 +156,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install stable toolchain
         uses: dtolnay/rust-toolchain@master
@@ -159,6 +175,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install stable toolchain
         uses: dtolnay/rust-toolchain@master
@@ -181,6 +199,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install msrv toolchain
         uses: dtolnay/rust-toolchain@master
@@ -207,6 +227,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install msrv toolchain
         uses: dtolnay/rust-toolchain@master
@@ -232,6 +254,8 @@ jobs:
 
       - name: restore cache
         uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.event_name != 'merge_group' }}
 
       - name: install nightly toolchain
         uses: dtolnay/rust-toolchain@nightly
