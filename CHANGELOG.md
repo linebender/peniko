@@ -17,7 +17,7 @@ This release has an [MSRV] of 1.74.
 
 ### Added
 
-- Breaking change: An `alpha` multiplier to `Image` ([#40][] by [@DJMcNab][])
+- Breaking: An `alpha` multiplier to `Image` ([#40][] by [@DJMcNab][])
 - `mint` feature to enable `mint` support in kurbo ([#46][] by [@waywardmonkeys][])
 
 ### Changed
