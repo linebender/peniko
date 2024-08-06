@@ -45,20 +45,20 @@ impl Brush {
     /// Returns the brush with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
-    pub fn with_alpha_factor(self, alpha: f32) -> Brush {
+    pub fn with_alpha_factor(self, alpha: f32) -> Self {
         if alpha == 1.0 {
             self
         } else {
             match self {
-                Brush::Solid(color) => color.with_alpha_factor(alpha).into(),
-                Brush::Gradient(mut gradient) => {
+                Self::Solid(color) => color.with_alpha_factor(alpha).into(),
+                Self::Gradient(mut gradient) => {
                     gradient
                         .stops
                         .iter_mut()
                         .for_each(|stop| *stop = stop.with_alpha_factor(alpha));
                     gradient.into()
                 }
-                Brush::Image(image) => image.with_alpha_factor(alpha).into(),
+                Self::Image(image) => image.with_alpha_factor(alpha).into(),
             }
         }
     }
@@ -79,7 +79,7 @@ pub enum BrushRef<'a> {
     Image(&'a Image),
 }
 
-impl<'a> BrushRef<'a> {
+impl BrushRef<'_> {
     /// Converts the reference to an owned brush.
     #[must_use]
     pub fn to_owned(&self) -> Brush {

@@ -39,12 +39,12 @@ where
     {
         let byte_buf: serde_bytes::ByteBuf = serde_bytes::Deserialize::deserialize(des)?;
         let boxed_slice: Box<[u8]> = byte_buf.into_boxed_slice();
-        Ok(Blob::new(Arc::new(boxed_slice)))
+        Ok(Self::new(Arc::new(boxed_slice)))
     }
 }
 
 impl<T> fmt::Debug for Blob<T> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Blob")
             .field("id", &self.id)
             .finish_non_exhaustive()
@@ -153,6 +153,7 @@ impl<T> Blob<T> {
 }
 
 /// Weak reference to a shared [blob](Blob).
+#[derive(Debug)]
 pub struct WeakBlob<T> {
     data: Weak<dyn AsRef<[T]> + Send + Sync>,
     id: u64,

@@ -10,6 +10,7 @@ use super::{Blob, Extend};
 /// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[non_exhaustive]
 pub enum Format {
     /// 32-bit RGBA with 8-bit channels.
     Rgba8,
@@ -23,7 +24,7 @@ impl Format {
     #[must_use]
     pub fn size_in_bytes(self, width: u32, height: u32) -> Option<usize> {
         match self {
-            Self::Rgba8 => 4usize
+            Self::Rgba8 => 4_usize
                 .checked_mul(width as usize)
                 .and_then(|x| x.checked_mul(height as usize)),
         }
