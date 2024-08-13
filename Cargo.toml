@@ -99,8 +99,8 @@ clippy.cargo = { level = "warn", priority = -1 }
 # False positives with example targets - https://github.com/rust-lang/rust/issues/57274
 # rust.unused_crate_dependencies = "warn"
 # Examples often do want to print
-# clippy.print_stdout = "warn" # Note that this is allowed in Masonry
-# clippy.print_stderr = "warn" # Note that this is allowed in Masonry
+# clippy.print_stdout = "warn"
+# clippy.print_stderr = "warn"
 
 ## Explicit per-crate exceptions, should be manually checked occasionally.
 # There are lots of conversion to u8 color field, which in degenerate cases might not work
