@@ -71,9 +71,17 @@ impl Image {
         self
     }
 
-    /// Builder method for setting the image alpha.
+    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    ///
+    /// If any resulting alphas would overflow, these currently saturate (to opaque).
     #[must_use]
+    #[track_caller]
     pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
         self.alpha = ((self.alpha as f32) * alpha).round() as u8;
         self
     }

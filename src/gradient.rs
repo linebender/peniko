@@ -46,9 +46,12 @@ impl ColorStop {
         self.multiply_alpha(alpha)
     }
 
-    /// Returns the color stop with the alpha component multiplied by the specified
-    /// factor.
+    /// Returns the color stop with the alpha component multiplied by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    ///
+    /// If any resulting alphas would overflow, these currently saturate (to opaque).
     #[must_use]
+    #[track_caller]
     pub fn multiply_alpha(self, alpha: f32) -> Self {
         Self {
             offset: self.offset,
