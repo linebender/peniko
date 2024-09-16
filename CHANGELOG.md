@@ -23,6 +23,7 @@ This release has an [MSRV] of 1.70.
 ### Changed
 
 - Breaking: Mark `Format` as `#[non_exhaustive]` ([#47][] by [@DJMcNab][])
+- Breaking: Rename `with_alpha_factor` to `multiply_alpha` ([#52][] by [@DJMcNab][])
 
 ### Fixed
 
@@ -48,6 +49,7 @@ This release has an [MSRV] of 1.70.
 [#40]: https://github.com/linebender/peniko/pull/40
 [#46]: https://github.com/linebender/peniko/pull/46
 [#47]: https://github.com/linebender/peniko/pull/47
+[#52]: https://github.com/linebender/peniko/pull/52
 
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice
