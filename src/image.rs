@@ -73,7 +73,7 @@ impl Image {
 
     /// Builder method for setting the image alpha.
     #[must_use]
-    pub fn with_alpha_factor(mut self, alpha: f32) -> Self {
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
         self.alpha = ((self.alpha as f32) * alpha).round() as u8;
         self
     }

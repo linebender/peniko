@@ -142,7 +142,17 @@ impl Color {
     /// Returns the color with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
+    #[deprecated(
+        since = "0.2.0",
+        note = "This method has been renamed to `multiply_alpha`."
+    )]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
+        self.multiply_alpha(alpha)
+    }
+    /// Returns the color with the alpha component multiplied by the specified
+    /// factor.
+    #[must_use]
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
         let mut result = self;
         result.a = ((result.a as f32) * alpha).round() as u8;
         result

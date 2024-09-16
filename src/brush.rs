@@ -45,20 +45,20 @@ impl Brush {
     /// Returns the brush with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
-    pub fn with_alpha_factor(self, alpha: f32) -> Self {
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
         if alpha == 1.0 {
             self
         } else {
             match self {
-                Self::Solid(color) => color.with_alpha_factor(alpha).into(),
+                Self::Solid(color) => color.multiply_alpha(alpha).into(),
                 Self::Gradient(mut gradient) => {
                     gradient
                         .stops
                         .iter_mut()
-                        .for_each(|stop| *stop = stop.with_alpha_factor(alpha));
+                        .for_each(|stop| *stop = stop.multiply_alpha(alpha));
                     gradient.into()
                 }
-                Self::Image(image) => image.with_alpha_factor(alpha).into(),
+                Self::Image(image) => image.multiply_alpha(alpha).into(),
             }
         }
     }

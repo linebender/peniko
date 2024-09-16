@@ -105,7 +105,7 @@ clippy.cargo = { level = "warn", priority = -1 }
 ## Explicit per-crate exceptions, should be manually checked occasionally.
 # There are lots of conversion to u8 color field, which in degenerate cases might not work
 # properly, but generally are fine.
-# E.g. `with_alpha_factor` sets the alpha to `0` for a negative provided `alpha`
+# E.g. `multiply_alpha` sets the alpha to `0` for a negative provided `alpha`
 # clippy.cast_possible_truncation = "warn"
 # Most enums are correctly exhaustive, as this is a vocabulary crate.
 # clippy.exhaustive_enums = "warn"

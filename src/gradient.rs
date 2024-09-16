@@ -38,10 +38,21 @@ impl ColorStop {
     /// Returns the color stop with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
+    #[deprecated(
+        since = "0.2.0",
+        note = "This method has been renamed to `multiply_alpha`."
+    )]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
+        self.multiply_alpha(alpha)
+    }
+
+    /// Returns the color stop with the alpha component multiplied by the specified
+    /// factor.
+    #[must_use]
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
         Self {
             offset: self.offset,
-            color: self.color.with_alpha_factor(alpha),
+            color: self.color.multiply_alpha(alpha),
         }
     }
 }
