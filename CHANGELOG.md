@@ -23,7 +23,7 @@ This release has an [MSRV] of 1.70.
 ### Changed
 
 - Breaking: Mark `Format` as `#[non_exhaustive]` ([#47][] by [@DJMcNab][])
-- Breaking: Rename `with_alpha_factor` to `multiply_alpha` ([#52][] by [@DJMcNab][])
+- Rename `with_alpha_factor` to `multiply_alpha` ([#52][] by [@DJMcNab][])
 
 ### Fixed
 
