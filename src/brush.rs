@@ -42,23 +42,31 @@ impl Default for Brush {
 }
 
 impl Brush {
-    /// Returns the brush with the alpha component multiplied by the specified
-    /// factor.
+    /// Returns the brush with the alpha component multiplied by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    ///
+    /// If any resulting alphas would overflow, these currently saturate (to opaque).
     #[must_use]
-    pub fn with_alpha_factor(self, alpha: f32) -> Self {
+    #[doc(alias = "with_alpha_factor")]
+    #[track_caller]
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
         if alpha == 1.0 {
             self
         } else {
             match self {
-                Self::Solid(color) => color.with_alpha_factor(alpha).into(),
+                Self::Solid(color) => color.multiply_alpha(alpha).into(),
                 Self::Gradient(mut gradient) => {
                     gradient
                         .stops
                         .iter_mut()
-                        .for_each(|stop| *stop = stop.with_alpha_factor(alpha));
+                        .for_each(|stop| *stop = stop.multiply_alpha(alpha));
                     gradient.into()
                 }
-                Self::Image(image) => image.with_alpha_factor(alpha).into(),
+                Self::Image(image) => image.multiply_alpha(alpha).into(),
             }
         }
     }

@@ -18,6 +18,7 @@ pub struct Color {
     /// Blue component.
     pub b: u8,
     /// Alpha component.
+    // If changing type, also change the docs on Self::multiply_alpha
     pub a: u8,
 }
 
@@ -142,7 +143,25 @@ impl Color {
     /// Returns the color with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
+    #[deprecated(
+        since = "0.2.0",
+        note = "This method has been renamed to `multiply_alpha`."
+    )]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
+        self.multiply_alpha(alpha)
+    }
+
+    /// Returns the color with the alpha component multiplied by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    ///
+    /// If the resulting alpha would overflow, this currently saturates (to opaque).
+    #[must_use]
+    #[track_caller]
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
         let mut result = self;
         result.a = ((result.a as f32) * alpha).round() as u8;
         result
