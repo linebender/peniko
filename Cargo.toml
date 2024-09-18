@@ -25,17 +25,17 @@ features = ["serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
-kurbo = { version = "0.11.0", default-features = false }
+kurbo = { version = "0.11.1", default-features = false }
 smallvec = "1.13.2"
 
 [dependencies.serde]
-version = "1.0.203"
+version = "1.0.210"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
 
 [dependencies.serde_bytes]
-version = "0.11.14"
+version = "0.11.15"
 optional = true
 default-features = false
 features = ["alloc"]
