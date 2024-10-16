@@ -43,6 +43,8 @@ features = ["alloc"]
 [lints]
 rust.unsafe_code = "forbid"
 
+# LINEBENDER LINT SET
+# See https://linebender.org/wiki/canonical-lints/
 rust.keyword_idents_2024 = "forbid"
 rust.non_ascii_idents = "forbid"
 rust.non_local_definitions = "forbid"
@@ -64,11 +66,14 @@ rust.unused_macro_rules = "warn"
 rust.unused_qualifications = "warn"
 rust.variant_size_differences = "warn"
 
+clippy.allow_attributes = "warn"
 clippy.allow_attributes_without_reason = "warn"
+clippy.cast_possible_truncation = "warn"
 clippy.collection_is_never_read = "warn"
 clippy.dbg_macro = "warn"
 clippy.debug_assert_with_mut_call = "warn"
 clippy.doc_markdown = "warn"
+clippy.exhaustive_enums = "warn"
 clippy.fn_to_numeric_cast_any = "forbid"
 clippy.infinite_loop = "warn"
 clippy.large_include_file = "warn"
@@ -90,22 +95,12 @@ clippy.unseparated_literal_suffix = "warn"
 clippy.use_self = "warn"
 clippy.wildcard_imports = "warn"
 
-# This catches duplicated dependencies in the tree, which we don't have much control over
-# We should use cargo deny for this, anyway
-clippy.cargo = { level = "warn", priority = -1 }
+# In theory we could use clippy.cargo, but we don't want to automatically add
+# new cargo lints when clippy updates.
+clippy.cargo_common_metadata = "warn"
+clippy.multiple_crate_versions = "warn"
+clippy.negative_feature_names = "warn"
+clippy.redundant_feature_names = "warn"
+clippy.wildcard_dependencies = "warn"
+# END LINEBENDER LINT SET
 
-# Lints which we set in `lib.rs`, instead of at a package level.
-
-# False positives with example targets - https://github.com/rust-lang/rust/issues/57274
-# rust.unused_crate_dependencies = "warn"
-# Examples often do want to print
-# clippy.print_stdout = "warn"
-# clippy.print_stderr = "warn"
-
-## Explicit per-crate exceptions, should be manually checked occasionally.
-# There are lots of conversion to u8 color field, which in degenerate cases might not work
-# properly, but generally are fine.
-# E.g. `multiply_alpha` sets the alpha to `0` for a negative provided `alpha`
-# clippy.cast_possible_truncation = "warn"
-# Most enums are correctly exhaustive, as this is a vocabulary crate.
-# clippy.exhaustive_enums = "warn"
