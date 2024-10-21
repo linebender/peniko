@@ -42,6 +42,7 @@ features = ["alloc"]
 
 [lints]
 rust.unsafe_code = "forbid"
+
 # LINEBENDER LINT SET - v1
 # See https://linebender.org/wiki/canonical-lints/
 rust.keyword_idents_2024 = "forbid"
