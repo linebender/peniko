@@ -42,8 +42,7 @@ features = ["alloc"]
 
 [lints]
 rust.unsafe_code = "forbid"
-
-# LINEBENDER LINT SET
+# LINEBENDER LINT SET - v1
 # See https://linebender.org/wiki/canonical-lints/
 rust.keyword_idents_2024 = "forbid"
 rust.non_ascii_idents = "forbid"
@@ -95,12 +94,8 @@ clippy.unseparated_literal_suffix = "warn"
 clippy.use_self = "warn"
 clippy.wildcard_imports = "warn"
 
-# In theory we could use clippy.cargo, but we don't want to automatically add
-# new cargo lints when clippy updates.
 clippy.cargo_common_metadata = "warn"
-clippy.multiple_crate_versions = "warn"
 clippy.negative_feature_names = "warn"
 clippy.redundant_feature_names = "warn"
 clippy.wildcard_dependencies = "warn"
 # END LINEBENDER LINT SET
-
