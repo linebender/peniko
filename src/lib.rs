@@ -13,6 +13,13 @@
 
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
 #![warn(unused_crate_dependencies)]
+#![warn(clippy::print_stdout, clippy::print_stderr)]
+// There are lots of conversion to u8 color field, which in degenerate cases might not work
+// properly, but generally are fine.
+// E.g. `multiply_alpha` sets the alpha to `0` for a negative provided `alpha`.
+#![allow(clippy::cast_possible_truncation)]
+// Most enums are correctly exhaustive, as this is a vocabulary crate.
+#![allow(clippy::exhaustive_enums)]
 
 mod blend;
 mod blob;
