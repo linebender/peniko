@@ -13,15 +13,18 @@ readme = "README.md"
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
 rust-version = "1.70"
 
+[package.metadata.docs.rs]
+all-features = true
+# There are no platform specific docs.
+default-target = "x86_64-unknown-linux-gnu"
+targets = []
+
 [features]
 default = ["std"]
 std = ["kurbo/std"]
 libm = ["kurbo/libm"]
 mint = ["kurbo/mint"]
 serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
-
-[package.metadata.docs.rs]
-features = ["serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md

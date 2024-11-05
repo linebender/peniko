@@ -12,6 +12,7 @@
 //! [`kurbo`]: https://crates.io/crates/kurbo
 
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 #![warn(unused_crate_dependencies)]
 #![warn(clippy::print_stdout, clippy::print_stderr)]
 // There are lots of conversion to u8 color field, which in degenerate cases might not work
