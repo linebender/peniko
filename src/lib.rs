@@ -3,13 +3,14 @@
 
 //! A Rust 2D graphics type library
 //!
-//! The `peniko` library builds on top of [`kurbo`] and provides a set of generic types that define
-//! styles for rendering and composition.
+//! The `peniko` library builds on top of [`kurbo`] and [`color`] and provides a set of
+//! generic types that define styles for rendering and composition.
 //!
 //! The name "peniko" is Esperanto for "brush" which is one family of types that the library
 //! contains.
 //!
 //! [`kurbo`]: https://crates.io/crates/kurbo
+//! [`color`]: https://crates.io/crates/color
 
 // LINEBENDER LINT SET - lib.rs - v1
 // See https://linebender.org/wiki/canonical-lints/
@@ -20,21 +21,21 @@
 // END LINEBENDER LINT SET
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
 #![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
-// There are lots of conversion to u8 color field, which in degenerate cases might not work
-// properly, but generally are fine.
-// E.g. `multiply_alpha` sets the alpha to `0` for a negative provided `alpha`.
-#![allow(clippy::cast_possible_truncation)]
-// Most enums are correctly exhaustive, as this is a vocabulary crate.
-#![allow(clippy::exhaustive_enums)]
+#![expect(
+    clippy::exhaustive_enums,
+    reason = "Most of the enums are correctly exhaustive as this is a vocabulary crate."
+)]
 
 mod blend;
 mod blob;
 mod brush;
-mod color;
 mod font;
 mod gradient;
 mod image;
 mod style;
+
+/// Re-export of the color library.
+pub use color;
 
 /// Re-export of the kurbo 2D curve library.
 pub use kurbo;
@@ -42,11 +43,13 @@ pub use kurbo;
 pub use blend::{BlendMode, Compose, Mix};
 pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
-pub use color::Color;
 pub use font::Font;
 pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind};
 pub use image::{Format, Image};
 pub use style::{Fill, Style, StyleRef};
+
+/// A convenient alias for the color type used for [`Brush`].
+pub type Color = color::AlphaColor<color::Srgb>;
 
 #[cfg(test)]
 mod tests {

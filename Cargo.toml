@@ -8,10 +8,9 @@ keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
 repository = "https://github.com/linebender/peniko"
 readme = "README.md"
-# We support from Rust 1.70 so that CI uses the sparse protocol.
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
-rust-version = "1.70"
+rust-version = "1.82"
 
 [package.metadata.docs.rs]
 all-features = true
@@ -21,15 +20,21 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["kurbo/std"]
-libm = ["kurbo/libm"]
+std = ["color/std", "kurbo/std"]
+libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
-serde = ["smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
 kurbo = { version = "0.11.1", default-features = false }
 smallvec = "1.13.2"
+
+[dependencies.color]
+git = "https://github.com/linebender/color.git"
+rev = "bccd4050607eba830cfba3b2f39616a27500288a"
+version = "0.1.0"
+default-features = false
 
 [dependencies.serde]
 version = "1.0.210"

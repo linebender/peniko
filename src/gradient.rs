@@ -1,21 +1,22 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use super::{Color, Extend};
+use super::Extend;
 
+use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor};
 use kurbo::Point;
 use smallvec::SmallVec;
 
 use core::hash::{Hash, Hasher};
 
 /// Offset and color of a transition point in a [gradient](Gradient).
-#[derive(Copy, Clone, PartialOrd, Default, Debug)]
+#[derive(Copy, Clone, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ColorStop {
     /// Normalized offset of the stop.
     pub offset: f32,
     /// Color at the specified offset.
-    pub color: Color,
+    pub color: DynamicColor,
 }
 
 impl Hash for ColorStop {
@@ -60,11 +61,29 @@ impl ColorStop {
     }
 }
 
-impl From<(f32, Color)> for ColorStop {
-    fn from(pair: (f32, Color)) -> Self {
+impl<CS: ColorSpace> From<(f32, AlphaColor<CS>)> for ColorStop {
+    fn from(pair: (f32, AlphaColor<CS>)) -> Self {
+        Self {
+            offset: pair.0,
+            color: DynamicColor::from_alpha_color(pair.1),
+        }
+    }
+}
+
+impl From<(f32, DynamicColor)> for ColorStop {
+    fn from(pair: (f32, DynamicColor)) -> Self {
         Self {
             offset: pair.0,
             color: pair.1,
+        }
+    }
+}
+
+impl<CS: ColorSpace> From<(f32, OpaqueColor<CS>)> for ColorStop {
+    fn from(pair: (f32, OpaqueColor<CS>)) -> Self {
+        Self {
+            offset: pair.0,
+            color: DynamicColor::from_alpha_color(pair.1.with_alpha(1.)),
         }
     }
 }
@@ -236,19 +255,53 @@ where
     }
 }
 
-impl ColorStopsSource for &'_ [Color] {
+impl<CS: ColorSpace> ColorStopsSource for &'_ [AlphaColor<CS>] {
     fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
             vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
                 offset: (i as f32) / denom,
-                color: *c,
+                color: DynamicColor::from_alpha_color(*c),
             }));
         }
     }
 }
 
-impl<const N: usize> ColorStopsSource for [Color; N] {
+impl ColorStopsSource for &'_ [DynamicColor] {
+    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+        if !self.is_empty() {
+            let denom = (self.len() - 1).max(1) as f32;
+            vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
+                offset: (i as f32) / denom,
+                color: (*c),
+            }));
+        }
+    }
+}
+
+impl<CS: ColorSpace> ColorStopsSource for &'_ [OpaqueColor<CS>] {
+    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+        if !self.is_empty() {
+            let denom = (self.len() - 1).max(1) as f32;
+            vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
+                offset: (i as f32) / denom,
+                color: DynamicColor::from_alpha_color((*c).with_alpha(1.)),
+            }));
+        }
+    }
+}
+
+impl<const N: usize, CS: ColorSpace> ColorStopsSource for [AlphaColor<CS>; N] {
+    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+        (&self[..]).collect_stops(vec);
+    }
+}
+impl<const N: usize> ColorStopsSource for [DynamicColor; N] {
+    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+        (&self[..]).collect_stops(vec);
+    }
+}
+impl<const N: usize, CS: ColorSpace> ColorStopsSource for [OpaqueColor<CS>; N] {
     fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
         (&self[..]).collect_stops(vec);
     }
