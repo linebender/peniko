@@ -19,6 +19,7 @@ This release has an [MSRV] of 1.82.
 
 - `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
 - Use `color` crate. See below for details ([#63][] by [@waywardmonkeys][])
+- `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
 
 ### Color Changes
 
@@ -76,6 +77,7 @@ This release has an [MSRV] of 1.70.
 [#52]: https://github.com/linebender/peniko/pull/52
 [#63]: https://github.com/linebender/peniko/pull/63
 [#65]: https://github.com/linebender/peniko/pull/65
+[#67]: https://github.com/linebender/peniko/pull/67
 
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice

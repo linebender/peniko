@@ -67,6 +67,18 @@ impl Image {
         self
     }
 
+    /// Returns the image with the alpha multiplier set to `alpha`.
+    #[must_use]
+    #[track_caller]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.alpha = alpha;
+        self
+    }
+
     /// Returns the image with the alpha multiplier multiplied again by `alpha`.
     /// The behaviour of this transformation is undefined if `alpha` is negative.
     #[must_use]
