@@ -1,10 +1,6 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#[cfg(all(not(feature = "std"), feature = "libm"))]
-#[allow(unused_imports)]
-use kurbo::common::FloatFuncs as _;
-
 use super::{Blob, Extend};
 
 /// Defines the pixel format of an [image](Image).
@@ -46,7 +42,7 @@ pub struct Image {
     /// Extend mode.
     pub extend: Extend,
     /// An additional alpha multiplier to use with the image.
-    pub alpha: u8,
+    pub alpha: f32,
 }
 
 impl Image {
@@ -60,7 +56,7 @@ impl Image {
             height,
             extend: Extend::Pad,
             // Opaque
-            alpha: u8::MAX,
+            alpha: 1.,
         }
     }
 
@@ -73,8 +69,6 @@ impl Image {
 
     /// Returns the image with the alpha multiplier multiplied again by `alpha`.
     /// The behaviour of this transformation is undefined if `alpha` is negative.
-    ///
-    /// If any resulting alphas would overflow, these currently saturate (to opaque).
     #[must_use]
     #[track_caller]
     pub fn multiply_alpha(mut self, alpha: f32) -> Self {
@@ -82,7 +76,7 @@ impl Image {
             alpha.is_finite() && alpha >= 0.0,
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
-        self.alpha = ((self.alpha as f32) * alpha).round() as u8;
+        self.alpha *= alpha;
         self
     }
 }

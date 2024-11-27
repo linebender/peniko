@@ -15,6 +15,10 @@ You can find its changes [documented below](#020-2024-09-19).
 
 This release has an [MSRV] of 1.70.
 
+### Changed
+
+- `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
+
 ## [0.2.0][] (2024-09-19)
 
 This release has an [MSRV] of 1.70.
@@ -50,6 +54,7 @@ This release has an [MSRV] of 1.70.
 [#46]: https://github.com/linebender/peniko/pull/46
 [#47]: https://github.com/linebender/peniko/pull/47
 [#52]: https://github.com/linebender/peniko/pull/52
+[#65]: https://github.com/linebender/peniko/pull/65
 
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice
