@@ -3,10 +3,12 @@
 
 use super::{Color, Gradient, Image};
 
+use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
+
 /// Describes the color content of a filled or stroked shape.
 ///
 /// See also [`BrushRef`] which can be used to avoid allocations.
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
@@ -17,9 +19,21 @@ pub enum Brush {
     Image(Image),
 }
 
-impl From<Color> for Brush {
-    fn from(c: Color) -> Self {
-        Self::Solid(c)
+impl<CS: ColorSpace> From<AlphaColor<CS>> for Brush {
+    fn from(c: AlphaColor<CS>) -> Self {
+        Self::Solid(c.convert())
+    }
+}
+
+impl From<DynamicColor> for Brush {
+    fn from(c: DynamicColor) -> Self {
+        Self::Solid(c.to_alpha_color::<Srgb>())
+    }
+}
+
+impl<CS: ColorSpace> From<OpaqueColor<CS>> for Brush {
+    fn from(c: OpaqueColor<CS>) -> Self {
+        Self::Solid(c.with_alpha(1.).convert())
     }
 }
 
@@ -37,7 +51,7 @@ impl From<Image> for Brush {
 
 impl Default for Brush {
     fn default() -> Self {
-        Self::Solid(Color::default())
+        Self::Solid(Color::TRANSPARENT)
     }
 }
 
@@ -77,7 +91,11 @@ impl Brush {
 /// This is useful for methods that would like to accept brushes by reference. Defining
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
 /// directly without cloning or allocating.
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(
+    target_pointer_width = "32",
+    expect(variant_size_differences, reason = "We're okay with this.")
+)]
+#[derive(Copy, Clone, Debug)]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(Color),
@@ -99,15 +117,39 @@ impl BrushRef<'_> {
     }
 }
 
-impl From<Color> for BrushRef<'_> {
-    fn from(color: Color) -> Self {
-        Self::Solid(color)
+impl<CS: ColorSpace> From<AlphaColor<CS>> for BrushRef<'_> {
+    fn from(color: AlphaColor<CS>) -> Self {
+        Self::Solid(color.convert())
     }
 }
 
-impl<'a> From<&'a Color> for BrushRef<'_> {
-    fn from(color: &'a Color) -> Self {
-        Self::Solid(*color)
+impl From<DynamicColor> for BrushRef<'_> {
+    fn from(color: DynamicColor) -> Self {
+        Self::Solid(color.to_alpha_color::<Srgb>())
+    }
+}
+
+impl<CS: ColorSpace> From<OpaqueColor<CS>> for BrushRef<'_> {
+    fn from(color: OpaqueColor<CS>) -> Self {
+        Self::Solid(color.with_alpha(1.).convert())
+    }
+}
+
+impl<'a, CS: ColorSpace> From<&'a AlphaColor<CS>> for BrushRef<'_> {
+    fn from(color: &'a AlphaColor<CS>) -> Self {
+        Self::Solid((*color).convert())
+    }
+}
+
+impl<'a> From<&'a DynamicColor> for BrushRef<'_> {
+    fn from(color: &'a DynamicColor) -> Self {
+        Self::Solid((*color).to_alpha_color::<Srgb>())
+    }
+}
+
+impl<'a, CS: ColorSpace> From<&'a OpaqueColor<CS>> for BrushRef<'_> {
+    fn from(color: &'a OpaqueColor<CS>) -> Self {
+        Self::Solid((*color).with_alpha(1.).convert())
     }
 }
 

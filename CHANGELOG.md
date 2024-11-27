@@ -13,11 +13,30 @@ You can find its changes [documented below](#020-2024-09-19).
 
 ## [Unreleased]
 
-This release has an [MSRV] of 1.70.
+This release has an [MSRV] of 1.82.
 
 ### Changed
 
 - `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
+- Use `color` crate. See below for details ([#63][] by [@waywardmonkeys][])
+
+### Color Changes
+
+The old code behind `peniko::Color` has been removed and color functionality is now provided by the [`color`] crate.
+
+This leads to a number of breaking changes:
+
+- `peniko::Color` is now a type alias for `AlphaColor<Srgb>` from the `color` crate.
+- `AlphaColor` does not, at this time, impl `Default`, `PartialEq`, `PartialOrd`, or `Hash`.
+- `Brush` and `BrushRef` no longer impl `PartialEq`.
+- `ColorStop` no longer impls `Default` or `PartialOrd`.
+- `Brush`, `BrushRef`, and `ColorStop` can be constructed from a variety of color types, although, for now, `Brush` and `BrushRef` convert this internally into an unclipped `AlphaColor<Srgb>`.
+- The `color` crate is re-exported as `peniko::color`, so access to functionality from there is easy.
+- The various pre-defined color constants like `peniko::Color::YELLOW` are no longer available.
+  Instead, use the CSS palette provided within `color`:  `peniko::color::palette::css::YELLOW`.
+- Similarly, parsing a color string is now provided by the `color` crate.
+
+This is the first step towards providing better support for richer color functionality throughout the Linebender stack.
 
 ## [0.2.0][] (2024-09-19)
 
@@ -48,12 +67,14 @@ This release has an [MSRV] of 1.70.
 - Initial release
 
 [MSRV]: README.md#minimum-supported-rust-version-msrv
+[`color`]: https://docs.rs/color/
 
 [#26]: https://github.com/linebender/peniko/pull/26
 [#40]: https://github.com/linebender/peniko/pull/40
 [#46]: https://github.com/linebender/peniko/pull/46
 [#47]: https://github.com/linebender/peniko/pull/47
 [#52]: https://github.com/linebender/peniko/pull/52
+[#63]: https://github.com/linebender/peniko/pull/63
 [#65]: https://github.com/linebender/peniko/pull/65
 
 [@DJMcNab]: https://github.com/DJMcNab

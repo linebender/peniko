@@ -14,15 +14,14 @@
 
 </div>
 
-The Peniko library builds on top of [kurbo] and provides a set of generic types that define
-styles for rendering and composition.
+The Peniko library builds on top of [kurbo] and [color] and provides a set of generic types that define styles for rendering and composition.
 
 The name "Peniko" is Esperanto for "brush" which is one family of types that the library
 contains.
 
 ## Minimum supported Rust Version (MSRV)
 
-This version of Peniko has been verified to compile with **Rust 1.70** and later.
+This version of Peniko has been verified to compile with **Rust 1.82** and later.
 
 Future versions of Peniko might increase the Rust version requirement.
 It will not be treated as a breaking change and as such can even happen with small patch releases.
@@ -66,6 +65,7 @@ Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
 licensed as above, without any additional terms or conditions.
 
+[color]: https://crates.io/crates/color
 [kurbo]: https://crates.io/crates/kurbo
 [Rust Code of Conduct]: https://www.rust-lang.org/policies/code-of-conduct
 [AUTHORS]: ./AUTHORS
