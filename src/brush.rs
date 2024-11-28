@@ -56,6 +56,16 @@ impl Default for Brush {
 }
 
 impl Brush {
+    /// Returns the brush with the alpha component set to `alpha`.
+    #[must_use]
+    pub fn with_alpha(self, alpha: f32) -> Self {
+        match self {
+            Self::Solid(color) => color.with_alpha(alpha).into(),
+            Self::Gradient(gradient) => gradient.with_alpha(alpha).into(),
+            Self::Image(image) => image.with_alpha(alpha).into(),
+        }
+    }
+
     /// Returns the brush with the alpha component multiplied by `alpha`.
     /// The behaviour of this transformation is undefined if `alpha` is negative.
     ///
@@ -73,13 +83,7 @@ impl Brush {
         } else {
             match self {
                 Self::Solid(color) => color.multiply_alpha(alpha).into(),
-                Self::Gradient(mut gradient) => {
-                    gradient
-                        .stops
-                        .iter_mut()
-                        .for_each(|stop| *stop = stop.multiply_alpha(alpha));
-                    gradient.into()
-                }
+                Self::Gradient(gradient) => gradient.multiply_alpha(alpha).into(),
                 Self::Image(image) => image.multiply_alpha(alpha).into(),
             }
         }

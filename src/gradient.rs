@@ -36,6 +36,27 @@ impl PartialEq for ColorStop {
 impl Eq for ColorStop {}
 
 impl ColorStop {
+    /// Returns the color stop with the alpha component set to `alpha`.
+    #[must_use]
+    pub fn with_alpha(self, alpha: f32) -> Self {
+        Self {
+            offset: self.offset,
+            color: self.color.with_alpha(alpha),
+        }
+    }
+
+    /// Returns the color stop with the alpha component multiplied by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    ///
+    /// If any resulting alphas would overflow, these currently saturate (to opaque).
+    #[must_use]
+    pub fn multiply_alpha(self, alpha: f32) -> Self {
+        Self {
+            offset: self.offset,
+            color: self.color.multiply_alpha(alpha),
+        }
+    }
+
     /// Returns the color stop with the alpha component multiplied by the specified
     /// factor.
     #[must_use]
@@ -45,19 +66,6 @@ impl ColorStop {
     )]
     pub fn with_alpha_factor(self, alpha: f32) -> Self {
         self.multiply_alpha(alpha)
-    }
-
-    /// Returns the color stop with the alpha component multiplied by `alpha`.
-    /// The behaviour of this transformation is undefined if `alpha` is negative.
-    ///
-    /// If any resulting alphas would overflow, these currently saturate (to opaque).
-    #[must_use]
-    #[track_caller]
-    pub fn multiply_alpha(self, alpha: f32) -> Self {
-        Self {
-            offset: self.offset,
-            color: self.color.multiply_alpha(alpha),
-        }
     }
 }
 
@@ -223,6 +231,25 @@ impl Gradient {
     pub fn with_stops(mut self, stops: impl ColorStopsSource) -> Self {
         self.stops.clear();
         stops.collect_stops(&mut self.stops);
+        self
+    }
+
+    /// Returns the gradient with the alpha component for all color stops set to `alpha`.
+    #[must_use]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        self.stops
+            .iter_mut()
+            .for_each(|stop| *stop = stop.with_alpha(alpha));
+        self
+    }
+
+    /// Returns the gradient with the alpha component for all color stops
+    /// multiplied by `alpha`.
+    #[must_use]
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        self.stops
+            .iter_mut()
+            .for_each(|stop| *stop = stop.multiply_alpha(alpha));
         self
     }
 }
