@@ -27,9 +27,7 @@
 )]
 
 mod blend;
-mod blob;
 mod brush;
-mod font;
 mod gradient;
 mod image;
 mod style;
@@ -43,10 +41,11 @@ pub use color;
 /// Re-export of the kurbo 2D curve library.
 pub use kurbo;
 
+/// Re-export of the linebender resource handle library types.
+pub use linebender_resource_handle::{self, Blob, FontData, WeakBlob};
+
 pub use blend::{BlendMode, Compose, Mix};
-pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
-pub use font::Font;
 pub use gradient::{
     ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, LinearGradientPosition,
     RadialGradientPosition, SweepGradientPosition,
