@@ -1,7 +1,9 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use super::{Blob, Extend};
+use crate::Extend;
+
+use raw_resource_handle::Blob;
 
 /// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]

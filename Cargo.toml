@@ -20,7 +20,7 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["color/std", "kurbo/std"]
+std = ["color/std", "kurbo/std", "raw_resource_handle/std"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
 serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
@@ -33,6 +33,12 @@ smallvec = "1.13.2"
 [dependencies.color]
 git = "https://github.com/linebender/color.git"
 rev = "bccd4050607eba830cfba3b2f39616a27500288a"
+version = "0.1.0"
+default-features = false
+
+[dependencies.raw_resource_handle]
+git = "https://github.com/linebender/raw_resource_handle.git"
+rev = "2a5cab3a137eff660baf99f9edeff87c5306e5d4"
 version = "0.1.0"
 default-features = false
 

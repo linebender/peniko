@@ -48,6 +48,7 @@ version = "0.2.0"
 dependencies = [
  "color",
  "kurbo",
+ "raw_resource_handle",
  "serde",
  "serde_bytes",
  "smallvec",
@@ -70,6 +71,11 @@ checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
 dependencies = [
  "proc-macro2",
 ]
+
+[[package]]
+name = "raw_resource_handle"
+version = "0.1.0"
+source = "git+https://github.com/linebender/raw_resource_handle.git?rev=2a5cab3a137eff660baf99f9edeff87c5306e5d4#2a5cab3a137eff660baf99f9edeff87c5306e5d4"
 
 [[package]]
 name = "serde"

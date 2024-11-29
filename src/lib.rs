@@ -27,9 +27,7 @@
 )]
 
 mod blend;
-mod blob;
 mod brush;
-mod font;
 mod gradient;
 mod image;
 mod style;
@@ -40,10 +38,11 @@ pub use color;
 /// Re-export of the kurbo 2D curve library.
 pub use kurbo;
 
+/// Re-export of the raw resource handle library.
+pub use raw_resource_handle;
+
 pub use blend::{BlendMode, Compose, Mix};
-pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
-pub use font::Font;
 pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind};
 pub use image::{Format, Image};
 pub use style::{Fill, Style, StyleRef};

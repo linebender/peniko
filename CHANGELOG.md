@@ -20,6 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
 - Use `color` crate. See below for details ([#63][] by [@waywardmonkeys][])
 - `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
+- `Blob`, `Font`, and `WeakBlob` have been moved to the new `raw_resource_handle` crate ([#68][] by [@waywardmonkeys][])
 
 ### Color Changes
 
@@ -38,6 +39,13 @@ This leads to a number of breaking changes:
 - Similarly, parsing a color string is now provided by the `color` crate.
 
 This is the first step towards providing better support for richer color functionality throughout the Linebender stack.
+
+### Raw Resource Changes
+
+Having the `Blob`, `Font`, and `WeakBlob` types in this crate created difficulties in versioning for other crates like Parley.
+We've now moved these to a dedicated shared crate so that we can remove the dependency on Peniko from Parley and make managing versions between Vello and other crates easier.
+
+The types are no longer available at the top level of this crate, but the `raw_resource_handle` crate is re-exported and they can be accessed from there.
 
 ## [0.2.0][] (2024-09-19)
 
