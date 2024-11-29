@@ -23,7 +23,7 @@ default = ["std"]
 std = ["color/std", "kurbo/std", "raw_resource_handle/std"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
-serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
@@ -47,12 +47,6 @@ version = "1.0.210"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
-
-[dependencies.serde_bytes]
-version = "0.11.15"
-optional = true
-default-features = false
-features = ["alloc"]
 
 [lints]
 rust.unsafe_code = "forbid"

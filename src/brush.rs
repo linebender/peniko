@@ -9,7 +9,6 @@ use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
 ///
 /// See also [`BrushRef`] which can be used to avoid allocations.
 #[derive(Clone, Debug)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
     Solid(Color),
