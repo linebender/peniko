@@ -32,7 +32,7 @@ smallvec = "1.13.2"
 
 [dependencies.color]
 git = "https://github.com/linebender/color.git"
-rev = "bccd4050607eba830cfba3b2f39616a27500288a"
+rev = "a4fa61aff6c3f292b729dc409e7832e5f0166e4a"
 version = "0.1.0"
 default-features = false
 

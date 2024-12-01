@@ -11,7 +11,7 @@ checksum = "7c02d123df017efcdfbd739ef81735b36c5ba83ec3c59c80a9d7ecc718f92e50"
 [[package]]
 name = "color"
 version = "0.1.0"
-source = "git+https://github.com/linebender/color.git?rev=bccd4050607eba830cfba3b2f39616a27500288a#bccd4050607eba830cfba3b2f39616a27500288a"
+source = "git+https://github.com/linebender/color.git?rev=a4fa61aff6c3f292b729dc409e7832e5f0166e4a#a4fa61aff6c3f292b729dc409e7832e5f0166e4a"
 dependencies = [
  "libm",
  "serde",
