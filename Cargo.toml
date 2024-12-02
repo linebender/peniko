@@ -20,10 +20,10 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["color/std", "kurbo/std"]
+std = ["color/std", "kurbo/std", "raw_resource_handle/std"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
-serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde"]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
@@ -36,17 +36,17 @@ rev = "a4fa61aff6c3f292b729dc409e7832e5f0166e4a"
 version = "0.1.0"
 default-features = false
 
+[dependencies.raw_resource_handle]
+git = "https://github.com/linebender/raw_resource_handle.git"
+rev = "2a5cab3a137eff660baf99f9edeff87c5306e5d4"
+version = "0.1.0"
+default-features = false
+
 [dependencies.serde]
 version = "1.0.210"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
-
-[dependencies.serde_bytes]
-version = "0.11.15"
-optional = true
-default-features = false
-features = ["alloc"]
 
 [lints]
 rust.unsafe_code = "forbid"

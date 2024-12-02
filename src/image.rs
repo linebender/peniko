@@ -1,7 +1,9 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use super::{Blob, Extend};
+use crate::Extend;
+
+use raw_resource_handle::Blob;
 
 /// Defines the pixel format of an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
@@ -29,7 +31,6 @@ impl Format {
 
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Image {
     /// Blob containing the image data.
     pub data: Blob<u8>,
