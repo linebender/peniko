@@ -1,7 +1,7 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use super::{Color, Gradient, Image};
+use super::{Gradient, Image};
 
 use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
 
@@ -12,7 +12,7 @@ use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
-    Solid(Color),
+    Solid(AlphaColor<Srgb>),
     /// Gradient brush.
     Gradient(Gradient),
     /// Image brush.
@@ -51,7 +51,7 @@ impl From<Image> for Brush {
 
 impl Default for Brush {
     fn default() -> Self {
-        Self::Solid(Color::TRANSPARENT)
+        Self::Solid(AlphaColor::<Srgb>::TRANSPARENT)
     }
 }
 
@@ -102,7 +102,7 @@ impl Brush {
 #[derive(Copy, Clone, Debug)]
 pub enum BrushRef<'a> {
     /// Solid color brush.
-    Solid(Color),
+    Solid(AlphaColor<Srgb>),
     /// Gradient brush.
     Gradient(&'a Gradient),
     /// Image brush.
