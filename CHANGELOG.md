@@ -19,7 +19,7 @@ This release has an [MSRV] of 1.82.
 
 - `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
 - `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
-- `Compose`, `Extend`, `Fill`, and `Mix` now optional impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
+- `Compose`, `Extend`, `Fill`, and `Mix` now optionally impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
 
 ### Changed
 
@@ -32,7 +32,7 @@ The old code behind `peniko::Color` has been removed and color functionality is 
 
 This leads to a number of breaking changes:
 
-- `peniko::Color` is now a type alias for `AlphaColor<Srgb>` from the `color` crate.
+- `peniko::Color` is gone now and what you probably want is `AlphaColor<Srgb>` from the `color` crate.
 - `AlphaColor` does not, at this time, impl `Default`, `PartialOrd`, or `Hash`.
 - `ColorStop` no longer impls `Default` or `PartialOrd`.
 - `Brush`, `BrushRef`, and `ColorStop` can be constructed from a variety of color types, although, for now, `Brush` and `BrushRef` convert this internally into an unclipped `AlphaColor<Srgb>`.

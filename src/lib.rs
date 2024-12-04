@@ -51,9 +51,6 @@ pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKi
 pub use image::{Format, Image};
 pub use style::{Fill, Style, StyleRef};
 
-/// A convenient alias for the color type used for [`Brush`].
-pub type Color = color::AlphaColor<color::Srgb>;
-
 #[cfg(test)]
 mod tests {
     // CI will fail unless cargo nextest can execute at least one test per workspace.
