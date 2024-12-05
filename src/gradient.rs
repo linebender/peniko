@@ -3,11 +3,16 @@
 
 use super::Extend;
 
-use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor};
+use color::{AlphaColor, ColorSpace, ColorSpaceTag, DynamicColor, HueDirection, OpaqueColor};
 use kurbo::Point;
 use smallvec::SmallVec;
 
 use core::hash::{Hash, Hasher};
+
+/// The default for `Gradient::interpolation_cs`.
+// This is intentionally not `pub` and is here in case we change it
+// in the future.
+const DEFAULT_GRADIENT_COLOR_SPACE: ColorSpaceTag = ColorSpaceTag::Srgb;
 
 /// Offset and color of a transition point in a [gradient](Gradient).
 #[derive(Copy, Clone, Debug)]
@@ -141,6 +146,18 @@ pub struct Gradient {
     pub kind: GradientKind,
     /// Extend mode.
     pub extend: Extend,
+    /// The color space to be used for interpolation.
+    ///
+    /// The colors in the color stops will be converted to this color space.
+    ///
+    /// This defaults to [sRGB](ColorSpaceTag::Srgb).
+    pub interpolation_cs: ColorSpaceTag,
+    /// When interpolating within a cylindrical color space, the direction for the hue.
+    ///
+    /// This is interpreted as described in [CSS Color Module Level 4 § 12.4].
+    ///
+    /// [CSS Color Module Level 4 § 12.4]: https://drafts.csswg.org/css-color/#hue-interpolation
+    pub hue_direction: HueDirection,
     /// Color stop collection.
     pub stops: ColorStops,
 }
@@ -153,6 +170,8 @@ impl Default for Gradient {
                 end: Point::default(),
             },
             extend: Default::default(),
+            interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
+            hue_direction: Default::default(),
             stops: Default::default(),
         }
     }
@@ -167,6 +186,8 @@ impl Gradient {
                 end: end.into(),
             },
             extend: Default::default(),
+            interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
+            hue_direction: Default::default(),
             stops: Default::default(),
         }
     }
@@ -182,6 +203,8 @@ impl Gradient {
                 end_radius: radius,
             },
             extend: Default::default(),
+            interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
+            hue_direction: Default::default(),
             stops: Default::default(),
         }
     }
@@ -201,6 +224,8 @@ impl Gradient {
                 end_radius,
             },
             extend: Default::default(),
+            interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
+            hue_direction: Default::default(),
             stops: Default::default(),
         }
     }
@@ -215,6 +240,8 @@ impl Gradient {
                 end_angle,
             },
             extend: Default::default(),
+            interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
+            hue_direction: Default::default(),
             stops: Default::default(),
         }
     }
@@ -223,6 +250,20 @@ impl Gradient {
     #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
+        self
+    }
+
+    /// Builder method for setting the interpolation color space.
+    #[must_use]
+    pub fn with_interpolation_cs(mut self, interpolation_cs: ColorSpaceTag) -> Self {
+        self.interpolation_cs = interpolation_cs;
+        self
+    }
+
+    /// Builder method for setting the hue direction when interpolating within a cylindrical color space.
+    #[must_use]
+    pub fn with_hue_direction(mut self, hue_direction: HueDirection) -> Self {
+        self.hue_direction = hue_direction;
         self
     }
 
