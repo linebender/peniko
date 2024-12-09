@@ -4,7 +4,7 @@
 /// Defines the color mixing function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[repr(C)]
+#[repr(u8)]
 pub enum Mix {
     /// Default attribute which specifies no blending. The blending formula simply selects the source color.
     Normal = 0,
@@ -52,12 +52,13 @@ pub enum Mix {
     /// Clip is the same as normal, but the latter always creates an isolated blend group and the
     /// former can optimize that out.
     Clip = 128,
+    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
 }
 
 /// Defines the layer composition function for a [blend operation](BlendMode).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[repr(C)]
+#[repr(u8)]
 pub enum Compose {
     /// No regions are enabled.
     Clear = 0,
@@ -90,6 +91,7 @@ pub enum Compose {
     /// Allows two elements to cross fade by changing their opacities from 0 to 1 on one
     /// element and 1 to 0 on the other element.
     PlusLighter = 13,
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
 }
 
 /// Blend mode consisting of [color mixing](Mix) and [composition functions](Compose).

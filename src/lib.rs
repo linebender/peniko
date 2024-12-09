@@ -34,6 +34,9 @@ mod gradient;
 mod image;
 mod style;
 
+#[cfg(feature = "bytemuck")]
+mod impl_bytemuck;
+
 /// Re-export of the color library.
 pub use color;
 
