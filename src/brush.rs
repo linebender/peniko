@@ -8,7 +8,7 @@ use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
 /// Describes the color content of a filled or stroked shape.
 ///
 /// See also [`BrushRef`] which can be used to avoid allocations.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Brush {
     /// Solid color brush.
@@ -99,7 +99,7 @@ impl Brush {
     target_pointer_width = "32",
     expect(variant_size_differences, reason = "We're okay with this.")
 )]
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BrushRef<'a> {
     /// Solid color brush.
     Solid(AlphaColor<Srgb>),

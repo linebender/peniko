@@ -33,8 +33,7 @@ The old code behind `peniko::Color` has been removed and color functionality is 
 This leads to a number of breaking changes:
 
 - `peniko::Color` is now a type alias for `AlphaColor<Srgb>` from the `color` crate.
-- `AlphaColor` does not, at this time, impl `Default`, `PartialEq`, `PartialOrd`, or `Hash`.
-- `Brush` and `BrushRef` no longer impl `PartialEq`.
+- `AlphaColor` does not, at this time, impl `Default`, `PartialOrd`, or `Hash`.
 - `ColorStop` no longer impls `Default` or `PartialOrd`.
 - `Brush`, `BrushRef`, and `ColorStop` can be constructed from a variety of color types, although, for now, `Brush` and `BrushRef` convert this internally into an unclipped `AlphaColor<Srgb>`.
 - The `color` crate is re-exported as `peniko::color`, so access to functionality from there is easy.
