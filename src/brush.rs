@@ -183,12 +183,13 @@ impl<'a> From<&'a Brush> for BrushRef<'a> {
 /// fill a shape.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[repr(u8)]
 pub enum Extend {
     /// Extends the image by repeating the edge color of the brush.
     #[default]
-    Pad,
+    Pad = 0,
     /// Extends the image by repeating the brush.
-    Repeat,
+    Repeat = 1,
     /// Extends the image by reflecting the brush.
-    Reflect,
+    Reflect = 2,
 }

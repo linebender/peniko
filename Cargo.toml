@@ -21,6 +21,7 @@ targets = []
 [features]
 default = ["std"]
 std = ["color/std", "kurbo/std"]
+bytemuck = ["color/bytemuck", "dep:bytemuck"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
 serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
@@ -29,6 +30,11 @@ serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep
 # NOTE: Make sure to keep this in sync with the version badge in README.md
 kurbo = { version = "0.11.1", default-features = false }
 smallvec = "1.13.2"
+
+[dependencies.bytemuck]
+version = "1.20.0"
+optional = true
+default-features = false
 
 [dependencies.color]
 git = "https://github.com/linebender/color.git"
@@ -49,7 +55,7 @@ default-features = false
 features = ["alloc"]
 
 [lints]
-rust.unsafe_code = "forbid"
+rust.unsafe_code = "deny"
 
 # LINEBENDER LINT SET - Cargo.toml - v2
 # See https://linebender.org/wiki/canonical-lints/
