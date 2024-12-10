@@ -17,7 +17,7 @@ checksum = "8b37c88a63ffd85d15b406896cc343916d7cf57838a847b3a6f2ca5d39a5695a"
 [[package]]
 name = "color"
 version = "0.1.0"
-source = "git+https://github.com/linebender/color.git?rev=2782bd6cb05c5f82a157c8f7f0ebe7a47760a2c0#2782bd6cb05c5f82a157c8f7f0ebe7a47760a2c0"
+source = "git+https://github.com/linebender/color.git?rev=f82649b205aedab1d86de98fdce858cb80e8e482#f82649b205aedab1d86de98fdce858cb80e8e482"
 dependencies = [
  "bytemuck",
  "libm",
