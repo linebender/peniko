@@ -6,11 +6,13 @@ use kurbo::Stroke;
 /// Describes the rule that determines the interior portion of a shape.
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[repr(u8)]
 pub enum Fill {
     /// Non-zero fill rule.
-    NonZero,
+    NonZero = 0,
     /// Even-odd fill rule.
-    EvenOdd,
+    EvenOdd = 1,
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
 }
 
 /// Describes draw style-- either a [fill](Fill) or [stroke](Stroke).

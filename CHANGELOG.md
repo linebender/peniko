@@ -15,12 +15,16 @@ You can find its changes [documented below](#020-2024-09-19).
 
 This release has an [MSRV] of 1.82.
 
+### Added
+
+- `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
+- `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
+- `Compose`, `Extend`, `Fill`, and `Mix` now optional impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
+
 ### Changed
 
 - `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
 - Use `color` crate. See below for details ([#63][] by [@waywardmonkeys][])
-- `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
-- `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
 
 ### Color Changes
 
@@ -80,6 +84,7 @@ This release has an [MSRV] of 1.70.
 [#65]: https://github.com/linebender/peniko/pull/65
 [#67]: https://github.com/linebender/peniko/pull/67
 [#71]: https://github.com/linebender/peniko/pull/71
+[#72]: https://github.com/linebender/peniko/pull/72
 
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice
