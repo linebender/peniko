@@ -43,7 +43,7 @@ version = "0.1.0"
 default-features = false
 
 [dependencies.serde]
-version = "1.0.210"
+version = "1.0.216"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
