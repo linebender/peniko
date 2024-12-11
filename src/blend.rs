@@ -32,7 +32,7 @@ pub enum Mix {
     SoftLight = 9,
     /// Subtracts the darker of the two constituent colors from the lighter color.
     Difference = 10,
-    /// Produces an effect similar to that of the Difference mode but lower in contrast. Painting
+    /// Produces an effect similar to that of the `Difference` mode but lower in contrast. Painting
     /// with white inverts the backdrop color; painting with black produces no change.
     Exclusion = 11,
     /// Creates a color with the hue of the source color and the saturation and luminosity of the
@@ -47,9 +47,9 @@ pub enum Mix {
     /// monochrome images or tinting color images.
     Color = 14,
     /// Creates a color with the luminosity of the source color and the hue and saturation of the
-    /// backdrop color. This produces an inverse effect to that of the Color mode.
+    /// backdrop color. This produces an inverse effect to that of the `Color` mode.
     Luminosity = 15,
-    /// Clip is the same as normal, but the latter always creates an isolated blend group and the
+    /// `Clip` is the same as `Normal`, but the latter always creates an isolated blend group and the
     /// former can optimize that out.
     Clip = 128,
     // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
