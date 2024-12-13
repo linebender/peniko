@@ -108,7 +108,7 @@ impl BlendMode {
     /// Creates a new blend mode from color mixing and layer composition
     /// functions.
     #[must_use]
-    pub fn new(mix: Mix, compose: Compose) -> Self {
+    pub const fn new(mix: Mix, compose: Compose) -> Self {
         Self { mix, compose }
     }
 }

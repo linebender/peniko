@@ -48,7 +48,7 @@ impl BitEq for ColorStop {
 impl ColorStop {
     /// Returns the color stop with the alpha component set to `alpha`.
     #[must_use]
-    pub fn with_alpha(self, alpha: f32) -> Self {
+    pub const fn with_alpha(self, alpha: f32) -> Self {
         Self {
             offset: self.offset,
             color: self.color.with_alpha(alpha),
@@ -60,7 +60,7 @@ impl ColorStop {
     ///
     /// If any resulting alphas would overflow, these currently saturate (to opaque).
     #[must_use]
-    pub fn multiply_alpha(self, alpha: f32) -> Self {
+    pub const fn multiply_alpha(self, alpha: f32) -> Self {
         Self {
             offset: self.offset,
             color: self.color.multiply_alpha(alpha),
@@ -276,21 +276,21 @@ impl Gradient {
 
     /// Builder method for setting the gradient extend mode.
     #[must_use]
-    pub fn with_extend(mut self, mode: Extend) -> Self {
+    pub const fn with_extend(mut self, mode: Extend) -> Self {
         self.extend = mode;
         self
     }
 
     /// Builder method for setting the interpolation color space.
     #[must_use]
-    pub fn with_interpolation_cs(mut self, interpolation_cs: ColorSpaceTag) -> Self {
+    pub const fn with_interpolation_cs(mut self, interpolation_cs: ColorSpaceTag) -> Self {
         self.interpolation_cs = interpolation_cs;
         self
     }
 
     /// Builder method for setting the hue direction when interpolating within a cylindrical color space.
     #[must_use]
-    pub fn with_hue_direction(mut self, hue_direction: HueDirection) -> Self {
+    pub const fn with_hue_direction(mut self, hue_direction: HueDirection) -> Self {
         self.hue_direction = hue_direction;
         self
     }
