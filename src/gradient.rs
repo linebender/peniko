@@ -413,3 +413,34 @@ impl<const N: usize, CS: ColorSpace> ColorStopsSource for [OpaqueColor<CS>; N] {
         (&self[..]).collect_stops(vec);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::Gradient;
+    use color::{cache_key::CacheKey, palette, parse_color};
+    use std::collections::HashSet;
+
+    #[test]
+    fn color_stops_cache() {
+        let mut set = HashSet::new();
+        let stops = Gradient::default()
+            .with_stops([palette::css::RED, palette::css::LIME, palette::css::BLUE])
+            .stops;
+        let stops_clone = stops.clone();
+        let parsed_gradient = Gradient::default().with_stops(
+            vec![
+                parse_color("red").unwrap(),
+                parse_color("lime").unwrap(),
+                parse_color("blue").unwrap(),
+            ]
+            .as_slice(),
+        );
+        let parsed_stops = parsed_gradient.stops.clone();
+        set.insert(CacheKey(stops));
+        // TODO: Ideally this wouldn't need to turn more_stops into a `CacheKey`;
+        assert!(set.contains(&CacheKey(stops_clone)));
+        set.insert(CacheKey(parsed_stops));
+        let new_grad = parsed_gradient.clone();
+        assert!(set.contains(&CacheKey(new_grad.stops)));
+    }
+}
