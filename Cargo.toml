@@ -38,7 +38,7 @@ default-features = false
 
 [dependencies.color]
 git = "https://github.com/linebender/color.git"
-rev = "f82649b205aedab1d86de98fdce858cb80e8e482"
+rev = "76f412cba917fd5fd08eda366ba7083f296a16d6"
 version = "0.1.0"
 default-features = false
 

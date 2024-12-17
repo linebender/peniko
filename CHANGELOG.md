@@ -37,6 +37,8 @@ This leads to a number of breaking changes:
 - `AlphaColor` does not, at this time, impl `Default`, `PartialOrd`, or `Hash`.
 - `ColorStop` no longer impls `Default` or `PartialOrd`.
 - `Brush`, `BrushRef`, and `ColorStop` can be constructed from a variety of color types, although, for now, `Brush` and `BrushRef` convert this internally into an unclipped `AlphaColor<Srgb>`.
+- `ColorStops` is now a newtype wrapper, rather than a type alias for `SmallVec`.
+  This allows it to be used with `CacheKey` from Color.
 - The `color` crate is re-exported as `peniko::color`, so access to functionality from there is easy.
 - The various pre-defined color constants like `peniko::Color::YELLOW` are no longer available.
   Instead, use the CSS palette provided within `color`:  `peniko::color::palette::css::YELLOW`.
