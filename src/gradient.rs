@@ -66,17 +66,6 @@ impl ColorStop {
             color: self.color.multiply_alpha(alpha),
         }
     }
-
-    /// Returns the color stop with the alpha component multiplied by the specified
-    /// factor.
-    #[must_use]
-    #[deprecated(
-        since = "0.2.0",
-        note = "This method has been renamed to `multiply_alpha`."
-    )]
-    pub fn with_alpha_factor(self, alpha: f32) -> Self {
-        self.multiply_alpha(alpha)
-    }
 }
 
 impl<CS: ColorSpace> From<(f32, AlphaColor<CS>)> for ColorStop {
