@@ -108,6 +108,7 @@ impl<CS: ColorSpace> From<(f32, OpaqueColor<CS>)> for ColorStop {
 
 /// Collection of color stops.
 #[derive(Clone, PartialEq, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ColorStops(pub SmallVec<[ColorStop; 4]>);
 
 impl Deref for ColorStops {
