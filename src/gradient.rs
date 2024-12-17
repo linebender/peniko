@@ -3,11 +3,17 @@
 
 use super::Extend;
 
-use color::{AlphaColor, ColorSpace, ColorSpaceTag, DynamicColor, HueDirection, OpaqueColor};
+use color::{
+    cache_key::{BitEq, BitHash},
+    AlphaColor, ColorSpace, ColorSpaceTag, DynamicColor, HueDirection, OpaqueColor,
+};
 use kurbo::Point;
 use smallvec::SmallVec;
 
-use core::hash::{Hash, Hasher};
+use core::{
+    hash::Hasher,
+    ops::{Deref, DerefMut},
+};
 
 /// The default for `Gradient::interpolation_cs`.
 // This is intentionally not `pub` and is here in case we change it
@@ -15,7 +21,9 @@ use core::hash::{Hash, Hasher};
 const DEFAULT_GRADIENT_COLOR_SPACE: ColorSpaceTag = ColorSpaceTag::Srgb;
 
 /// Offset and color of a transition point in a [gradient](Gradient).
-#[derive(Copy, Clone, Debug)]
+///
+/// Color stops are compatible with use as a cache key.
+#[derive(Copy, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ColorStop {
     /// Normalized offset of the stop.
@@ -24,21 +32,18 @@ pub struct ColorStop {
     pub color: DynamicColor,
 }
 
-impl Hash for ColorStop {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        self.offset.to_bits().hash(state);
-        self.color.hash(state);
+impl BitHash for ColorStop {
+    fn bit_hash<H: Hasher>(&self, state: &mut H) {
+        self.offset.bit_hash(state);
+        self.color.bit_hash(state);
     }
 }
 
-// Override PartialEq to use to_bits for the offset to match with the Hash impl
-impl PartialEq for ColorStop {
-    fn eq(&self, other: &Self) -> bool {
-        self.offset.to_bits() == other.offset.to_bits() && self.color == other.color
+impl BitEq for ColorStop {
+    fn bit_eq(&self, other: &Self) -> bool {
+        self.offset.bit_eq(&other.offset) && self.color.bit_eq(&other.color)
     }
 }
-
-impl Eq for ColorStop {}
 
 impl ColorStop {
     /// Returns the color stop with the alpha component set to `alpha`.
@@ -102,7 +107,40 @@ impl<CS: ColorSpace> From<(f32, OpaqueColor<CS>)> for ColorStop {
 }
 
 /// Collection of color stops.
-pub type ColorStops = SmallVec<[ColorStop; 4]>;
+#[derive(Clone, PartialEq, Debug, Default)]
+pub struct ColorStops(pub SmallVec<[ColorStop; 4]>);
+
+impl Deref for ColorStops {
+    type Target = SmallVec<[ColorStop; 4]>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for ColorStops {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl ColorStops {
+    /// Construct an empty collection of stops.
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+
+impl BitEq for ColorStops {
+    fn bit_eq(&self, other: &Self) -> bool {
+        self.as_slice().bit_eq(other.as_slice())
+    }
+}
+
+impl BitHash for ColorStops {
+    fn bit_hash<H: Hasher>(&self, state: &mut H) {
+        self.as_slice().bit_hash(state);
+    }
+}
 
 /// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
