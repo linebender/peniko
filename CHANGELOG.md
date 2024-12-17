@@ -20,6 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
 - `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
 - `Compose`, `Extend`, `Fill`, and `Mix` now optional impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
+- Add x/y extend modes and quality hint to images, rename `Format` to `ImageFormat` ([#77][] by [@dfrg][])
 
 ### Changed
 
@@ -84,7 +85,9 @@ This release has an [MSRV] of 1.70.
 [#67]: https://github.com/linebender/peniko/pull/67
 [#71]: https://github.com/linebender/peniko/pull/71
 [#72]: https://github.com/linebender/peniko/pull/72
+[#77]: https://github.com/linebender/peniko/pull/77
 
+[@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
