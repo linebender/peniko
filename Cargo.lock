@@ -16,8 +16,9 @@ checksum = "8b37c88a63ffd85d15b406896cc343916d7cf57838a847b3a6f2ca5d39a5695a"
 
 [[package]]
 name = "color"
-version = "0.1.0"
-source = "git+https://github.com/linebender/color.git?rev=76f412cba917fd5fd08eda366ba7083f296a16d6#76f412cba917fd5fd08eda366ba7083f296a16d6"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "212bb4103d3dc3eca9f7b665588528dee3a42fc03272b2db5ffa3010dc84b39c"
 dependencies = [
  "bytemuck",
  "libm",
