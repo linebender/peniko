@@ -6,7 +6,7 @@
 
 [![Linebender Zulip, #kurbo stream](https://img.shields.io/badge/Linebender-%23kurbo-red?logo=Zulip)](https://xi.zulipchat.com/#narrow/stream/260979-kurbo)
 [![dependency status](https://deps.rs/repo/github/linebender/peniko/status.svg)](https://deps.rs/repo/github/linebender/peniko)
-[![MIT/Apache 2.0](https://img.shields.io/badge/license-MIT%2FApache-blue.svg)](#license)
+[![Apache 2.0 or MIT license.](https://img.shields.io/badge/license-Apache--2.0_OR_MIT-blue.svg)](#license)
 [![kurbo version 0.11.1](https://img.shields.io/badge/kurbo-v0.11.1-orange.svg)](https://crates.io/crates/kurbo)
 [![Build status](https://github.com/linebender/peniko/workflows/CI/badge.svg)](https://github.com/linebender/peniko/actions)
 [![Crates.io](https://img.shields.io/crates/v/peniko.svg)](https://crates.io/crates/peniko)
