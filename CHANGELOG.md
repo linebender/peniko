@@ -26,6 +26,7 @@ This release has an [MSRV] of 1.82.
 
 - `Image` now stores the alpha as an `f32` ([#65][] by [@waywardmonkeys][])
 - Use `color` crate. See below for details ([#63][] by [@waywardmonkeys][])
+- `ColorStopsSource::collect_stops` now consumes `self` ([#87][] by [@waywardmonkeys][])
 
 ### Removed
 
@@ -93,6 +94,7 @@ This release has an [MSRV] of 1.70.
 [#72]: https://github.com/linebender/peniko/pull/72
 [#77]: https://github.com/linebender/peniko/pull/77
 [#82]: https://github.com/linebender/peniko/pull/82
+[#87]: https://github.com/linebender/peniko/pull/87
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab

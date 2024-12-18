@@ -332,15 +332,15 @@ impl Gradient {
 /// Trait for types that represent a source of color stops.
 pub trait ColorStopsSource {
     /// Append the stops represented within `self` into `stops`.
-    fn collect_stops(&self, stops: &mut ColorStops);
+    fn collect_stops(self, stops: &mut ColorStops);
 }
 
 impl<T> ColorStopsSource for &'_ [T]
 where
     T: Into<ColorStop> + Copy,
 {
-    fn collect_stops(&self, stops: &mut ColorStops) {
-        for &stop in *self {
+    fn collect_stops(self, stops: &mut ColorStops) {
+        for &stop in self {
             stops.push(stop.into());
         }
     }
@@ -348,17 +348,17 @@ where
 
 impl<T, const N: usize> ColorStopsSource for [T; N]
 where
-    T: Into<ColorStop> + Copy,
+    T: Into<ColorStop>,
 {
-    fn collect_stops(&self, stops: &mut ColorStops) {
-        for stop in *self {
+    fn collect_stops(self, stops: &mut ColorStops) {
+        for stop in self.into_iter() {
             stops.push(stop.into());
         }
     }
 }
 
 impl<CS: ColorSpace> ColorStopsSource for &'_ [AlphaColor<CS>] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
             stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
@@ -370,7 +370,7 @@ impl<CS: ColorSpace> ColorStopsSource for &'_ [AlphaColor<CS>] {
 }
 
 impl ColorStopsSource for &'_ [DynamicColor] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
             stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
@@ -382,7 +382,7 @@ impl ColorStopsSource for &'_ [DynamicColor] {
 }
 
 impl<CS: ColorSpace> ColorStopsSource for &'_ [OpaqueColor<CS>] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
             stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
@@ -394,17 +394,17 @@ impl<CS: ColorSpace> ColorStopsSource for &'_ [OpaqueColor<CS>] {
 }
 
 impl<const N: usize, CS: ColorSpace> ColorStopsSource for [AlphaColor<CS>; N] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         (&self[..]).collect_stops(stops);
     }
 }
 impl<const N: usize> ColorStopsSource for [DynamicColor; N] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         (&self[..]).collect_stops(stops);
     }
 }
 impl<const N: usize, CS: ColorSpace> ColorStopsSource for [OpaqueColor<CS>; N] {
-    fn collect_stops(&self, stops: &mut ColorStops) {
+    fn collect_stops(self, stops: &mut ColorStops) {
         (&self[..]).collect_stops(stops);
     }
 }
