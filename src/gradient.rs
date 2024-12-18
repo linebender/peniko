@@ -132,6 +132,12 @@ impl BitHash for ColorStops {
     }
 }
 
+impl From<&[ColorStop]> for ColorStops {
+    fn from(slice: &[ColorStop]) -> Self {
+        Self(slice.into())
+    }
+}
+
 /// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
