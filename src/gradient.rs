@@ -331,17 +331,17 @@ impl Gradient {
 
 /// Trait for types that represent a source of color stops.
 pub trait ColorStopsSource {
-    /// Append the stops represented within `self` into `vec`.
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>);
+    /// Append the stops represented within `self` into `stops`.
+    fn collect_stops(&self, stops: &mut ColorStops);
 }
 
 impl<T> ColorStopsSource for &'_ [T]
 where
     T: Into<ColorStop> + Copy,
 {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+    fn collect_stops(&self, stops: &mut ColorStops) {
         for &stop in *self {
-            vec.push(stop.into());
+            stops.push(stop.into());
         }
     }
 }
@@ -350,18 +350,18 @@ impl<T, const N: usize> ColorStopsSource for [T; N]
 where
     T: Into<ColorStop> + Copy,
 {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+    fn collect_stops(&self, stops: &mut ColorStops) {
         for stop in *self {
-            vec.push(stop.into());
+            stops.push(stop.into());
         }
     }
 }
 
 impl<CS: ColorSpace> ColorStopsSource for &'_ [AlphaColor<CS>] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+    fn collect_stops(&self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
-            vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
+            stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
                 offset: (i as f32) / denom,
                 color: DynamicColor::from_alpha_color(*c),
             }));
@@ -370,10 +370,10 @@ impl<CS: ColorSpace> ColorStopsSource for &'_ [AlphaColor<CS>] {
 }
 
 impl ColorStopsSource for &'_ [DynamicColor] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+    fn collect_stops(&self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
-            vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
+            stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
                 offset: (i as f32) / denom,
                 color: (*c),
             }));
@@ -382,10 +382,10 @@ impl ColorStopsSource for &'_ [DynamicColor] {
 }
 
 impl<CS: ColorSpace> ColorStopsSource for &'_ [OpaqueColor<CS>] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
+    fn collect_stops(&self, stops: &mut ColorStops) {
         if !self.is_empty() {
             let denom = (self.len() - 1).max(1) as f32;
-            vec.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
+            stops.extend(self.iter().enumerate().map(|(i, c)| ColorStop {
                 offset: (i as f32) / denom,
                 color: DynamicColor::from_alpha_color((*c).with_alpha(1.)),
             }));
@@ -394,18 +394,18 @@ impl<CS: ColorSpace> ColorStopsSource for &'_ [OpaqueColor<CS>] {
 }
 
 impl<const N: usize, CS: ColorSpace> ColorStopsSource for [AlphaColor<CS>; N] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
-        (&self[..]).collect_stops(vec);
+    fn collect_stops(&self, stops: &mut ColorStops) {
+        (&self[..]).collect_stops(stops);
     }
 }
 impl<const N: usize> ColorStopsSource for [DynamicColor; N] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
-        (&self[..]).collect_stops(vec);
+    fn collect_stops(&self, stops: &mut ColorStops) {
+        (&self[..]).collect_stops(stops);
     }
 }
 impl<const N: usize, CS: ColorSpace> ColorStopsSource for [OpaqueColor<CS>; N] {
-    fn collect_stops(&self, vec: &mut SmallVec<[ColorStop; 4]>) {
-        (&self[..]).collect_stops(vec);
+    fn collect_stops(&self, stops: &mut ColorStops) {
+        (&self[..]).collect_stops(stops);
     }
 }
 
