@@ -8,10 +8,14 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-The latest published Peniko release is [0.2.0](#020-2024-09-19) which was released on 2024-09-19.
-You can find its changes [documented below](#020-2024-09-19).
+The latest published Peniko release is [0.3.0](#030-2024-12-18) which was released on 2024-12-18.
+You can find its changes [documented below](#030-2024-12-18).
 
 ## [Unreleased]
+
+This release has an [MSRV] of 1.82.
+
+## [0.3.0][] (2024-12-18)
 
 This release has an [MSRV] of 1.82.
 
@@ -19,7 +23,7 @@ This release has an [MSRV] of 1.82.
 
 - `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
 - `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
-- `Compose`, `Extend`, `Fill`, and `Mix` now optional impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
+- `Compose`, `Extend`, `Fill`, and `Mix` now optionally impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
 - Add x/y extend modes and quality hint to images, rename `Format` to `ImageFormat` ([#77][] by [@dfrg][])
 
 ### Changed
@@ -101,7 +105,8 @@ This release has an [MSRV] of 1.70.
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
-[Unreleased]: https://github.com/linebender/peniko/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/linebender/peniko/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/linebender/peniko/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/linebender/peniko/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/linebender/peniko/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/linebender/peniko/releases/tag/v0.1.0
