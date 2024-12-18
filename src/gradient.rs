@@ -348,10 +348,10 @@ where
 
 impl<T, const N: usize> ColorStopsSource for [T; N]
 where
-    T: Into<ColorStop> + Copy,
+    T: Into<ColorStop>,
 {
     fn collect_stops(self, stops: &mut ColorStops) {
-        for &stop in &self {
+        for stop in self.into_iter() {
             stops.push(stop.into());
         }
     }
