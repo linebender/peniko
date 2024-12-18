@@ -11,6 +11,7 @@ readme = "README.md"
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
 rust-version = "1.82"
+exclude = [".github", ".clippy.toml", ".gitignore", ".typos.toml"]
 
 [package.metadata.docs.rs]
 all-features = true
