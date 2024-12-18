@@ -23,7 +23,7 @@ This release has an [MSRV] of 1.82.
 
 - `Gradient`, `Image`, `Brush` now have `with_alpha` and `Gradient` also gets a `multiply_alpha` ([#67][] by [@waywardmonkeys][])
 - `Gradient` now tracks a hue direction and interpolation color space ([#71][] by [@waywardmonkeys][])
-- `Compose`, `Extend`, `Fill`, and `Mix` now optional impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
+- `Compose`, `Extend`, `Fill`, and `Mix` now optionally impl `bytemuck` traits ([#72][] by [@waywardmonkeys][])
 - Add x/y extend modes and quality hint to images, rename `Format` to `ImageFormat` ([#77][] by [@dfrg][])
 
 ### Changed
