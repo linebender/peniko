@@ -16,8 +16,7 @@
 
 The Peniko library builds on top of [kurbo] and [color] and provides a set of generic types that define styles for rendering and composition.
 
-The name "Peniko" is Esperanto for "brush" which is one family of types that the library
-contains.
+The name "Peniko" is Esperanto for "brush" which is one family of types that the library contains.
 
 ## Minimum supported Rust Version (MSRV)
 
@@ -49,10 +48,8 @@ All public content can be read without logging in.
 
 Licensed under either of
 
-- Apache License, Version 2.0
-   ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
-- MIT license
-   ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
+- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or <http://www.apache.org/licenses/LICENSE-2.0>)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>)
 
 at your option.
 
@@ -61,9 +58,7 @@ at your option.
 Contributions are welcome by pull request. The [Rust code of conduct] applies.
 Please feel free to add your name to the [AUTHORS] file in any substantive pull request.
 
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
-licensed as above, without any additional terms or conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be licensed as above, without any additional terms or conditions.
 
 [color]: https://crates.io/crates/color
 [kurbo]: https://crates.io/crates/kurbo
