@@ -38,7 +38,7 @@ optional = true
 default-features = false
 
 [dependencies.color]
-version = "0.2.2"
+version = "0.2.3"
 default-features = false
 
 [dependencies.serde]

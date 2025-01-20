@@ -8,12 +8,20 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-The latest published Peniko release is [0.3.0](#030-2024-12-18) which was released on 2024-12-18.
-You can find its changes [documented below](#030-2024-12-18).
+The latest published Peniko release is [0.3.1](#030-2025-01-20) which was released on 2025-01-20.
+You can find its changes [documented below](#030-2025-01-20).
 
 ## [Unreleased]
 
 This release has an [MSRV] of 1.82.
+
+## [0.3.1][] (2025-01-20)
+
+This release has an [MSRV] of 1.82.
+
+### Changed
+
+- Update to `color` 0.2.3. ([#95][] by [@waywardmonkeys][])
 
 ## [0.3.0][] (2024-12-18)
 
@@ -99,13 +107,15 @@ This release has an [MSRV] of 1.70.
 [#77]: https://github.com/linebender/peniko/pull/77
 [#82]: https://github.com/linebender/peniko/pull/82
 [#87]: https://github.com/linebender/peniko/pull/87
+[#95]: https://github.com/linebender/peniko/pull/95
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
-[Unreleased]: https://github.com/linebender/peniko/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/linebender/peniko/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/linebender/peniko/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/linebender/peniko/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/linebender/peniko/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/linebender/peniko/compare/v0.1.0...v0.1.1
