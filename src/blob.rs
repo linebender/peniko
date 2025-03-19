@@ -118,7 +118,7 @@ impl<T> Blob<T> {
         self.data().len()
     }
 
-    /// Returns true if the blob is empty.
+    /// Returns `true` if the blob is empty.
     #[must_use]
     pub fn is_empty(&self) -> bool {
         self.len() == 0
