@@ -53,6 +53,9 @@ optional = true
 default-features = false
 features = ["alloc"]
 
+[dev-dependencies]
+hashbrown = { version = "0.15.2", default-features = false, features = ["default-hasher"] }
+
 [lints]
 rust.unsafe_code = "deny"
 

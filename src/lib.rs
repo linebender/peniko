@@ -20,7 +20,7 @@
 #![warn(clippy::print_stdout, clippy::print_stderr)]
 // END LINEBENDER LINT SET
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
-#![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
+#![no_std]
 #![expect(
     clippy::exhaustive_enums,
     reason = "Most of the enums are correctly exhaustive as this is a vocabulary crate."
