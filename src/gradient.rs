@@ -412,10 +412,11 @@ impl<const N: usize, CS: ColorSpace> ColorStopsSource for [OpaqueColor<CS>; N] {
 #[cfg(test)]
 mod tests {
     extern crate alloc;
+    extern crate std;
     use super::Gradient;
     use alloc::vec;
     use color::{cache_key::CacheKey, palette, parse_color};
-    use hashbrown::HashSet;
+    use std::collections::HashSet;
 
     #[test]
     fn color_stops_cache() {
