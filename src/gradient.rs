@@ -203,10 +203,10 @@ impl Default for Gradient {
                 start: Point::default(),
                 end: Point::default(),
             },
-            extend: Default::default(),
+            extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
-            hue_direction: Default::default(),
-            stops: Default::default(),
+            hue_direction: HueDirection::default(),
+            stops: ColorStops::default(),
         }
     }
 }
@@ -219,10 +219,10 @@ impl Gradient {
                 start: start.into(),
                 end: end.into(),
             },
-            extend: Default::default(),
+            extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
-            hue_direction: Default::default(),
-            stops: Default::default(),
+            hue_direction: HueDirection::default(),
+            stops: ColorStops::default(),
         }
     }
 
@@ -236,10 +236,10 @@ impl Gradient {
                 end_center: center,
                 end_radius: radius,
             },
-            extend: Default::default(),
+            extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
-            hue_direction: Default::default(),
-            stops: Default::default(),
+            hue_direction: HueDirection::default(),
+            stops: ColorStops::default(),
         }
     }
 
@@ -257,10 +257,10 @@ impl Gradient {
                 end_center: end_center.into(),
                 end_radius,
             },
-            extend: Default::default(),
+            extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
-            hue_direction: Default::default(),
-            stops: Default::default(),
+            hue_direction: HueDirection::default(),
+            stops: ColorStops::default(),
         }
     }
 
@@ -273,10 +273,10 @@ impl Gradient {
                 start_angle,
                 end_angle,
             },
-            extend: Default::default(),
+            extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
-            hue_direction: Default::default(),
-            stops: Default::default(),
+            hue_direction: HueDirection::default(),
+            stops: ColorStops::default(),
         }
     }
 
