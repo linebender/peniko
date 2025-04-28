@@ -29,26 +29,26 @@ serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
-kurbo = { version = "0.11.1", default-features = false }
-smallvec = "1.13.2"
+kurbo = { version = "0.11.2", default-features = false }
+smallvec = "1.15.0"
 
 [dependencies.bytemuck]
-version = "1.21.0"
+version = "1.23.0"
 optional = true
 default-features = false
 
 [dependencies.color]
-version = "0.2.3"
+version = "0.3.0"
 default-features = false
 
 [dependencies.serde]
-version = "1.0.216"
+version = "1.0.219"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
 
 [dependencies.serde_bytes]
-version = "0.11.15"
+version = "0.11.17"
 optional = true
 default-features = false
 features = ["alloc"]
