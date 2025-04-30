@@ -7,9 +7,11 @@ use super::{Blob, Extend};
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
+#[repr(u8)]
 pub enum ImageFormat {
     /// 32-bit RGBA with 8-bit channels.
-    Rgba8,
+    Rgba8 = 0,
+    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
 }
 
 impl ImageFormat {
@@ -30,20 +32,22 @@ impl ImageFormat {
 /// Defines the desired quality for sampling an [image](Image).
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[repr(u8)]
 pub enum ImageQuality {
     /// Lowest quality with best performance characteristics.
     ///
     /// This is typically nearest neighbor sampling.
-    Low,
+    Low = 0,
     /// Medium quality with reasonable performance characteristics.
     ///
     /// This is typically bilinear sampling.
     #[default]
-    Medium,
+    Medium = 1,
     /// Highest quality with worst performance characteristics.
     ///
     /// This is typically bicubic sampling.
-    High,
+    High = 2,
+    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
 }
 
 /// Owned shareable image resource.
