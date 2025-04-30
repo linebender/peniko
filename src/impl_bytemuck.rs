@@ -91,6 +91,10 @@ unsafe impl bytemuck::checked::CheckedBitPattern for ImageFormat {
     type Bits = u8;
 
     fn is_valid_bit_pattern(bits: &u8) -> bool {
+        #![expect(
+            clippy::absurd_extreme_comparisons,
+            reason = "There is only one value."
+        )]
         use bytemuck::Contiguous;
         // Don't need to compare against MIN_VALUE as this is u8 and 0 is the MIN_VALUE.
         *bits <= Self::MAX_VALUE
@@ -279,6 +283,10 @@ mod tests {
     /// Tests that the [`Contiguous`] impl for [`ImageFormat`] is not trivially incorrect.
     const _: () = {
         let mut value = 0;
+        #[expect(
+            clippy::absurd_extreme_comparisons,
+            reason = "There is only one value."
+        )]
         while value <= ImageFormat::MAX_VALUE {
             // Safety: In a const context, therefore if this makes an invalid ImageFormat, that will be detected.
             let it: ImageFormat = unsafe { ptr::read((&raw const value).cast()) };
