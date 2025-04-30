@@ -19,6 +19,10 @@ This release has an [MSRV] of 1.82.
 
 - `ImageQuality` and `ImageFormat` now optionally impl `bytemuck` traits ([#104][] by [@waywardmonkeys][])
 
+### Changed
+
+- Update to `color` 0.3.0. ([#103][] by [@waywardmonkeys][])
+
 ## [0.3.1][] (2025-01-20)
 
 This release has an [MSRV] of 1.82.
@@ -112,6 +116,7 @@ This release has an [MSRV] of 1.70.
 [#82]: https://github.com/linebender/peniko/pull/82
 [#87]: https://github.com/linebender/peniko/pull/87
 [#95]: https://github.com/linebender/peniko/pull/95
+[#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
 
 [@dfrg]: https://github.com/dfrg
