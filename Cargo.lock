@@ -52,7 +52,7 @@ checksum = "e53debba6bda7a793e5f99b8dacf19e626084f525f7829104ba9898f367d85ff"
 
 [[package]]
 name = "peniko"
-version = "0.3.1"
+version = "0.4.0"
 dependencies = [
  "bytemuck",
  "color",
