@@ -25,7 +25,13 @@ std = ["color/std", "kurbo/std"]
 bytemuck = ["color/bytemuck", "dep:bytemuck"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
-serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = [
+    "color/serde",
+    "smallvec/serde",
+    "kurbo/serde",
+    "dep:serde_bytes",
+    "dep:serde",
+]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
@@ -52,6 +58,11 @@ version = "0.11.15"
 optional = true
 default-features = false
 features = ["alloc"]
+
+# Depend on Peniko 0.4.0 for the semver trick
+[dependencies.peniko_04]
+package = "peniko"
+version = "0.4.0"
 
 [lints]
 rust.unsafe_code = "deny"
