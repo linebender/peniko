@@ -21,9 +21,9 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["color/std", "kurbo/std"]
+std = ["color/std", "kurbo/std", "peniko_04/std"]
 bytemuck = ["color/bytemuck", "dep:bytemuck"]
-libm = ["color/libm", "kurbo/libm"]
+libm = ["color/libm", "kurbo/libm", "peniko_04/libm"]
 mint = ["kurbo/mint"]
 serde = [
     "color/serde",
@@ -63,6 +63,7 @@ features = ["alloc"]
 [dependencies.peniko_04]
 package = "peniko"
 version = "0.4.0"
+default-features = false
 
 [lints]
 rust.unsafe_code = "deny"

@@ -30,6 +30,9 @@ name = "color"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "010263546cea9f9f8385a5b7aad534b9e6448e62a0d3bf9da29d583308dd11bb"
+dependencies = [
+ "libm",
+]
 
 [[package]]
 name = "kurbo"
