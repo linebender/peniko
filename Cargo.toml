@@ -29,7 +29,7 @@ serde = [
     "color/serde",
     "smallvec/serde",
     "kurbo/serde",
-    "dep:serde_bytes",
+    "peniko_04/serde",
     "dep:serde",
 ]
 
@@ -52,12 +52,6 @@ version = "1.0.216"
 optional = true
 default-features = false
 features = ["alloc", "derive"]
-
-[dependencies.serde_bytes]
-version = "0.11.15"
-optional = true
-default-features = false
-features = ["alloc"]
 
 # Depend on Peniko 0.4.0 for the semver trick
 [dependencies.peniko_04]
