@@ -182,7 +182,8 @@ pub struct Gradient {
     pub extend: Extend,
     /// The color space to be used for interpolation.
     ///
-    /// The colors in the color stops will be converted to this color space.
+    /// The gradient's color ramps will be interpolated linearly in this color space between the
+    /// specified color stops.
     ///
     /// This defaults to [sRGB](ColorSpaceTag::Srgb).
     pub interpolation_cs: ColorSpaceTag,
