@@ -21,11 +21,17 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["color/std", "kurbo/std"]
+std = ["color/std", "kurbo/std", "peniko_04/std"]
 bytemuck = ["color/bytemuck", "dep:bytemuck"]
-libm = ["color/libm", "kurbo/libm"]
+libm = ["color/libm", "kurbo/libm", "peniko_04/libm"]
 mint = ["kurbo/mint"]
-serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = [
+    "color/serde",
+    "smallvec/serde",
+    "kurbo/serde",
+    "peniko_04/serde",
+    "dep:serde",
+]
 
 [dependencies]
 # NOTE: Make sure to keep this in sync with the version badge in README.md
@@ -47,11 +53,11 @@ optional = true
 default-features = false
 features = ["alloc", "derive"]
 
-[dependencies.serde_bytes]
-version = "0.11.15"
-optional = true
+# Depend on Peniko 0.4.0 for the semver trick
+[dependencies.peniko_04]
+package = "peniko"
+version = "0.4.0"
 default-features = false
-features = ["alloc"]
 
 [lints]
 rust.unsafe_code = "deny"
