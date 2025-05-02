@@ -18,8 +18,8 @@ This release has an [MSRV] of 1.82.
 
 ## [0.3.2][] (2025-05-02)
 
-This change is a semver trick release. `Blob`, `WeakBlob` and `Font` are now the types from Peniko's 0.4.0,
-which have the same public API as in the 0.3.0 series.
+This change is a semver trick release, following the pattern documented at <https://github.com/dtolnay/semver-trick>.
+`Blob`, `WeakBlob` and `Font` are now the types from Peniko's 0.4.0, which have the same public API as in the 0.3.0 series.
 This enables compatibility between Vello 0.5.0 and Parley 0.3.0.
 
 ## [0.3.1][] (2025-01-20)
