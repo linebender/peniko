@@ -27,6 +27,14 @@ This release has an [MSRV] of 1.82.
 
 - Update to `color` 0.3.0. ([#103][] by [@waywardmonkeys][])
 
+## [0.3.2][] (2025-05-02)
+
+This release has an [MSRV] of 1.82.
+
+This change is a semver trick release, following the pattern documented at <https://github.com/dtolnay/semver-trick>.
+`Blob`, `WeakBlob` and `Font` are now the types from Peniko's 0.4.0, which have the same public API as in the 0.3.0 series.
+This enables compatibility between Vello 0.5.0 and Parley 0.3.0.
+
 ## [0.3.1][] (2025-01-20)
 
 This release has an [MSRV] of 1.82.
@@ -130,6 +138,7 @@ This release has an [MSRV] of 1.70.
 
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.4.0...HEAD
 [0.4.0]: https://github.com/linebender/peniko/compare/v0.3.1...v0.4.0
+[0.3.2]: https://github.com/linebender/peniko/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/linebender/peniko/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/linebender/peniko/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/linebender/peniko/compare/v0.1.1...v0.2.0
