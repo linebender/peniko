@@ -8,12 +8,19 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-The latest published Peniko release is [0.3.1](#030-2025-01-20) which was released on 2025-01-20.
-You can find its changes [documented below](#030-2025-01-20).
+This is a backport branch. For the latest releases, check the [changelog on main](https://github.com/linebender/peniko/blob/main/CHANGELOG.md).
+The latest published Peniko release in the 0.3.x series is [0.3.2](#032-2025-05-02) which was released on 2025-05-02.
+You can find its changes [documented below](#032-2025-05-02).
 
 ## [Unreleased]
 
 This release has an [MSRV] of 1.82.
+
+## [0.3.2][] (2025-05-02)
+
+This change is a semver trick release. `Blob`, `WeakBlob` and `Font` are now the types from Peniko's 0.4.0,
+which have the same public API as in the 0.3.0 series.
+This enables compatibility between Vello 0.5.0 and Parley 0.3.0.
 
 ## [0.3.1][] (2025-01-20)
 
@@ -115,6 +122,7 @@ This release has an [MSRV] of 1.70.
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.3.1...HEAD
+[0.3.2]: https://github.com/linebender/peniko/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/linebender/peniko/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/linebender/peniko/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/linebender/peniko/compare/v0.1.1...v0.2.0
