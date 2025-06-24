@@ -91,6 +91,12 @@ pub enum Compose {
     /// Allows two elements to cross fade by changing their opacities from 0 to 1 on one
     /// element and 1 to 0 on the other element.
     PlusLighter = 13,
+    /// The behavior of this mode is currently not exactly defined,
+    /// as spec discussions are still ongoing [w3c/fxtf-drafts#447],
+    /// but it's present here to prevent future breaking changes.
+    ///
+    /// [w3c/fxtf-drafts#447](https://github.com/w3c/fxtf-drafts/issues/447)
+    PlusDarker = 14,
     // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
 }
 
