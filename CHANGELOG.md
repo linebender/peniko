@@ -15,6 +15,10 @@ You can find its changes [documented below](#040-2025-04-30).
 
 This release has an [MSRV] of 1.82.
 
+### Added
+
+- `PlusDarker` variant to `Compose`
+
 ## [0.4.0][] (2025-04-30)
 
 This release has an [MSRV] of 1.82.
