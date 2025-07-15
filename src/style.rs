@@ -18,7 +18,7 @@ pub enum Fill {
 /// Describes draw style-- either a [fill](Fill) or [stroke](Stroke).
 ///
 /// See also [`StyleRef`] which can be used to avoid allocations.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Style {
     /// Filled draw operation.
