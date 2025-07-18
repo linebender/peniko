@@ -15,6 +15,10 @@ You can find its changes [documented below](#040-2025-04-30).
 
 This release has an [MSRV] of 1.82.
 
+### Added
+
+- `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
+
 ## [0.4.0][] (2025-04-30)
 
 This release has an [MSRV] of 1.82.
@@ -130,9 +134,11 @@ This release has an [MSRV] of 1.70.
 [#95]: https://github.com/linebender/peniko/pull/95
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
+[#114]: https://github.com/linebender/peniko/pull/114
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
+[@liferooter]: https://github.com/liferooter
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
