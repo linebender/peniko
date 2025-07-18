@@ -172,6 +172,25 @@ pub enum GradientKind {
     },
 }
 
+/// Defines how to handle alpha during interpolation.
+#[derive(Copy, Clone, PartialEq, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum AlphaInterpolationSpace {
+    /// Interpolation using premultiplied colors
+    ///
+    /// This matches behavior described in [CSS Color Module Level 4 § 12.3].
+    ///
+    /// [CSS Color Module Level 4 § 12.3]: https://drafts.csswg.org/css-color/#interpolation-alpha
+    #[default]
+    Premultiplied,
+    /// Interpolation using unpremultiplied colors
+    ///
+    /// This matches behavior described in [The 2D rendering context § Fill and stroke styles].
+    ///
+    /// [The 2D rendering context § Fill and stroke styles]: https://html.spec.whatwg.org/multipage/#interpolation
+    Unpremultiplied,
+}
+
 /// Definition of a gradient that transitions between two or more colors.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -193,6 +212,8 @@ pub struct Gradient {
     ///
     /// [CSS Color Module Level 4 § 12.4]: https://drafts.csswg.org/css-color/#hue-interpolation
     pub hue_direction: HueDirection,
+    /// Alpha space to be used for interpolation
+    pub alpha_interpolation_space: AlphaInterpolationSpace,
     /// Color stop collection.
     pub stops: ColorStops,
 }
@@ -207,6 +228,7 @@ impl Default for Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            alpha_interpolation_space: AlphaInterpolationSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -223,6 +245,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            alpha_interpolation_space: AlphaInterpolationSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -240,6 +263,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            alpha_interpolation_space: AlphaInterpolationSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -261,6 +285,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            alpha_interpolation_space: AlphaInterpolationSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -277,6 +302,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            alpha_interpolation_space: AlphaInterpolationSpace::default(),
             stops: ColorStops::default(),
         }
     }
