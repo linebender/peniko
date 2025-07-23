@@ -49,6 +49,9 @@ pub enum Mix {
     /// Creates a color with the luminosity of the source color and the hue and saturation of the
     /// backdrop color. This produces an inverse effect to that of the `Color` mode.
     Luminosity = 15,
+    /// `LuminanceClip` is the same as `Clip`, but is based on Luminance instead of alpha, as in
+    /// SVG mask-type
+    LuminanceClip = 64,
     /// `Clip` is the same as `Normal`, but the latter always creates an isolated blend group and the
     /// former can optimize that out.
     Clip = 128,
