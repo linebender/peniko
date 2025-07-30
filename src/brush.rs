@@ -1,7 +1,9 @@
 // Copyright 2022 the Peniko Authors
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-use super::{Gradient, Image};
+use crate::ImageBrushRef;
+
+use super::{Gradient, ImageBrush};
 
 use color::{AlphaColor, ColorSpace, DynamicColor, OpaqueColor, Srgb};
 
@@ -16,7 +18,7 @@ pub enum Brush {
     /// Gradient brush.
     Gradient(Gradient),
     /// Image brush.
-    Image(Image),
+    Image(ImageBrush),
 }
 
 impl<CS: ColorSpace> From<AlphaColor<CS>> for Brush {
@@ -43,8 +45,8 @@ impl From<Gradient> for Brush {
     }
 }
 
-impl From<Image> for Brush {
-    fn from(value: Image) -> Self {
+impl From<ImageBrush> for Brush {
+    fn from(value: ImageBrush) -> Self {
         Self::Image(value)
     }
 }
@@ -95,10 +97,6 @@ impl Brush {
 /// This is useful for methods that would like to accept brushes by reference. Defining
 /// the type as `impl<Into<BrushRef>>` allows accepting types like `&LinearGradient`
 /// directly without cloning or allocating.
-#[cfg_attr(
-    target_pointer_width = "32",
-    expect(variant_size_differences, reason = "We're okay with this.")
-)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum BrushRef<'a> {
     /// Solid color brush.
@@ -106,7 +104,7 @@ pub enum BrushRef<'a> {
     /// Gradient brush.
     Gradient(&'a Gradient),
     /// Image brush.
-    Image(&'a Image),
+    Image(ImageBrushRef<'a>),
 }
 
 impl BrushRef<'_> {
@@ -116,7 +114,7 @@ impl BrushRef<'_> {
         match self {
             Self::Solid(color) => Brush::Solid(*color),
             Self::Gradient(gradient) => Brush::Gradient((*gradient).clone()),
-            Self::Image(image) => Brush::Image((*image).clone()),
+            Self::Image(image) => Brush::Image(image.to_owned()),
         }
     }
 }
@@ -163,9 +161,15 @@ impl<'a> From<&'a Gradient> for BrushRef<'a> {
     }
 }
 
-impl<'a> From<&'a Image> for BrushRef<'a> {
-    fn from(image: &'a Image) -> Self {
+impl<'a> From<ImageBrushRef<'a>> for BrushRef<'a> {
+    fn from(image: ImageBrushRef<'a>) -> Self {
         Self::Image(image)
+    }
+}
+
+impl<'a> From<&'a ImageBrush> for BrushRef<'a> {
+    fn from(image: &'a ImageBrush) -> Self {
+        Self::Image(image.as_ref())
     }
 }
 
@@ -174,7 +178,7 @@ impl<'a> From<&'a Brush> for BrushRef<'a> {
         match brush {
             Brush::Solid(color) => Self::Solid(*color),
             Brush::Gradient(gradient) => Self::Gradient(gradient),
-            Brush::Image(image) => Self::Image(image),
+            Brush::Image(image) => Self::Image(image.as_ref()),
         }
     }
 }

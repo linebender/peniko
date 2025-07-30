@@ -62,6 +62,16 @@ pub struct Image {
     pub width: u32,
     /// Height of the image.
     pub height: u32,
+}
+
+/// Describes the image content of a filled or stroked shape.
+///
+/// See also [`ImageBrushRef`] which can be used to avoid allocations.
+#[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct ImageBrush {
+    /// The image to render.
+    pub image: Image,
     /// Extend mode in the horizontal direction.
     pub x_extend: Extend,
     /// Extend mode in the vertical direction.
@@ -72,20 +82,129 @@ pub struct Image {
     pub alpha: f32,
 }
 
-impl Image {
+impl ImageBrush {
     /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
     #[must_use]
-    pub fn new(data: Blob<u8>, format: ImageFormat, width: u32, height: u32) -> Self {
+    pub fn new(image: Image) -> Self {
         Self {
-            data,
-            format,
-            width,
-            height,
+            image,
             x_extend: Extend::Pad,
             y_extend: Extend::Pad,
             quality: ImageQuality::Medium,
             // Opaque
             alpha: 1.,
+        }
+    }
+
+    /// Converts the `ImageBrushRef` to an owned `ImageBrush`.
+    #[must_use]
+    pub fn as_ref(&self) -> ImageBrushRef<'_> {
+        ImageBrushRef {
+            image: &self.image,
+            x_extend: self.x_extend,
+            y_extend: self.y_extend,
+            quality: self.quality,
+            alpha: self.alpha,
+        }
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in both
+    /// directions.
+    #[must_use]
+    pub fn with_extend(mut self, mode: Extend) -> Self {
+        self.x_extend = mode;
+        self.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// horizontal direction.
+    #[must_use]
+    pub fn with_x_extend(mut self, mode: Extend) -> Self {
+        self.x_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// vertical direction.
+    #[must_use]
+    pub fn with_y_extend(mut self, mode: Extend) -> Self {
+        self.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
+    /// when rendering.
+    #[must_use]
+    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
+        self.quality = quality;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier set to `alpha`.
+    #[must_use]
+    #[track_caller]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.alpha = alpha;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    #[must_use]
+    #[track_caller]
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.alpha *= alpha;
+        self
+    }
+}
+
+/// Borrowed version of [`ImageBrush`] for avoiding allocations
+#[derive(Copy, Clone, PartialEq, Debug)]
+pub struct ImageBrushRef<'a> {
+    /// The image to render.
+    pub image: &'a Image,
+    /// Extend mode in the horizontal direction.
+    pub x_extend: Extend,
+    /// Extend mode in the vertical direction.
+    pub y_extend: Extend,
+    /// Hint for desired rendering quality.
+    pub quality: ImageQuality,
+    /// An additional alpha multiplier to use with the image.
+    pub alpha: f32,
+}
+
+impl ImageBrushRef<'_> {
+    /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
+    #[must_use]
+    pub fn new<'a>(image: &'a Image) -> ImageBrushRef<'a> {
+        ImageBrushRef {
+            image,
+            x_extend: Extend::Pad,
+            y_extend: Extend::Pad,
+            quality: ImageQuality::Medium,
+            // Opaque
+            alpha: 1.,
+        }
+    }
+
+    /// Converts the `ImageBrushRef` to an owned `ImageBrush`.
+    #[must_use]
+    pub fn to_owned(&self) -> ImageBrush {
+        ImageBrush {
+            image: (*self.image).clone(),
+            x_extend: self.x_extend,
+            y_extend: self.y_extend,
+            quality: self.quality,
+            alpha: self.alpha,
         }
     }
 
