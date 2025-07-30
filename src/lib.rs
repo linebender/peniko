@@ -30,6 +30,7 @@ mod blend;
 mod blob;
 mod brush;
 mod font;
+mod glyph;
 mod gradient;
 mod image;
 mod style;
@@ -47,6 +48,7 @@ pub use blend::{BlendMode, Compose, Mix};
 pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
 pub use font::Font;
+pub use glyph::{NormalizedCoord, PositionedGlyph};
 pub use gradient::{
     ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, LinearGradientPosition,
     RadialGradientPosition, SweepGradientPosition,
