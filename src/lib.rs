@@ -48,7 +48,9 @@ pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
 pub use font::Font;
 pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind};
-pub use image::{Image, ImageBrush, ImageBrushRef, ImageFormat, ImageQuality};
+pub use image::{
+    ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality, ImageRenderParams,
+};
 pub use style::{Fill, Style, StyleRef};
 
 /// A convenient alias for the color type used for [`Brush`].
