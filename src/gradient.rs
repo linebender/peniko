@@ -138,38 +138,116 @@ impl From<&[ColorStop]> for ColorStops {
     }
 }
 
+/// Parameters that define the position of a linear gradient.
+#[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct LinearGradientPosition {
+    /// Starting point.
+    pub start: Point,
+    /// Ending point.
+    pub end: Point,
+}
+impl LinearGradientPosition {
+    /// Creates a new linear gradient position for the specified start and end points.
+    pub fn new(start: impl Into<Point>, end: impl Into<Point>) -> Self {
+        Self {
+            start: start.into(),
+            end: end.into(),
+        }
+    }
+}
+
+/// Parameters that define the position of a radial gradient.
+#[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct RadialGradientPosition {
+    /// Center of start circle.
+    pub start_center: Point,
+    /// Radius of start circle.
+    pub start_radius: f32,
+    /// Center of end circle.
+    pub end_center: Point,
+    /// Radius of end circle.
+    pub end_radius: f32,
+}
+impl RadialGradientPosition {
+    /// Creates a new radial gradient position for the specified center point and radius.
+    pub fn new(center: impl Into<Point>, radius: f32) -> Self {
+        let center = center.into();
+        Self {
+            start_center: center,
+            start_radius: 0.0,
+            end_center: center,
+            end_radius: radius,
+        }
+    }
+    /// Creates a new two point radial gradient position for the specified center points and radii.
+    pub fn new_two_point(
+        start_center: impl Into<Point>,
+        start_radius: f32,
+        end_center: impl Into<Point>,
+        end_radius: f32,
+    ) -> Self {
+        Self {
+            start_center: start_center.into(),
+            start_radius,
+            end_center: end_center.into(),
+            end_radius,
+        }
+    }
+}
+
+/// Parameters that define the position of a sweep gradient.
+#[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct SweepGradientPosition {
+    /// Center point.
+    center: Point,
+    /// Start angle of the sweep, counter-clockwise of the x-axis.
+    start_angle: f32,
+    /// End angle of the sweep, counter-clockwise of the x-axis.
+    end_angle: f32,
+}
+impl SweepGradientPosition {
+    /// Creates a new sweep gradient for the specified center point, start and end angles.
+    pub fn new(center: impl Into<Point>, start_angle: f32, end_angle: f32) -> Self {
+        Self {
+            center: center.into(),
+            start_angle,
+            end_angle,
+        }
+    }
+}
+
 /// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GradientKind {
     /// Gradient that transitions between two or more colors along a line.
-    Linear {
-        /// Starting point.
-        start: Point,
-        /// Ending point.
-        end: Point,
-    },
+    Linear(LinearGradientPosition),
     /// Gradient that transitions between two or more colors that radiate from an origin.
-    Radial {
-        /// Center of start circle.
-        start_center: Point,
-        /// Radius of start circle.
-        start_radius: f32,
-        /// Center of end circle.
-        end_center: Point,
-        /// Radius of end circle.
-        end_radius: f32,
-    },
+    Radial(RadialGradientPosition),
     /// Gradient that transitions between two or more colors that rotate around a center
     /// point.
-    Sweep {
-        /// Center point.
-        center: Point,
-        /// Start angle of the sweep, counter-clockwise of the x-axis.
-        start_angle: f32,
-        /// End angle of the sweep, counter-clockwise of the x-axis.
-        end_angle: f32,
-    },
+    Sweep(SweepGradientPosition),
+}
+impl From<LinearGradientPosition> for GradientKind {
+    #[inline(always)]
+    fn from(value: LinearGradientPosition) -> Self {
+        Self::Linear(value)
+    }
+}
+impl From<RadialGradientPosition> for GradientKind {
+    #[inline(always)]
+    fn from(value: RadialGradientPosition) -> Self {
+        Self::Radial(value)
+    }
+}
+impl From<SweepGradientPosition> for GradientKind {
+    #[inline(always)]
+    fn from(value: SweepGradientPosition) -> Self {
+        Self::Sweep(value)
+    }
 }
 
 /// Definition of a gradient that transitions between two or more colors.
@@ -200,10 +278,11 @@ pub struct Gradient {
 impl Default for Gradient {
     fn default() -> Self {
         Self {
-            kind: GradientKind::Linear {
+            kind: LinearGradientPosition {
                 start: Point::default(),
                 end: Point::default(),
-            },
+            }
+            .into(),
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
@@ -216,10 +295,7 @@ impl Gradient {
     /// Creates a new linear gradient for the specified start and end points.
     pub fn new_linear(start: impl Into<Point>, end: impl Into<Point>) -> Self {
         Self {
-            kind: GradientKind::Linear {
-                start: start.into(),
-                end: end.into(),
-            },
+            kind: LinearGradientPosition::new(start, end).into(),
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
@@ -231,12 +307,7 @@ impl Gradient {
     pub fn new_radial(center: impl Into<Point>, radius: f32) -> Self {
         let center = center.into();
         Self {
-            kind: GradientKind::Radial {
-                start_center: center,
-                start_radius: 0.0,
-                end_center: center,
-                end_radius: radius,
-            },
+            kind: RadialGradientPosition::new(center, radius).into(),
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
@@ -252,12 +323,13 @@ impl Gradient {
         end_radius: f32,
     ) -> Self {
         Self {
-            kind: GradientKind::Radial {
-                start_center: start_center.into(),
+            kind: RadialGradientPosition::new_two_point(
+                start_center,
                 start_radius,
-                end_center: end_center.into(),
+                end_center,
                 end_radius,
-            },
+            )
+            .into(),
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
@@ -269,11 +341,7 @@ impl Gradient {
     /// end angles.
     pub fn new_sweep(center: impl Into<Point>, start_angle: f32, end_angle: f32) -> Self {
         Self {
-            kind: GradientKind::Sweep {
-                center: center.into(),
-                start_angle,
-                end_angle,
-            },
+            kind: SweepGradientPosition::new(center, start_angle, end_angle).into(),
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
