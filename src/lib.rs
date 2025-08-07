@@ -47,7 +47,10 @@ pub use blend::{BlendMode, Compose, Mix};
 pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
 pub use font::Font;
-pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind};
+pub use gradient::{
+    ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, LinearGradientPosition,
+    RadialGradientPosition, SweepGradientPosition,
+};
 pub use image::{Image, ImageFormat, ImageQuality};
 pub use style::{Fill, Style, StyleRef};
 
