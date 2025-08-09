@@ -38,7 +38,8 @@ optional = true
 default-features = false
 
 [dependencies.color]
-version = "0.3.1"
+git = "https://github.com/sagudev/color"
+branch = "interp-alpha"
 default-features = false
 
 [dependencies.serde]
