@@ -245,7 +245,7 @@ impl ImageBrush {
     }
 }
 
-/// Borrowed version of [`ImageBrush`] for avoiding allocations
+/// Borrowed version of [`ImageBrush`] for avoiding allocations.
 #[derive(Copy, Clone, PartialEq, Debug)]
 pub struct ImageBrushRef<'a> {
     /// The image to render.
