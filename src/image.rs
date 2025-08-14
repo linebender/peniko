@@ -168,7 +168,7 @@ pub struct ImageBrush {
 }
 
 impl ImageBrush {
-    /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
+    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageRenderParams`
     #[must_use]
     pub fn new(image: ImageData) -> Self {
         Self {
