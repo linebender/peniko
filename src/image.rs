@@ -3,7 +3,7 @@
 
 use super::{Blob, Extend};
 
-/// Defines the pixel format of an image.
+/// Defines the pixel format of an [image](ImageData).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
