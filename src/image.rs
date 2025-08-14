@@ -177,7 +177,7 @@ impl ImageBrush {
         }
     }
 
-    /// Converts the `ImageBrushRef` to an owned `ImageBrush`.
+    /// Converts an owned `ImageBrush` into a borrowed `ImageBrushRef`.
     #[must_use]
     pub fn as_ref(&self) -> ImageBrushRef<'_> {
         ImageBrushRef {
