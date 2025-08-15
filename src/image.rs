@@ -3,7 +3,7 @@
 
 use super::{Blob, Extend};
 
-/// Defines the pixel format of an [image](Image).
+/// Defines the pixel format of an [image](ImageData).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
@@ -29,7 +29,7 @@ impl ImageFormat {
     }
 }
 
-/// Defines the desired quality for sampling an [image](Image).
+/// Defines the desired quality for sampling an image.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
@@ -53,7 +53,7 @@ pub enum ImageQuality {
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct Image {
+pub struct ImageData {
     /// Blob containing the image data.
     pub data: Blob<u8>,
     /// Pixel format of the image.
@@ -62,6 +62,12 @@ pub struct Image {
     pub width: u32,
     /// Height of the image.
     pub height: u32,
+}
+
+/// Parameters which specify how to render an image.
+#[derive(Copy, Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct ImageRenderParams {
     /// Extend mode in the horizontal direction.
     pub x_extend: Extend,
     /// Extend mode in the vertical direction.
@@ -72,21 +78,22 @@ pub struct Image {
     pub alpha: f32,
 }
 
-impl Image {
-    /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
-    #[must_use]
-    pub fn new(data: Blob<u8>, format: ImageFormat, width: u32, height: u32) -> Self {
+impl Default for ImageRenderParams {
+    fn default() -> Self {
         Self {
-            data,
-            format,
-            width,
-            height,
             x_extend: Extend::Pad,
             y_extend: Extend::Pad,
             quality: ImageQuality::Medium,
-            // Opaque
-            alpha: 1.,
+            alpha: 1., // Opaque
         }
+    }
+}
+
+impl ImageRenderParams {
+    /// Creates a new `ImageRenderParams` with default values
+    #[must_use]
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Builder method for setting the image [extend mode](Extend) in both
@@ -144,6 +151,183 @@ impl Image {
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
         self.alpha *= alpha;
+        self
+    }
+}
+
+/// Describes the image content of a filled or stroked shape.
+///
+/// See also [`ImageBrushRef`] which can be used to avoid reference counting overhead.
+#[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct ImageBrush {
+    /// The image to render.
+    pub image: ImageData,
+    /// Parameters which specify how to render the image.
+    pub params: ImageRenderParams,
+}
+
+impl ImageBrush {
+    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageRenderParams`.
+    #[must_use]
+    pub fn new(image: ImageData) -> Self {
+        Self {
+            image,
+            params: ImageRenderParams::default(),
+        }
+    }
+
+    /// Converts an owned `ImageBrush` into a borrowed `ImageBrushRef`.
+    #[must_use]
+    pub fn as_ref(&self) -> ImageBrushRef<'_> {
+        ImageBrushRef {
+            image: &self.image,
+            params: self.params,
+        }
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in both
+    /// directions.
+    #[must_use]
+    pub fn with_extend(mut self, mode: Extend) -> Self {
+        self.params.x_extend = mode;
+        self.params.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// horizontal direction.
+    #[must_use]
+    pub fn with_x_extend(mut self, mode: Extend) -> Self {
+        self.params.x_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// vertical direction.
+    #[must_use]
+    pub fn with_y_extend(mut self, mode: Extend) -> Self {
+        self.params.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
+    /// when rendering.
+    #[must_use]
+    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
+        self.params.quality = quality;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier set to `alpha`.
+    #[must_use]
+    #[track_caller]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.params.alpha = alpha;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    #[must_use]
+    #[track_caller]
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.params.alpha *= alpha;
+        self
+    }
+}
+
+/// Borrowed version of [`ImageBrush`] for avoiding reference counting overhead.
+#[derive(Copy, Clone, PartialEq, Debug)]
+pub struct ImageBrushRef<'a> {
+    /// The image to render.
+    pub image: &'a ImageData,
+    /// Parameters which specify how to render the image.
+    pub params: ImageRenderParams,
+}
+
+impl ImageBrushRef<'_> {
+    /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
+    #[must_use]
+    pub fn new<'a>(image: &'a ImageData) -> ImageBrushRef<'a> {
+        ImageBrushRef {
+            image,
+            params: ImageRenderParams::default(),
+        }
+    }
+
+    /// Converts the `ImageBrushRef` to an owned `ImageBrush`.
+    #[must_use]
+    pub fn to_owned(&self) -> ImageBrush {
+        ImageBrush {
+            image: (*self.image).clone(),
+            params: self.params,
+        }
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in both
+    /// directions.
+    #[must_use]
+    pub fn with_extend(mut self, mode: Extend) -> Self {
+        self.params.x_extend = mode;
+        self.params.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// horizontal direction.
+    #[must_use]
+    pub fn with_x_extend(mut self, mode: Extend) -> Self {
+        self.params.x_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// vertical direction.
+    #[must_use]
+    pub fn with_y_extend(mut self, mode: Extend) -> Self {
+        self.params.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
+    /// when rendering.
+    #[must_use]
+    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
+        self.params.quality = quality;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier set to `alpha`.
+    #[must_use]
+    #[track_caller]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.params.alpha = alpha;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    #[must_use]
+    #[track_caller]
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.params.alpha *= alpha;
         self
     }
 }

@@ -51,7 +51,9 @@ pub use gradient::{
     ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, LinearGradientPosition,
     RadialGradientPosition, SweepGradientPosition,
 };
-pub use image::{Image, ImageFormat, ImageQuality};
+pub use image::{
+    ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality, ImageRenderParams,
+};
 pub use style::{Fill, Style, StyleRef};
 
 /// A convenient alias for the color type used for [`Brush`].
