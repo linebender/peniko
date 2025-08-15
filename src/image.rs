@@ -157,7 +157,7 @@ impl ImageRenderParams {
 
 /// Describes the image content of a filled or stroked shape.
 ///
-/// See also [`ImageBrushRef`] which can be used to avoid allocations.
+/// See also [`ImageBrushRef`] which can be used to avoid reference counting overhead.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ImageBrush {
@@ -168,7 +168,7 @@ pub struct ImageBrush {
 }
 
 impl ImageBrush {
-    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageRenderParams`
+    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageRenderParams`.
     #[must_use]
     pub fn new(image: ImageData) -> Self {
         Self {
@@ -245,7 +245,7 @@ impl ImageBrush {
     }
 }
 
-/// Borrowed version of [`ImageBrush`] for avoiding allocations.
+/// Borrowed version of [`ImageBrush`] for avoiding reference counting overhead.
 #[derive(Copy, Clone, PartialEq, Debug)]
 pub struct ImageBrushRef<'a> {
     /// The image to render.
