@@ -11,6 +11,8 @@ use super::{Blob, Extend};
 pub enum ImageFormat {
     /// 32-bit RGBA with 8-bit channels.
     Rgba8 = 0,
+    /// 32-bit BGRA with 8-bit channels.
+    Bgra8 = 1,
     // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
 }
 
@@ -22,7 +24,7 @@ impl ImageFormat {
     #[must_use]
     pub fn size_in_bytes(self, width: u32, height: u32) -> Option<usize> {
         match self {
-            Self::Rgba8 => 4_usize
+            Self::Rgba8 | Self::Bgra8 => 4_usize
                 .checked_mul(width as usize)
                 .and_then(|x| x.checked_mul(height as usize)),
         }
