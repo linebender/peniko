@@ -52,7 +52,8 @@ pub use gradient::{
     RadialGradientPosition, SweepGradientPosition,
 };
 pub use image::{
-    ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality, ImageRenderParams,
+    ImageAlphaType, ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality,
+    ImageRenderParams,
 };
 pub use style::{Fill, Style, StyleRef};
 
