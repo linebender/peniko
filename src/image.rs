@@ -160,9 +160,9 @@ impl ImageRenderParams {
 /// See also [`ImageBrushRef`] which can be used to avoid reference counting overhead.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageBrush {
+pub struct ImageBrush<D = Blob<u8>> {
     /// The image to render.
-    pub image: ImageData,
+    pub image: ImageData<D>,
     /// Parameters which specify how to render the image.
     pub params: ImageRenderParams,
 }
