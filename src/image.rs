@@ -53,9 +53,9 @@ pub enum ImageQuality {
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageData {
-    /// Blob containing the image data.
-    pub data: Blob<u8>,
+pub struct ImageData<D = Blob<u8>> {
+    /// Image data.
+    pub data: D,
     /// Pixel format of the image.
     pub format: ImageFormat,
     /// Width of the image.
@@ -160,9 +160,9 @@ impl ImageRenderParams {
 /// See also [`ImageBrushRef`] which can be used to avoid reference counting overhead.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageBrush {
+pub struct ImageBrush<D = Blob<u8>> {
     /// The image to render.
-    pub image: ImageData,
+    pub image: ImageData<D>,
     /// Parameters which specify how to render the image.
     pub params: ImageRenderParams,
 }
