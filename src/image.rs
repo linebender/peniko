@@ -53,9 +53,9 @@ pub enum ImageQuality {
 /// Owned shareable image resource.
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageData {
-    /// Blob containing the image data.
-    pub data: Blob<u8>,
+pub struct ImageData<D = Blob<u8>> {
+    /// Image data.
+    pub data: D,
     /// Pixel format of the image.
     pub format: ImageFormat,
     /// Width of the image.
