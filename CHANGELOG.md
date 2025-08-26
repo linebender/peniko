@@ -19,6 +19,10 @@ This release has an [MSRV] of 1.82.
 
 - `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
 
+### Changed
+
+- Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
+
 ## [0.4.0][] (2025-04-30)
 
 This release has an [MSRV] of 1.82.
@@ -135,10 +139,13 @@ This release has an [MSRV] of 1.70.
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
 [#114]: https://github.com/linebender/peniko/pull/114
+[#117]: https://github.com/linebender/peniko/pull/117
+[#123]: https://github.com/linebender/peniko/pull/123
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
 [@liferooter]: https://github.com/liferooter
+[@nicoburns]: https://github.com/nicoburns
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
