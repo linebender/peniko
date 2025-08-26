@@ -79,10 +79,10 @@ pub struct ImageData {
     pub height: u32,
 }
 
-/// Parameters which specify how to render an image.
+/// Parameters which specify how to sample an image during rendering.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageRenderParams {
+pub struct ImageSampler {
     /// Extend mode in the horizontal direction.
     pub x_extend: Extend,
     /// Extend mode in the vertical direction.
@@ -93,7 +93,7 @@ pub struct ImageRenderParams {
     pub alpha: f32,
 }
 
-impl Default for ImageRenderParams {
+impl Default for ImageSampler {
     fn default() -> Self {
         Self {
             x_extend: Extend::Pad,
@@ -104,8 +104,8 @@ impl Default for ImageRenderParams {
     }
 }
 
-impl ImageRenderParams {
-    /// Creates a new `ImageRenderParams` with default values
+impl ImageSampler {
+    /// Creates a new `ImageSampler` with default values
     #[must_use]
     pub fn new() -> Self {
         Self::default()
@@ -178,17 +178,17 @@ impl ImageRenderParams {
 pub struct ImageBrush {
     /// The image to render.
     pub image: ImageData,
-    /// Parameters which specify how to render the image.
-    pub params: ImageRenderParams,
+    /// Parameters which specify how to sample from the image during rendering.
+    pub sampler: ImageSampler,
 }
 
 impl ImageBrush {
-    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageRenderParams`.
+    /// Creates a new `ImageBrush` for the specified `ImageData` with default `ImageSampler`.
     #[must_use]
     pub fn new(image: ImageData) -> Self {
         Self {
             image,
-            params: ImageRenderParams::default(),
+            sampler: ImageSampler::default(),
         }
     }
 
@@ -197,7 +197,7 @@ impl ImageBrush {
     pub fn as_ref(&self) -> ImageBrushRef<'_> {
         ImageBrushRef {
             image: &self.image,
-            params: self.params,
+            sampler: self.sampler,
         }
     }
 
@@ -205,8 +205,8 @@ impl ImageBrush {
     /// directions.
     #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
-        self.params.x_extend = mode;
-        self.params.y_extend = mode;
+        self.sampler.x_extend = mode;
+        self.sampler.y_extend = mode;
         self
     }
 
@@ -214,7 +214,7 @@ impl ImageBrush {
     /// horizontal direction.
     #[must_use]
     pub fn with_x_extend(mut self, mode: Extend) -> Self {
-        self.params.x_extend = mode;
+        self.sampler.x_extend = mode;
         self
     }
 
@@ -222,7 +222,7 @@ impl ImageBrush {
     /// vertical direction.
     #[must_use]
     pub fn with_y_extend(mut self, mode: Extend) -> Self {
-        self.params.y_extend = mode;
+        self.sampler.y_extend = mode;
         self
     }
 
@@ -230,7 +230,7 @@ impl ImageBrush {
     /// when rendering.
     #[must_use]
     pub fn with_quality(mut self, quality: ImageQuality) -> Self {
-        self.params.quality = quality;
+        self.sampler.quality = quality;
         self
     }
 
@@ -242,7 +242,7 @@ impl ImageBrush {
             alpha.is_finite() && alpha >= 0.0,
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
-        self.params.alpha = alpha;
+        self.sampler.alpha = alpha;
         self
     }
 
@@ -255,7 +255,7 @@ impl ImageBrush {
             alpha.is_finite() && alpha >= 0.0,
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
-        self.params.alpha *= alpha;
+        self.sampler.alpha *= alpha;
         self
     }
 }
@@ -265,8 +265,8 @@ impl ImageBrush {
 pub struct ImageBrushRef<'a> {
     /// The image to render.
     pub image: &'a ImageData,
-    /// Parameters which specify how to render the image.
-    pub params: ImageRenderParams,
+    /// Parameters which specify how to sample from the image during rendering.
+    pub sampler: ImageSampler,
 }
 
 impl ImageBrushRef<'_> {
@@ -275,7 +275,7 @@ impl ImageBrushRef<'_> {
     pub fn new<'a>(image: &'a ImageData) -> ImageBrushRef<'a> {
         ImageBrushRef {
             image,
-            params: ImageRenderParams::default(),
+            sampler: ImageSampler::default(),
         }
     }
 
@@ -284,7 +284,7 @@ impl ImageBrushRef<'_> {
     pub fn to_owned(&self) -> ImageBrush {
         ImageBrush {
             image: (*self.image).clone(),
-            params: self.params,
+            sampler: self.sampler,
         }
     }
 
@@ -292,8 +292,8 @@ impl ImageBrushRef<'_> {
     /// directions.
     #[must_use]
     pub fn with_extend(mut self, mode: Extend) -> Self {
-        self.params.x_extend = mode;
-        self.params.y_extend = mode;
+        self.sampler.x_extend = mode;
+        self.sampler.y_extend = mode;
         self
     }
 
@@ -301,7 +301,7 @@ impl ImageBrushRef<'_> {
     /// horizontal direction.
     #[must_use]
     pub fn with_x_extend(mut self, mode: Extend) -> Self {
-        self.params.x_extend = mode;
+        self.sampler.x_extend = mode;
         self
     }
 
@@ -309,7 +309,7 @@ impl ImageBrushRef<'_> {
     /// vertical direction.
     #[must_use]
     pub fn with_y_extend(mut self, mode: Extend) -> Self {
-        self.params.y_extend = mode;
+        self.sampler.y_extend = mode;
         self
     }
 
@@ -317,7 +317,7 @@ impl ImageBrushRef<'_> {
     /// when rendering.
     #[must_use]
     pub fn with_quality(mut self, quality: ImageQuality) -> Self {
-        self.params.quality = quality;
+        self.sampler.quality = quality;
         self
     }
 
@@ -329,7 +329,7 @@ impl ImageBrushRef<'_> {
             alpha.is_finite() && alpha >= 0.0,
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
-        self.params.alpha = alpha;
+        self.sampler.alpha = alpha;
         self
     }
 
@@ -342,7 +342,7 @@ impl ImageBrushRef<'_> {
             alpha.is_finite() && alpha >= 0.0,
             "A non-finite or negative alpha ({alpha}) is meaningless."
         );
-        self.params.alpha *= alpha;
+        self.sampler.alpha *= alpha;
         self
     }
 }
