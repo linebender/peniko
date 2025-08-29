@@ -27,7 +27,7 @@ unsafe impl bytemuck::checked::CheckedBitPattern for Compose {
 unsafe impl bytemuck::Contiguous for Compose {
     type Int = u8;
     const MIN_VALUE: u8 = Self::Clear as u8;
-    const MAX_VALUE: u8 = Self::PlusLighter as u8;
+    const MAX_VALUE: u8 = Self::PlusDarker as u8;
 }
 
 // Safety: The enum is `repr(u8)` and has only fieldless variants.
@@ -223,7 +223,7 @@ mod tests {
 
     #[test]
     fn contiguous() {
-        let compose1 = Compose::PlusLighter;
+        let compose1 = Compose::PlusDarker;
         let compose2 = Compose::from_integer(compose1.into_integer());
         assert_eq!(Some(compose1), compose2);
 

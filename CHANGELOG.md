@@ -20,6 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
+- Added `PlusDarker` variant to `Compose` ([#112][] by [@sagudev][])
 
 ## [0.4.0][] (2025-04-30)
 
@@ -136,6 +137,7 @@ This release has an [MSRV] of 1.70.
 [#95]: https://github.com/linebender/peniko/pull/95
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
+[#112]: https://github.com/linebender/peniko/pull/112
 [#114]: https://github.com/linebender/peniko/pull/114
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121
