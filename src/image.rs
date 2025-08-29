@@ -31,6 +31,17 @@ impl ImageFormat {
     }
 }
 
+/// Handling of alpha channel.
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[repr(u8)]
+pub enum ImageAlphaType {
+    /// Image has separate alpha channel (also called straight/unpremultiplied alpha).
+    Alpha = 0,
+    /// Image has colors with premultiplied alpha.
+    AlphaPremultiplied = 1,
+}
+
 /// Defines the desired quality for sampling an image.
 #[derive(Copy, Clone, PartialEq, Eq, Default, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -60,6 +71,8 @@ pub struct ImageData {
     pub data: Blob<u8>,
     /// Pixel format of the image.
     pub format: ImageFormat,
+    /// Encoding of alpha in the image pixels.
+    pub alpha_type: ImageAlphaType,
     /// Width of the image.
     pub width: u32,
     /// Height of the image.
