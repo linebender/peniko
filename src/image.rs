@@ -80,6 +80,15 @@ pub struct ImageData {
 }
 
 /// Parameters which specify how to sample an image during rendering.
+///
+/// When a renderer is drawing an image, they will (in most cases) not directly
+/// copy the bytes from the source image to their render target; instead, they will
+/// sample from the image.
+/// This involves determining from which part of the source image to read, and how to
+/// handle cases where the source image's pixels are not aligned with the render target
+/// exactly, in any combination of scale, position or rotation.
+/// They might also perform an alpha multiplication, as done here.
+/// This struct contains the parameters used by sampling.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ImageSampler {
