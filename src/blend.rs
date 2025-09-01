@@ -49,7 +49,7 @@ pub enum Mix {
     /// Creates a color with the luminosity of the source color and the hue and saturation of the
     /// backdrop color. This produces an inverse effect to that of the `Color` mode.
     Luminosity = 15,
-    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck `Contiguous` impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Defines the layer composition function for a [blend operation](BlendMode).
@@ -88,7 +88,7 @@ pub enum Compose {
     /// Allows two elements to cross fade by changing their opacities from 0 to 1 on one
     /// element and 1 to 0 on the other element.
     PlusLighter = 13,
-    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Blend mode consisting of [color mixing](Mix) and [composition functions](Compose).
