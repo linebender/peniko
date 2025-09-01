@@ -21,6 +21,11 @@ This release has an [MSRV] of 1.82.
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
 
+### Removed
+
+- Breaking change: `Mix::Clip` has been removed. Instead, if renderers wish to expose optimised clipping,
+  they should do so through a more explicit mechanism. ([#124][] by [@DJMcNab][])
+
 ## [0.4.0][] (2025-04-30)
 
 This release has an [MSRV] of 1.82.
@@ -139,6 +144,7 @@ This release has an [MSRV] of 1.70.
 [#114]: https://github.com/linebender/peniko/pull/114
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121
+[#124]: https://github.com/linebender/peniko/pull/124
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
