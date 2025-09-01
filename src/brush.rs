@@ -164,4 +164,5 @@ pub enum Extend {
     Repeat = 1,
     /// Extends the image by reflecting the brush.
     Reflect = 2,
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }

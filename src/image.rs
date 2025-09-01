@@ -13,7 +13,7 @@ pub enum ImageFormat {
     Rgba8 = 0,
     /// 32-bit BGRA with 8-bit channels.
     Bgra8 = 1,
-    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 impl ImageFormat {
@@ -40,6 +40,7 @@ pub enum ImageAlphaType {
     Alpha = 0,
     /// Image has colors with premultiplied alpha.
     AlphaPremultiplied = 1,
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Defines the desired quality for sampling an image.
@@ -60,7 +61,7 @@ pub enum ImageQuality {
     ///
     /// This is typically bicubic sampling.
     High = 2,
-    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Owned shareable image resource.
