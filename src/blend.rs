@@ -49,10 +49,7 @@ pub enum Mix {
     /// Creates a color with the luminosity of the source color and the hue and saturation of the
     /// backdrop color. This produces an inverse effect to that of the `Color` mode.
     Luminosity = 15,
-    /// `Clip` is the same as `Normal`, but the latter always creates an isolated blend group and the
-    /// former can optimize that out.
-    Clip = 128,
-    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck `Contiguous` impl.
 }
 
 /// Defines the layer composition function for a [blend operation](BlendMode).
@@ -116,7 +113,7 @@ impl BlendMode {
 impl Default for BlendMode {
     fn default() -> Self {
         Self {
-            mix: Mix::Clip,
+            mix: Mix::Normal,
             compose: Compose::SrcOver,
         }
     }
