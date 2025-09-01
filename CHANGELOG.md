@@ -20,7 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
-- Added `PlusDarker` variant to `Compose` ([#112][] by [@sagudev][])
+- Added `PlusDarker` variant to `Compose`. ([#112][] by [@sagudev][])
 
 ## [0.4.0][] (2025-04-30)
 
