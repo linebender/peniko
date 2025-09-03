@@ -17,8 +17,7 @@ checksum = "9134a6ef01ce4b366b50689c94f82c14bc72bc5d0386829828a2e2752ef7958c"
 [[package]]
 name = "color"
 version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ae467d04a8a8aea5d9a49018a6ade2e4221d92968e8ce55a48c0b1164e5f698"
+source = "git+https://github.com/sagudev/color?branch=interp-alpha#7beb3647dca0564f7c1d8ede29eeaf82094bf3ff"
 dependencies = [
  "bytemuck",
  "libm",
