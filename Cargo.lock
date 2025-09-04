@@ -57,8 +57,8 @@ dependencies = [
  "bytemuck",
  "color",
  "kurbo",
+ "raw_resource_handle",
  "serde",
- "serde_bytes",
  "smallvec",
 ]
 
@@ -78,6 +78,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1885c039570dc00dcb4ff087a89e185fd56bae234ddc7f056a945bf36467248d"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "raw_resource_handle"
+version = "0.1.0"
+source = "git+https://github.com/linebender/raw_resource_handle.git?rev=02ae084f7e2fc9d444a16992760c0af9db94859b#02ae084f7e2fc9d444a16992760c0af9db94859b"
+dependencies = [
+ "serde",
+ "serde_bytes",
 ]
 
 [[package]]
