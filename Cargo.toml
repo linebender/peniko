@@ -28,8 +28,7 @@ mint = ["kurbo/mint"]
 serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
 
 [dependencies]
-# NOTE: Make sure to keep this in sync with the version badge in README.md
-kurbo = { version = "0.11.2", default-features = false }
+kurbo = { version = "0.12.0", default-features = false }
 smallvec = "1.15.0"
 
 [dependencies.bytemuck]
