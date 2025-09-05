@@ -33,12 +33,13 @@ kurbo = { version = "0.11.2", default-features = false }
 smallvec = "1.15.0"
 
 [dependencies.bytemuck]
-version = "1.23.0"
+version = "1.23.2"
 optional = true
 default-features = false
 
 [dependencies.color]
-version = "0.3.1"
+git = "https://github.com/linebender/color"
+rev = "6a6137676154c7d9420120b9877c14c6e88c2db0"
 default-features = false
 
 [dependencies.serde]
