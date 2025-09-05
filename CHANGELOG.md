@@ -20,11 +20,13 @@ This release has an [MSRV] of 1.82.
 - `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
+- Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#121][] by [@sagudev][])
 
 ### Changed
 
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
+- Update to `color` 0.3.2. ([#115][] by [@sagudev][])
 
 ### Raw Resource Changes
 
@@ -147,6 +149,7 @@ This release has an [MSRV] of 1.70.
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
 [#114]: https://github.com/linebender/peniko/pull/114
+[#115]: https://github.com/linebender/peniko/pull/115
 [#117]: https://github.com/linebender/peniko/pull/117
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121

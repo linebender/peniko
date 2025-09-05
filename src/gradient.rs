@@ -219,6 +219,39 @@ impl SweepGradientPosition {
     }
 }
 
+/// Defines how color channels should be handled when interpolating
+/// between transparent colors.
+#[derive(Clone, Copy, Default, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub enum InterpolationAlphaSpace {
+    /// Colors are interpolated with their color channels premultiplied by the alpha
+    /// channel. This is almost always what you want.
+    ///
+    /// Used when interpolating colors in the premultiplied alpha space, which allows
+    /// for correct interpolation when colors are transparent. This matches behavior
+    /// described in [CSS Color Module Level 4 § 12.3].
+    ///
+    /// Following the convention of CSS Color Module Level 4, in cylindrical color
+    /// spaces the hue channel is not premultiplied. If it were, interpolation would
+    /// give undesirable results. See also [`color::PremulColor`].
+    ///
+    /// [CSS Color Module Level 4 § 12.3]: https://drafts.csswg.org/css-color/#interpolation-alpha
+    #[default]
+    Premultiplied = 0,
+    /// Colors are interpolated without premultiplying their color channels by the alpha channel.
+    ///
+    /// This causes color information to leak out of transparent colors. For example, when
+    /// interpolating from a fully transparent red to a fully opaque blue in sRGB, this
+    /// method will go through an intermediate purple.
+    ///
+    /// Used when interpolating colors in the unpremultiplied (straight) alpha space.
+    /// This matches behavior of gradients in the HTML `canvas` element.
+    /// See [The 2D rendering context § Fill and stroke styles].
+    ///
+    /// [The 2D rendering context § Fill and stroke styles]: https://html.spec.whatwg.org/multipage/#interpolation
+    Unpremultiplied = 1,
+}
+
 /// Properties for the supported [gradient](Gradient) types.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -271,6 +304,8 @@ pub struct Gradient {
     ///
     /// [CSS Color Module Level 4 § 12.4]: https://drafts.csswg.org/css-color/#hue-interpolation
     pub hue_direction: HueDirection,
+    /// Alpha space to be used for interpolation
+    pub interpolation_alpha_space: InterpolationAlphaSpace,
     /// Color stop collection.
     pub stops: ColorStops,
 }
@@ -286,6 +321,7 @@ impl Default for Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            interpolation_alpha_space: InterpolationAlphaSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -299,6 +335,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            interpolation_alpha_space: InterpolationAlphaSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -311,6 +348,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            interpolation_alpha_space: InterpolationAlphaSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -333,6 +371,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            interpolation_alpha_space: InterpolationAlphaSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -345,6 +384,7 @@ impl Gradient {
             extend: Extend::default(),
             interpolation_cs: DEFAULT_GRADIENT_COLOR_SPACE,
             hue_direction: HueDirection::default(),
+            interpolation_alpha_space: InterpolationAlphaSpace::default(),
             stops: ColorStops::default(),
         }
     }
@@ -360,6 +400,16 @@ impl Gradient {
     #[must_use]
     pub const fn with_interpolation_cs(mut self, interpolation_cs: ColorSpaceTag) -> Self {
         self.interpolation_cs = interpolation_cs;
+        self
+    }
+
+    /// Builder method for setting the interpolation alpha space.
+    #[must_use]
+    pub const fn with_interpolation_alpha_space(
+        mut self,
+        interpolation_alpha_space: InterpolationAlphaSpace,
+    ) -> Self {
+        self.interpolation_alpha_space = interpolation_alpha_space;
         self
     }
 
