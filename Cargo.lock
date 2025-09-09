@@ -45,6 +45,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c9627da5196e5d8ed0b0495e61e518847578da83483c37288316d9b2e03a7f72"
 
 [[package]]
+name = "linebender_resource_handle"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b443df28f3fa8b5bc32ada6daca59994b34ef37e061b4232f367db69408d83b6"
+dependencies = [
+ "serde",
+ "serde_bytes",
+]
+
+[[package]]
 name = "mint"
 version = "0.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -57,8 +67,8 @@ dependencies = [
  "bytemuck",
  "color",
  "kurbo",
+ "linebender_resource_handle",
  "serde",
- "serde_bytes",
  "smallvec",
 ]
 

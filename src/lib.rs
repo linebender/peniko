@@ -27,15 +27,15 @@
 )]
 
 mod blend;
-mod blob;
 mod brush;
-mod font;
 mod gradient;
 mod image;
 mod style;
 
 #[cfg(feature = "bytemuck")]
 mod impl_bytemuck;
+
+pub use linebender_resource_handle::{Blob, FontData as Font, WeakBlob};
 
 /// Re-export of the color library.
 pub use color;
@@ -44,9 +44,7 @@ pub use color;
 pub use kurbo;
 
 pub use blend::{BlendMode, Compose, Mix};
-pub use blob::{Blob, WeakBlob};
 pub use brush::{Brush, BrushRef, Extend};
-pub use font::Font;
 pub use gradient::{ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind};
 pub use image::{Image, ImageFormat, ImageQuality};
 pub use style::{Fill, Style, StyleRef};
