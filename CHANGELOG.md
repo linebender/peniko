@@ -15,6 +15,10 @@ You can find its changes [documented below](#040-2025-04-30).
 
 This release has an [MSRV] of 1.82.
 
+### Changed
+
+- Use [Linebender Resource Handle](https://crates.io/crates/linebender_resource_handle) for `Blob` and `WeakBlob`, for compatibility with the upcoming Peniko 0.5.0. ([#126][] by [@DJMcNab][])
+
 ## [0.4.0][] (2025-04-30)
 
 This release has an [MSRV] of 1.82.
@@ -122,6 +126,7 @@ This release has an [MSRV] of 1.70.
 [#95]: https://github.com/linebender/peniko/pull/95
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
+[#126]: https://github.com/linebender/peniko/pull/126
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
