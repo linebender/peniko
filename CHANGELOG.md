@@ -24,6 +24,12 @@ This release has an [MSRV] of 1.82.
 ### Changed
 
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
+- Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
+
+### Raw Resource Changes
+
+Having the `Blob`, `Font`, and `WeakBlob` types in this crate created difficulties in versioning for other crates like Parley.
+We've now moved these to a dedicated shared crate so that we can remove the dependency on Peniko from Parley and make managing versions between Vello and other crates easier.
 
 ## [0.4.0][] (2025-04-30)
 

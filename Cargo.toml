@@ -21,23 +21,27 @@ targets = []
 
 [features]
 default = ["std"]
-std = ["color/std", "kurbo/std"]
+std = ["color/std", "kurbo/std", "linebender_resource_handle/std"]
 bytemuck = ["color/bytemuck", "dep:bytemuck"]
 libm = ["color/libm", "kurbo/libm"]
 mint = ["kurbo/mint"]
-serde = ["color/serde", "smallvec/serde", "kurbo/serde", "dep:serde_bytes", "dep:serde"]
+serde = [
+    "color/serde",
+    "smallvec/serde",
+    "kurbo/serde",
+    "linebender_resource_handle/serde",
+    "dep:serde",
+]
 
 [dependencies]
 kurbo = { version = "0.12.0", default-features = false }
 smallvec = "1.15.0"
 bytemuck = { version = "1.23.0", default-features = false, optional = true }
 color = { version = "0.3.1", default-features = false }
+linebender_resource_handle = { version = "0.1.0", default-features = false }
 serde = { version = "1.0.219", default-features = false, optional = true, features = [
     "alloc",
     "derive",
-] }
-serde_bytes = { version = "0.11.17", default-features = false, optional = true, features = [
-    "alloc",
 ] }
 
 [lints]
