@@ -91,6 +91,9 @@ pub enum Compose {
     /// Allows two elements to cross fade by changing their opacities from 0 to 1 on one
     /// element and 1 to 0 on the other element.
     PlusLighter = 13,
+    /// Allows two elements to cross fade by changing their opacities from 1 to 0 on one
+    /// element and 0 to 1 on the other element.
+    PlusDarker = 14,
     // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
 }
 
