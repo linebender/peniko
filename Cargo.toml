@@ -37,7 +37,7 @@ serde = [
 kurbo = { version = "0.12.0", default-features = false }
 smallvec = "1.15.0"
 bytemuck = { version = "1.23.0", default-features = false, optional = true }
-color = { version = "0.3.1", default-features = false }
+color = { version = "0.3.2", default-features = false }
 linebender_resource_handle = { version = "0.1.0", default-features = false }
 serde = { version = "1.0.219", default-features = false, optional = true, features = [
     "alloc",

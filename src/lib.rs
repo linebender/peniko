@@ -47,8 +47,8 @@ pub use linebender_resource_handle::{self, Blob, FontData, WeakBlob};
 pub use blend::{BlendMode, Compose, Mix};
 pub use brush::{Brush, BrushRef, Extend};
 pub use gradient::{
-    ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, LinearGradientPosition,
-    RadialGradientPosition, SweepGradientPosition,
+    ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, InterpolationAlphaSpace,
+    LinearGradientPosition, RadialGradientPosition, SweepGradientPosition,
 };
 pub use image::{
     ImageAlphaType, ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality, ImageSampler,
