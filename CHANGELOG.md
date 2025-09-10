@@ -17,7 +17,14 @@ This release has an [MSRV] of 1.82.
 
 ### Changed
 
-- Use [Linebender Resource Handle](https://crates.io/crates/linebender_resource_handle) for `Blob` and `WeakBlob`, for compatibility with the upcoming Peniko 0.5.0. ([#126][] by [@DJMcNab][])
+- Use [Linebender Resource Handle](#linebender-resource-handle) for `Font`, `Blob`, and `WeakBlob`. ([#129][] by [@DJMcNab][], [@nicoburns][])
+
+### Linebender Resource Handle
+
+Peniko's `Font` (and therefore also `Blob`) are used as vocabulary types for font resources between crates.
+However, this means that when Peniko made semver-incompatible releases, those crates could no longer (easily) interoperate.
+To resolve this, `Font`, `Blob`, and `WeakBlob` are now re-exports from a new crate called [Linebender Resource Handle](https://crates.io/crates/linebender_resource_handle).
+These types have identical API as in previous releases, but will now be the same type across Peniko versions.
 
 ## [0.4.0][] (2025-04-30)
 
@@ -126,10 +133,11 @@ This release has an [MSRV] of 1.70.
 [#95]: https://github.com/linebender/peniko/pull/95
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
-[#126]: https://github.com/linebender/peniko/pull/126
+[#129]: https://github.com/linebender/peniko/pull/129
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
+[@nicoburns]: https://github.com/nicoburns
 [@ratmice]: https://github.com/ratmice
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
