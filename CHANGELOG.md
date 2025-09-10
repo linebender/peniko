@@ -20,7 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
-- Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#121][] by [@sagudev][])
+- Breaking change: Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#121][] by [@sagudev][])
 
 ### Changed
 
