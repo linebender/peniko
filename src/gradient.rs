@@ -207,11 +207,11 @@ impl RadialGradientPosition {
 pub struct SweepGradientPosition {
     /// Center point.
     center: Point,
-    /// Start angle of the sweep, measuring from the positive X-axis.
+    /// Start angle of the sweep in radians, measuring from the positive X-axis.
     ///
     /// Clockwise in a Y-down coordinate system.
     start_angle: f32,
-    /// End angle of the sweep, measuring from the positive X-axis.
+    /// End angle of the sweep in radians, measuring from the positive X-axis.
     ///
     /// Clockwise in a Y-down coordinate system.
     end_angle: f32,
