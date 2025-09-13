@@ -198,14 +198,22 @@ impl RadialGradientPosition {
 }
 
 /// Parameters that define the position of a sweep gradient.
+///
+/// Conventionally, a positive increase in one of the sweep angles is a clockwise rotation in a
+/// Y-down, X-right coordinate system (as is common for graphics). More generally, the convention
+/// for rotations is that a positive angle rotates a positive X direction into positive Y.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SweepGradientPosition {
     /// Center point.
     center: Point,
-    /// Start angle of the sweep, counter-clockwise of the x-axis.
+    /// Start angle of the sweep in radians, measuring from the positive X-axis.
+    ///
+    /// Clockwise in a Y-down coordinate system.
     start_angle: f32,
-    /// End angle of the sweep, counter-clockwise of the x-axis.
+    /// End angle of the sweep in radians, measuring from the positive X-axis.
+    ///
+    /// Clockwise in a Y-down coordinate system.
     end_angle: f32,
 }
 impl SweepGradientPosition {
