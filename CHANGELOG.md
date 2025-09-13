@@ -28,7 +28,8 @@ This release has an [MSRV] of 1.82.
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
 - Breaking change: the angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
   This is reversed from the most likely reading of the previous wording.
-  More generally, the angle directions are now described numerically to be unambiguous across coordinate systems. ([#130][] by [@tomcur][])
+  More generally, the angle directions are now described numerically to be unambiguous across coordinate systems.
+  The angle unit is now specified to be in radians. ([#130][] by [@tomcur][])
 - Update to `color` 0.3.2. ([#115][] by [@sagudev][])
 
 ### Raw Resource Changes
