@@ -26,6 +26,9 @@ This release has an [MSRV] of 1.82.
 
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
+- Breaking change: the angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
+  This is reversed from the most likely reading of the previous wording.
+  More generally, the angle directions are now described numerically to be unambiguous across coordinate systems. ([#130][] by [@tomcur][])
 - Update to `color` 0.3.2. ([#115][] by [@sagudev][])
 
 ### Raw Resource Changes
@@ -154,6 +157,8 @@ This release has an [MSRV] of 1.70.
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121
 [#123]: https://github.com/linebender/peniko/pull/123
+[#126]: https://github.com/linebender/peniko/pull/126
+[#130]: https://github.com/linebender/peniko/pull/130
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
@@ -161,6 +166,7 @@ This release has an [MSRV] of 1.70.
 [@nicoburns]: https://github.com/nicoburns
 [@ratmice]: https://github.com/ratmice
 [@sagudev]: https://github.com/sagudev
+[@tomcur]: https://github.com/tomcur
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.4.0...HEAD
