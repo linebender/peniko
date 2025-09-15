@@ -180,6 +180,10 @@ impl ImageSampler {
 }
 
 /// Describes the image content of a filled or stroked shape.
+///
+/// This type is generic over the storage used for the image data.
+/// By default, the generic parameter is [`ImageData`], which is a shared image with dynamic lifetime.
+/// However, different renderers can use different types here, such as a pre-registered id.
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct ImageBrush<D = ImageData> {
