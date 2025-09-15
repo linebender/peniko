@@ -10,14 +10,14 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 This is the backport branch for Peniko 0.4.x.
 For the latest releases, check the [changelog on `main`](https://github.com/linebender/peniko/blob/main/CHANGELOG.md).
-The latest published Peniko release in the 0.4.x series is [0.4.1](#041-2025-09-xx) which was released on 2025-09-xx.
-You can find its changes [documented below](#041-2025-09-xx).
+The latest published Peniko release in the 0.4.x series is [0.4.1](#041-2025-09-15) which was released on 2025-09-15.
+You can find its changes [documented below](#041-2025-09-15).
 
 ## [Unreleased]
 
 This release has an [MSRV] of 1.82.
 
-## [0.4.1][] (2025-09-xx)
+## [0.4.1][] (2025-09-15)
 
 This release has an [MSRV] of 1.82.
 
