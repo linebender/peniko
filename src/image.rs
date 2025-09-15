@@ -181,14 +181,76 @@ impl ImageSampler {
 
 /// Describes the image content of a filled or stroked shape.
 ///
-/// See also [`ImageBrushRef`] which can be used to avoid reference counting overhead.
-#[derive(Clone, PartialEq, Debug)]
+/// This type is generic over the storage used for the image data.
+/// By default, the generic parameter is [`ImageData`], which is a shared image with dynamic lifetime.
+/// However, different renderers can use different types here, such as a pre-registered id.
+#[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct ImageBrush {
+pub struct ImageBrush<D = ImageData> {
     /// The image to render.
-    pub image: ImageData,
+    pub image: D,
     /// Parameters which specify how to sample from the image during rendering.
     pub sampler: ImageSampler,
+}
+
+impl<D> ImageBrush<D> {
+    /// Builder method for setting the image [extend mode](Extend) in both
+    /// directions.
+    #[must_use]
+    pub fn with_extend(mut self, mode: Extend) -> Self {
+        self.sampler.x_extend = mode;
+        self.sampler.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// horizontal direction.
+    #[must_use]
+    pub fn with_x_extend(mut self, mode: Extend) -> Self {
+        self.sampler.x_extend = mode;
+        self
+    }
+
+    /// Builder method for setting the image [extend mode](Extend) in the
+    /// vertical direction.
+    #[must_use]
+    pub fn with_y_extend(mut self, mode: Extend) -> Self {
+        self.sampler.y_extend = mode;
+        self
+    }
+
+    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
+    /// when rendering.
+    #[must_use]
+    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
+        self.sampler.quality = quality;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier set to `alpha`.
+    #[must_use]
+    #[track_caller]
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.sampler.alpha = alpha;
+        self
+    }
+
+    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
+    /// The behaviour of this transformation is undefined if `alpha` is negative.
+    #[must_use]
+    #[track_caller]
+    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
+        debug_assert!(
+            alpha.is_finite() && alpha >= 0.0,
+            "A non-finite or negative alpha ({alpha}) is meaningless."
+        );
+        self.sampler.alpha *= alpha;
+        self
+    }
 }
 
 impl ImageBrush {
@@ -203,91 +265,18 @@ impl ImageBrush {
 
     /// Converts an owned `ImageBrush` into a borrowed `ImageBrushRef`.
     #[must_use]
-    pub fn as_ref(&self) -> ImageBrushRef<'_> {
-        ImageBrushRef {
+    pub fn as_ref(&'_ self) -> ImageBrushRef<'_> {
+        ImageBrush {
             image: &self.image,
             sampler: self.sampler,
         }
     }
-
-    /// Builder method for setting the image [extend mode](Extend) in both
-    /// directions.
-    #[must_use]
-    pub fn with_extend(mut self, mode: Extend) -> Self {
-        self.sampler.x_extend = mode;
-        self.sampler.y_extend = mode;
-        self
-    }
-
-    /// Builder method for setting the image [extend mode](Extend) in the
-    /// horizontal direction.
-    #[must_use]
-    pub fn with_x_extend(mut self, mode: Extend) -> Self {
-        self.sampler.x_extend = mode;
-        self
-    }
-
-    /// Builder method for setting the image [extend mode](Extend) in the
-    /// vertical direction.
-    #[must_use]
-    pub fn with_y_extend(mut self, mode: Extend) -> Self {
-        self.sampler.y_extend = mode;
-        self
-    }
-
-    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
-    /// when rendering.
-    #[must_use]
-    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
-        self.sampler.quality = quality;
-        self
-    }
-
-    /// Returns the image with the alpha multiplier set to `alpha`.
-    #[must_use]
-    #[track_caller]
-    pub fn with_alpha(mut self, alpha: f32) -> Self {
-        debug_assert!(
-            alpha.is_finite() && alpha >= 0.0,
-            "A non-finite or negative alpha ({alpha}) is meaningless."
-        );
-        self.sampler.alpha = alpha;
-        self
-    }
-
-    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
-    /// The behaviour of this transformation is undefined if `alpha` is negative.
-    #[must_use]
-    #[track_caller]
-    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
-        debug_assert!(
-            alpha.is_finite() && alpha >= 0.0,
-            "A non-finite or negative alpha ({alpha}) is meaningless."
-        );
-        self.sampler.alpha *= alpha;
-        self
-    }
 }
 
 /// Borrowed version of [`ImageBrush`] for avoiding reference counting overhead.
-#[derive(Copy, Clone, PartialEq, Debug)]
-pub struct ImageBrushRef<'a> {
-    /// The image to render.
-    pub image: &'a ImageData,
-    /// Parameters which specify how to sample from the image during rendering.
-    pub sampler: ImageSampler,
-}
+pub type ImageBrushRef<'a> = ImageBrush<&'a ImageData>;
 
 impl ImageBrushRef<'_> {
-    /// Creates a new image with the given data, [format](ImageFormat) and dimensions.
-    #[must_use]
-    pub fn new<'a>(image: &'a ImageData) -> ImageBrushRef<'a> {
-        ImageBrushRef {
-            image,
-            sampler: ImageSampler::default(),
-        }
-    }
-
     /// Converts the `ImageBrushRef` to an owned `ImageBrush`.
     #[must_use]
     pub fn to_owned(&self) -> ImageBrush {
@@ -295,63 +284,5 @@ impl ImageBrushRef<'_> {
             image: (*self.image).clone(),
             sampler: self.sampler,
         }
-    }
-
-    /// Builder method for setting the image [extend mode](Extend) in both
-    /// directions.
-    #[must_use]
-    pub fn with_extend(mut self, mode: Extend) -> Self {
-        self.sampler.x_extend = mode;
-        self.sampler.y_extend = mode;
-        self
-    }
-
-    /// Builder method for setting the image [extend mode](Extend) in the
-    /// horizontal direction.
-    #[must_use]
-    pub fn with_x_extend(mut self, mode: Extend) -> Self {
-        self.sampler.x_extend = mode;
-        self
-    }
-
-    /// Builder method for setting the image [extend mode](Extend) in the
-    /// vertical direction.
-    #[must_use]
-    pub fn with_y_extend(mut self, mode: Extend) -> Self {
-        self.sampler.y_extend = mode;
-        self
-    }
-
-    /// Builder method for setting a hint for the desired image [quality](ImageQuality)
-    /// when rendering.
-    #[must_use]
-    pub fn with_quality(mut self, quality: ImageQuality) -> Self {
-        self.sampler.quality = quality;
-        self
-    }
-
-    /// Returns the image with the alpha multiplier set to `alpha`.
-    #[must_use]
-    #[track_caller]
-    pub fn with_alpha(mut self, alpha: f32) -> Self {
-        debug_assert!(
-            alpha.is_finite() && alpha >= 0.0,
-            "A non-finite or negative alpha ({alpha}) is meaningless."
-        );
-        self.sampler.alpha = alpha;
-        self
-    }
-
-    /// Returns the image with the alpha multiplier multiplied again by `alpha`.
-    /// The behaviour of this transformation is undefined if `alpha` is negative.
-    #[must_use]
-    #[track_caller]
-    pub fn multiply_alpha(mut self, alpha: f32) -> Self {
-        debug_assert!(
-            alpha.is_finite() && alpha >= 0.0,
-            "A non-finite or negative alpha ({alpha}) is meaningless."
-        );
-        self.sampler.alpha *= alpha;
-        self
     }
 }
