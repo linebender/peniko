@@ -32,10 +32,20 @@ This release has an [MSRV] of 1.82.
   The angle unit is now specified to be in radians. ([#130][] by [@tomcur][])
 - Update to `color` 0.3.2. ([#115][] by [@sagudev][])
 
-### Raw Resource Changes
+## [0.4.1][] (2025-09-15)
 
-Having the `Blob`, `Font`, and `WeakBlob` types in this crate created difficulties in versioning for other crates like Parley.
-We've now moved these to a dedicated shared crate so that we can remove the dependency on Peniko from Parley and make managing versions between Vello and other crates easier.
+This release has an [MSRV] of 1.82.
+
+### Changed
+
+- Use [Linebender Resource Handle](#linebender-resource-handle) for `Font`, `Blob`, and `WeakBlob`. ([#129][] by [@DJMcNab][], [@nicoburns][])
+
+### Linebender Resource Handle
+
+Peniko's `Font` (and therefore also `Blob`) are used as vocabulary types for font resources between crates.
+However, this means that when Peniko made semver-incompatible releases, those crates could no longer (easily) interoperate.
+To resolve this, `Font`, `Blob`, and `WeakBlob` are now re-exports from a new crate called [Linebender Resource Handle](https://crates.io/crates/linebender_resource_handle).
+These types have identical API as in previous releases, but will now be the same type across Peniko versions.
 
 ## [0.4.0][] (2025-04-30)
 
@@ -159,6 +169,7 @@ This release has an [MSRV] of 1.70.
 [#121]: https://github.com/linebender/peniko/pull/121
 [#123]: https://github.com/linebender/peniko/pull/123
 [#126]: https://github.com/linebender/peniko/pull/126
+[#129]: https://github.com/linebender/peniko/pull/129
 [#130]: https://github.com/linebender/peniko/pull/130
 
 [@dfrg]: https://github.com/dfrg
@@ -170,7 +181,10 @@ This release has an [MSRV] of 1.70.
 [@tomcur]: https://github.com/tomcur
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
+<!-- Note that this still comparing against 0.4.0, because 0.4.1 is a cherry-picked patch -->
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.4.0...HEAD
+[0.4.1]: https://github.com/linebender/peniko/compare/v0.4.0...v0.4.1
+<!-- Note that this still comparing against 0.3.1, because 0.3.2 is a cherry-picked patch -->
 [0.4.0]: https://github.com/linebender/peniko/compare/v0.3.1...v0.4.0
 [0.3.2]: https://github.com/linebender/peniko/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/linebender/peniko/compare/v0.3.0...v0.3.1
