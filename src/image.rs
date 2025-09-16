@@ -274,6 +274,10 @@ impl ImageBrush {
 }
 
 /// Borrowed version of [`ImageBrush`] for avoiding reference counting overhead.
+///
+/// This is useful for methods that would like to accept image brushes by reference.
+/// Defining the type as `impl Into<ImageBrushRef>` is the most general useful argument
+/// type, as it also allows `&ImageBrush`.
 pub type ImageBrushRef<'a> = ImageBrush<&'a ImageData>;
 
 impl ImageBrushRef<'_> {
@@ -284,5 +288,11 @@ impl ImageBrushRef<'_> {
             image: (*self.image).clone(),
             sampler: self.sampler,
         }
+    }
+}
+
+impl<'a> From<&'a ImageBrush> for ImageBrushRef<'a> {
+    fn from(value: &'a ImageBrush) -> Self {
+        value.as_ref()
     }
 }
