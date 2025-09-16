@@ -147,6 +147,7 @@ pub struct LinearGradientPosition {
     /// Ending point.
     pub end: Point,
 }
+
 impl LinearGradientPosition {
     /// Creates a new linear gradient position for the specified start and end points.
     pub fn new(start: impl Into<Point>, end: impl Into<Point>) -> Self {
@@ -170,6 +171,7 @@ pub struct RadialGradientPosition {
     /// Radius of end circle.
     pub end_radius: f32,
 }
+
 impl RadialGradientPosition {
     /// Creates a new radial gradient position for the specified center point and radius.
     pub fn new(center: impl Into<Point>, radius: f32) -> Self {
@@ -206,16 +208,17 @@ impl RadialGradientPosition {
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct SweepGradientPosition {
     /// Center point.
-    center: Point,
+    pub center: Point,
     /// Start angle of the sweep in radians, measuring from the positive X-axis.
     ///
     /// Clockwise in a Y-down coordinate system.
-    start_angle: f32,
+    pub start_angle: f32,
     /// End angle of the sweep in radians, measuring from the positive X-axis.
     ///
     /// Clockwise in a Y-down coordinate system.
-    end_angle: f32,
+    pub end_angle: f32,
 }
+
 impl SweepGradientPosition {
     /// Creates a new sweep gradient for the specified center point, start and end angles.
     pub fn new(center: impl Into<Point>, start_angle: f32, end_angle: f32) -> Self {
@@ -272,6 +275,7 @@ pub enum GradientKind {
     /// point.
     Sweep(SweepGradientPosition),
 }
+
 impl From<LinearGradientPosition> for GradientKind {
     #[inline(always)]
     fn from(value: LinearGradientPosition) -> Self {
