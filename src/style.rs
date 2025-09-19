@@ -4,11 +4,16 @@
 use kurbo::Stroke;
 
 /// Describes the rule that determines the interior portion of a shape.
+///
+/// This is only relevant for self-intersecting paths (e.g. a hourglass shape).
+/// For non-self-intersecting paths, both rules produce the same result.
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
 pub enum Fill {
     /// Non-zero fill rule.
+    ///
+    /// This is the most common rule; it matches the default behavior of the web canvas.
     NonZero = 0,
     /// Even-odd fill rule.
     EvenOdd = 1,
@@ -25,6 +30,12 @@ pub enum Style {
     Fill(Fill),
     /// Stroked draw operation.
     Stroke(Stroke),
+}
+
+impl Default for Fill {
+    fn default() -> Self {
+        Self::NonZero
+    }
 }
 
 impl From<Fill> for Style {
