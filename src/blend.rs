@@ -4,7 +4,7 @@
 /// Defines the color mixing function for a [blend operation](BlendMode).
 ///
 /// See [W3C's *Compositing and Blending Level 1* draft](https://www.w3.org/TR/compositing-1/) for more details.
-/// Illustrations fall under the [W3C software license](https://www.w3.org/copyright/software-license/).
+/// Illustrations fall under the [W3C open license](https://www.w3.org/copyright/software-license/).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
@@ -93,7 +93,7 @@ pub enum Mix {
 /// Defines the layer composition function for a [blend operation](BlendMode).
 ///
 /// See [W3C's *Compositing and Blending Level 1* draft](https://www.w3.org/TR/compositing-1/) for more details.
-/// Illustrations fall under the [W3C software license](https://www.w3.org/copyright/software-license/).
+/// Illustrations fall under the [W3C open license](https://www.w3.org/copyright/software-license/).
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
