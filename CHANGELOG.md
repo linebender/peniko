@@ -24,6 +24,7 @@ This release has an [MSRV] of 1.82.
 
 ### Changed
 
+- Breaking change: Added `PlusDarker` variant to `Compose` ([#112][] by [@sagudev][])
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
 - Breaking change: the angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
@@ -162,6 +163,7 @@ This release has an [MSRV] of 1.70.
 [#95]: https://github.com/linebender/peniko/pull/95
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
+[#112]: https://github.com/linebender/peniko/pull/112
 [#114]: https://github.com/linebender/peniko/pull/114
 [#115]: https://github.com/linebender/peniko/pull/115
 [#117]: https://github.com/linebender/peniko/pull/117
