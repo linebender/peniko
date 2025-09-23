@@ -17,20 +17,23 @@ This release has an [MSRV] of 1.82.
 
 ### Added
 
-- `Style` now impl `PartialEq`. ([#114][] by [@liferooter][])
+- `Style` now implements `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
 - Breaking change: Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#121][] by [@sagudev][])
 
 ### Changed
 
+- Breaking change: Each `GradientKind` now contains a corresponding internal struct, from struct variants.
+  `GradientKind::Linear { ... }` is now written as `LinearGradientPosition { ... }.into()` (or, more explicitly, as `GradientKind::Linear(LinearGradientPosition { ... })`).
+  The equivalent transform applies for `GradientKind::Sweep { ... }` and `GradientKind::Radial { ... }`. ([#119][] by [@nicoburns][])
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
-- Breaking change: the angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
+- Breaking change: The angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
   This is reversed from the most likely reading of the previous wording.
   More generally, the angle directions are now described numerically to be unambiguous across coordinate systems.
-  The angle unit is now specified to be in radians. ([#130][] by [@tomcur][])
-- Update to `color` 0.3.2. ([#115][] by [@sagudev][])
+  The angle unit is also now specified to be in radians. ([#130][] by [@tomcur][])
+- Breaking change: Update to [Kurbo v0.12.0](https://github.com/linebender/kurbo/releases/tag/v0.12.0). ([#127][] by [@nicoburns][])
 
 ## [0.4.1][] (2025-09-15)
 
@@ -163,12 +166,13 @@ This release has an [MSRV] of 1.70.
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
 [#114]: https://github.com/linebender/peniko/pull/114
-[#115]: https://github.com/linebender/peniko/pull/115
 [#117]: https://github.com/linebender/peniko/pull/117
+[#119]: https://github.com/linebender/peniko/pull/119
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121
 [#123]: https://github.com/linebender/peniko/pull/123
 [#126]: https://github.com/linebender/peniko/pull/126
+[#127]: https://github.com/linebender/peniko/pull/127
 [#129]: https://github.com/linebender/peniko/pull/129
 [#130]: https://github.com/linebender/peniko/pull/130
 
