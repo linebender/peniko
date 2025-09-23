@@ -8,10 +8,14 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-The latest published Peniko release is [0.4.0](#040-2025-04-30) which was released on 2025-04-30.
-You can find its changes [documented below](#040-2025-04-30).
+The latest published Peniko release is [0.4.0](#050-2025-09-25) which was released on 2025-09-25.
+You can find its changes [documented below](#050-2025-09-25).
 
 ## [Unreleased]
+
+This release has an [MSRV] of 1.82.
+
+## [0.5.0][] (2025-09-25)
 
 This release has an [MSRV] of 1.82.
 
@@ -188,8 +192,9 @@ This release has an [MSRV] of 1.70.
 [@tomcur]: https://github.com/tomcur
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
+[Unreleased]: https://github.com/linebender/peniko/compare/v0.5.0...HEAD
 <!-- Note that this still comparing against 0.4.0, because 0.4.1 is a cherry-picked patch -->
-[Unreleased]: https://github.com/linebender/peniko/compare/v0.4.0...HEAD
+[0.5.0]: https://github.com/linebender/peniko/compare/v0.4.0...v0.5.0
 [0.4.1]: https://github.com/linebender/peniko/compare/v0.4.0...v0.4.1
 <!-- Note that this still comparing against 0.3.1, because 0.3.2 is a cherry-picked patch -->
 [0.4.0]: https://github.com/linebender/peniko/compare/v0.3.1...v0.4.0
