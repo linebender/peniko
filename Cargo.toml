@@ -1,6 +1,6 @@
 [package]
 name = "peniko"
-version = "0.54.0"
+version = "0.5.0"
 license = "Apache-2.0 OR MIT"
 edition = "2021"
 description = "Primitive types for styling vector graphics"
