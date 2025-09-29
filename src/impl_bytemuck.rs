@@ -166,7 +166,10 @@ unsafe impl bytemuck::checked::CheckedBitPattern for Mix {
     type Bits = u8;
 
     fn is_valid_bit_pattern(bits: &u8) -> bool {
-        *bits <= Self::Luminosity as u8 || *bits == Self::Clip as u8
+        #[expect(deprecated, reason = "Mix::Clip is still a valid bit pattern for now.")]
+        *bits
+            <= Self::Luminosity as u8
+            || *bits == Self::Clip as u8
     }
 }
 
