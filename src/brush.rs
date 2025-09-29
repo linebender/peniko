@@ -63,8 +63,8 @@ impl<I> From<Gradient> for Brush<I, Gradient> {
     }
 }
 
-impl<G> From<ImageBrush> for Brush<ImageBrush, G> {
-    fn from(value: ImageBrush) -> Self {
+impl<G, D> From<ImageBrush<D>> for Brush<ImageBrush<D>, G> {
+    fn from(value: ImageBrush<D>) -> Self {
         Self::Image(value)
     }
 }
@@ -132,12 +132,6 @@ impl BrushRef<'_> {
 impl<'a> From<&'a Gradient> for BrushRef<'a> {
     fn from(gradient: &'a Gradient) -> Self {
         Self::Gradient(gradient)
-    }
-}
-
-impl<'a> From<ImageBrushRef<'a>> for BrushRef<'a> {
-    fn from(image: ImageBrushRef<'a>) -> Self {
-        Self::Image(image)
     }
 }
 
