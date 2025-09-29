@@ -183,7 +183,7 @@ impl BlendMode {
 impl Default for BlendMode {
     fn default() -> Self {
         Self {
-            mix: Mix::Clip,
+            mix: Mix::Normal,
             compose: Compose::SrcOver,
         }
     }
