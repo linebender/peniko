@@ -34,6 +34,7 @@ This release has an [MSRV] of 1.82.
   More generally, the angle directions are now described numerically to be unambiguous across coordinate systems.
   The angle unit is also now specified to be in radians. ([#130][] by [@tomcur][])
 - Breaking change: Update to [Kurbo v0.12.0](https://github.com/linebender/kurbo/releases/tag/v0.12.0). ([#127][] by [@nicoburns][])
+- `Mix::Clip` is now deprecated. To access the same functionality of optimised clips in Vello, you should now use `push_clip_layer`. ([#144][] by [@DJMcNab][])
 
 ## [0.4.1][] (2025-09-15)
 
@@ -175,6 +176,7 @@ This release has an [MSRV] of 1.70.
 [#127]: https://github.com/linebender/peniko/pull/127
 [#129]: https://github.com/linebender/peniko/pull/129
 [#130]: https://github.com/linebender/peniko/pull/130
+[#144]: https://github.com/linebender/peniko/pull/144
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
