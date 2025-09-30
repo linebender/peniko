@@ -28,6 +28,7 @@ This release has an [MSRV] of 1.82.
   `GradientKind::Linear { ... }` is now written as `LinearGradientPosition { ... }.into()` (or, more explicitly, as `GradientKind::Linear(LinearGradientPosition { ... })`).
   The equivalent transform applies for `GradientKind::Sweep { ... }` and `GradientKind::Radial { ... }`. ([#119][] by [@nicoburns][])
 - Breaking change: `Image` has been renamed to `ImageBrush`, which now consists of an `ImageData` and an `ImageSampler`. ([#117][], [#123][] by [@nicoburns][], [@DJMcNab][])
+  To create an `ImageBrush` easily, you can use `ImageData {...}.into()`.
 - Breaking change: `Font` has been renamed to `FontData` to match `ImageData`. ([#126][] by [@nicoburns][])
 - Breaking change: The angle directions of `SweepGradientPosition` are now described to be clockwise in a Y-down coordinate system, as is common in computer graphics.
   This is reversed from the most likely reading of the previous wording.

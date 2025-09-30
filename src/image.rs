@@ -273,6 +273,12 @@ impl ImageBrush {
     }
 }
 
+impl From<ImageData> for ImageBrush {
+    fn from(image: ImageData) -> Self {
+        Self::new(image)
+    }
+}
+
 /// Borrowed version of [`ImageBrush`] for avoiding reference counting overhead.
 ///
 /// This is useful for methods that would like to accept image brushes by reference.
