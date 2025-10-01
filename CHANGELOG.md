@@ -8,14 +8,14 @@ Subheadings to categorize changes are `added, changed, deprecated, removed, fixe
 
 -->
 
-The latest published Peniko release is [0.5.0](#050-2025-09-25) which was released on 2025-09-25.
-You can find its changes [documented below](#050-2025-09-25).
+The latest published Peniko release is [0.5.0](#050-2025-10-01) which was released on 2025-10-01.
+You can find its changes [documented below](#050-2025-10-01).
 
 ## [Unreleased]
 
 This release has an [MSRV] of 1.82.
 
-## [0.5.0][] (2025-09-25)
+## [0.5.0][] (2025-10-01)
 
 This release has an [MSRV] of 1.82.
 
