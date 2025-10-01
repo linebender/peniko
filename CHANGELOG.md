@@ -20,7 +20,7 @@ This release has an [MSRV] of 1.82.
 - `Style` now implements `PartialEq`. ([#114][] by [@liferooter][])
 - Add `Bgra8` variant to `ImageFormat`. ([#120][] by [@sagudev][])
 - Provide `ImageAlphaType` with `ImageData`. ([#121][] by [@sagudev][])
-- Breaking change: Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#121][] by [@sagudev][])
+- Breaking change: Add `InterpolationAlphaSpace` to `Gradient` to chose how color channels should be handled when interpolating between transparent colors. ([#115][] by [@sagudev][])
 
 ### Changed
 
@@ -168,6 +168,7 @@ This release has an [MSRV] of 1.70.
 [#103]: https://github.com/linebender/peniko/pull/103
 [#104]: https://github.com/linebender/peniko/pull/104
 [#114]: https://github.com/linebender/peniko/pull/114
+[#115]: https://github.com/linebender/peniko/pull/115
 [#117]: https://github.com/linebender/peniko/pull/117
 [#119]: https://github.com/linebender/peniko/pull/119
 [#120]: https://github.com/linebender/peniko/pull/120
