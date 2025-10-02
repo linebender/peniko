@@ -302,3 +302,12 @@ impl<'a> From<&'a ImageBrush> for ImageBrushRef<'a> {
         value.as_ref()
     }
 }
+
+impl<'a> From<&'a ImageData> for ImageBrushRef<'a> {
+    fn from(image: &'a ImageData) -> Self {
+        Self {
+            image,
+            sampler: ImageSampler::default(),
+        }
+    }
+}
