@@ -15,6 +15,10 @@ You can find its changes [documented below](#050-2025-10-01).
 
 This release has an [MSRV] of 1.82.
 
+### Added
+
+- There is now a `From` conversion from `&ImageData` to `ImageBrushRef`. ([#147][] by [@DJMcNab][])
+
 ## [0.5.0][] (2025-10-01)
 
 This release has an [MSRV] of 1.82.
@@ -183,6 +187,7 @@ This release has an [MSRV] of 1.70.
 [#129]: https://github.com/linebender/peniko/pull/129
 [#130]: https://github.com/linebender/peniko/pull/130
 [#144]: https://github.com/linebender/peniko/pull/144
+[#147]: https://github.com/linebender/peniko/pull/147
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
