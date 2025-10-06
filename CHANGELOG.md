@@ -15,6 +15,10 @@ You can find its changes [documented below](#050-2025-10-01).
 
 This release has an [MSRV] of 1.82.
 
+### Added
+
+- Derive `Eq` and `Hash` on `InterpolationAlphaSpace`. ([#148][] by [@sagudev][])
+
 ## [0.5.0][] (2025-10-01)
 
 This release has an [MSRV] of 1.82.
@@ -183,6 +187,7 @@ This release has an [MSRV] of 1.70.
 [#129]: https://github.com/linebender/peniko/pull/129
 [#130]: https://github.com/linebender/peniko/pull/130
 [#144]: https://github.com/linebender/peniko/pull/144
+[#148]: https://github.com/linebender/peniko/pull/148
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
