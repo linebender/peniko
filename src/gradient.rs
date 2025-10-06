@@ -232,7 +232,7 @@ impl SweepGradientPosition {
 
 /// Defines how color channels should be handled when interpolating
 /// between transparent colors.
-#[derive(Clone, Copy, Default, Debug, PartialEq)]
+#[derive(Clone, Copy, Default, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum InterpolationAlphaSpace {
     /// Colors are interpolated with their color channels premultiplied by the alpha
