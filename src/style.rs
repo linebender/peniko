@@ -27,7 +27,7 @@ pub enum Fill {
     /// number state can be stored in only one bit (and so the winding numbers for
     /// several pixels can be packed extremely efficiently).
     EvenOdd = 1,
-    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Describes draw style-- either a [fill](Fill) or [stroke](Stroke).
