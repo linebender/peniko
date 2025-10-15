@@ -9,10 +9,14 @@ use super::{Blob, Extend};
 #[non_exhaustive]
 #[repr(u8)]
 pub enum ImageFormat {
-    /// 32-bit RGBA with 8-bit channels.
+    /// 32-bit RGBA with 8-bit channels, with a separate alpha.
     Rgba8 = 0,
-    /// 32-bit BGRA with 8-bit channels.
-    Bgra8 = 1,
+    /// 32-bit RGBA with 8-bit channels, with premultiplied alpha.
+    PremulRgba8 = 1,
+    /// 32-bit BGRA with 8-bit channels, with a separate alpha.
+    Bgra8 = 2,
+    /// 32-bit BGRA with 8-bit channels, with premultiplied alpha.
+    PremulBgra8 = 3,
     // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
 }
 
@@ -24,22 +28,11 @@ impl ImageFormat {
     #[must_use]
     pub fn size_in_bytes(self, width: u32, height: u32) -> Option<usize> {
         match self {
-            Self::Rgba8 | Self::Bgra8 => 4_usize
+            Self::Rgba8 | Self::PremulRgba8 | Self::Bgra8 | Self::PremulBgra8 => 4_usize
                 .checked_mul(width as usize)
                 .and_then(|x| x.checked_mul(height as usize)),
         }
     }
-}
-
-/// Handling of alpha channel.
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-#[repr(u8)]
-pub enum ImageAlphaType {
-    /// Image has separate alpha channel (also called straight/unpremultiplied alpha).
-    Alpha = 0,
-    /// Image has colors with premultiplied alpha.
-    AlphaPremultiplied = 1,
 }
 
 /// Defines the desired quality for sampling an image.
@@ -71,8 +64,6 @@ pub struct ImageData {
     pub data: Blob<u8>,
     /// Pixel format of the image.
     pub format: ImageFormat,
-    /// Encoding of alpha in the image pixels.
-    pub alpha_type: ImageAlphaType,
     /// Width of the image.
     pub width: u32,
     /// Height of the image.
