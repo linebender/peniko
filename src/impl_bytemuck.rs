@@ -165,7 +165,6 @@ unsafe impl bytemuck::Zeroable for Mix {}
 unsafe impl bytemuck::checked::CheckedBitPattern for Mix {
     type Bits = u8;
 
-    #[expect(deprecated, reason = "Mix::Clip is still a valid bit pattern for now.")]
     fn is_valid_bit_pattern(bits: &u8) -> bool {
         use bytemuck::Contiguous;
         // Don't need to compare against MIN_VALUE as this is u8 and 0 is the MIN_VALUE.
