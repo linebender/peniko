@@ -84,16 +84,7 @@ pub enum Mix {
     ///
     /// ![](https://www.w3.org/TR/compositing-1/examples/luminosity.png)
     Luminosity = 15,
-    /// `Clip` was similar to `Normal`, but was optimised for clipping (by avoiding
-    /// blending in areas where there was no clip path).
-    ///
-    /// This optimisation is however unrelated to mixing, and so will no longer
-    /// be indicated with this enum.
-    ///
-    /// If you were using this with Vello, you should use the (new) `push_clip_layer` function instead.
-    #[deprecated(note = "Use `push_clip_layer` instead.", since = "0.5.0")]
-    Clip = 128,
-    // NOTICE: If a new value is added, be sure to update the bytemuck CheckedBitPattern impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Defines the layer composition function for a [blend operation](BlendMode).
@@ -159,7 +150,7 @@ pub enum Compose {
     /// Allows two elements to cross fade by changing their opacities from 0 to 1 on one
     /// element and 1 to 0 on the other element.
     PlusLighter = 13,
-    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the bytemuck impl.
+    // NOTICE: If a new value is added, be sure to modify `MAX_VALUE` in the `bytemuck::Contiguous` impl.
 }
 
 /// Blend mode consisting of [color mixing](Mix) and [composition functions](Compose).

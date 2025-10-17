@@ -20,6 +20,10 @@ This release has an [MSRV] of 1.82.
 - Derive `Eq` and `Hash` on `InterpolationAlphaSpace`. ([#148][] by [@sagudev][])
 - There is now a `From` conversion from `&ImageData` to `ImageBrushRef`. ([#147][] by [@DJMcNab][])
 
+### Removed
+
+- Breaking change: `Mix::Clip` has been removed; it was previously deprecated in v0.5.0. ([#124][] by [@DJMcNab][])
+
 ## [0.5.0][] (2025-10-01)
 
 This release has an [MSRV] of 1.82.
@@ -183,6 +187,7 @@ This release has an [MSRV] of 1.70.
 [#120]: https://github.com/linebender/peniko/pull/120
 [#121]: https://github.com/linebender/peniko/pull/121
 [#123]: https://github.com/linebender/peniko/pull/123
+[#124]: https://github.com/linebender/peniko/pull/124
 [#126]: https://github.com/linebender/peniko/pull/126
 [#127]: https://github.com/linebender/peniko/pull/127
 [#129]: https://github.com/linebender/peniko/pull/129
