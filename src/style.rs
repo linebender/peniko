@@ -19,7 +19,7 @@ pub enum Fill {
     NonZero = 0,
     /// Even-odd fill rule.
     ///
-    /// All regions where the winding number of the path is odd will be willed.
+    /// All regions where the winding number of the path is odd will be filled.
     /// The most common use case for this rule is as an optimisation when the
     /// paths are known to not be self-intersecting. There may also be cases where
     /// this rendering is desired. <!-- TODO: Are there? -->
