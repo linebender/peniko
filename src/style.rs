@@ -7,7 +7,7 @@ use kurbo::Stroke;
 ///
 /// This is only relevant for self-intersecting paths (e.g. a hourglass shape).
 /// For non-self-intersecting paths, both rules produce the same result.
-#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[derive(Copy, Clone, Default, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
 pub enum Fill {
@@ -16,6 +16,7 @@ pub enum Fill {
     /// All regions where the winding number of the path is not zero will be filled.
     /// This is generally more correct, but can be more expensive to implement in renderers.
     /// This matches the default behavior of the web canvas, and is the default value.
+    #[default]
     NonZero = 0,
     /// Even-odd fill rule.
     ///
@@ -40,12 +41,6 @@ pub enum Style {
     Fill(Fill),
     /// Stroked draw operation.
     Stroke(Stroke),
-}
-
-impl Default for Fill {
-    fn default() -> Self {
-        Self::NonZero
-    }
 }
 
 impl From<Fill> for Style {
