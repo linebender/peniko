@@ -13,12 +13,16 @@ You can find its changes [documented below](#050-2025-10-01).
 
 ## [Unreleased]
 
-This release has an [MSRV] of 1.82.
+This release has an [MSRV] of 1.85.
 
 ### Added
 
 - Derive `Eq` and `Hash` on `InterpolationAlphaSpace`. ([#148][] by [@sagudev][])
 - There is now a `From` conversion from `&ImageData` to `ImageBrushRef`. ([#147][] by [@DJMcNab][])
+
+### Changed
+
+- Breaking change: Update to [Kurbo v0.13.0](https://github.com/linebender/kurbo/releases/tag/v0.13.0). ([#155][] by [@waywardmonkeys][])
 
 ### Removed
 
@@ -195,6 +199,7 @@ This release has an [MSRV] of 1.70.
 [#144]: https://github.com/linebender/peniko/pull/144
 [#147]: https://github.com/linebender/peniko/pull/147
 [#148]: https://github.com/linebender/peniko/pull/148
+[#155]: https://github.com/linebender/peniko/pull/155
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab

@@ -10,7 +10,7 @@ repository = "https://github.com/linebender/peniko"
 readme = "README.md"
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
-rust-version = "1.82"
+rust-version = "1.85"
 exclude = [".github", ".clippy.toml", ".gitignore", ".typos.toml", ".taplo.toml"]
 
 [package.metadata.docs.rs]
@@ -34,7 +34,7 @@ serde = [
 ]
 
 [dependencies]
-kurbo = { version = "0.12.0", default-features = false }
+kurbo = { version = "0.13.0", default-features = false }
 smallvec = "1.15.1"
 bytemuck = { version = "1.23.2", default-features = false, optional = true }
 color = { version = "0.3.2", default-features = false }
