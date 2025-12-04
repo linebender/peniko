@@ -4,8 +4,8 @@
 use super::Extend;
 
 use color::{
-    cache_key::{BitEq, BitHash},
     AlphaColor, ColorSpace, ColorSpaceTag, DynamicColor, HueDirection, OpaqueColor,
+    cache_key::{BitEq, BitHash},
 };
 use kurbo::Point;
 use smallvec::SmallVec;

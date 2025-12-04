@@ -2,7 +2,7 @@
 name = "peniko"
 version = "0.5.0"
 license = "Apache-2.0 OR MIT"
-edition = "2021"
+edition = "2024"
 description = "Primitive types for styling vector graphics"
 keywords = ["graphics", "vector", "style"]
 categories = ["graphics"]
