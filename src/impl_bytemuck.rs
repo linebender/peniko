@@ -183,7 +183,7 @@ unsafe impl bytemuck::Contiguous for Mix {
 #[cfg(test)]
 mod tests {
     use crate::{Compose, Extend, Fill, ImageAlphaType, ImageFormat, ImageQuality, Mix};
-    use bytemuck::{checked::try_from_bytes, Contiguous, Zeroable};
+    use bytemuck::{Contiguous, Zeroable, checked::try_from_bytes};
     use core::ptr;
 
     #[test]
