@@ -215,7 +215,7 @@ This release has an [MSRV] of 1.70.
 [@waywardmonkeys]: https://github.com/waywardmonkeys
 
 [Unreleased]: https://github.com/linebender/peniko/compare/v0.6.0...HEAD
-[0.6.0]: https://github.com/linebender/peniko/compare/v0.5.0...v0.6/.0
+[0.6.0]: https://github.com/linebender/peniko/compare/v0.5.0...v0.6.0
 <!-- Note that this still comparing against 0.4.0, because 0.4.1 is a cherry-picked patch -->
 [0.5.0]: https://github.com/linebender/peniko/compare/v0.4.0...v0.5.0
 [0.4.1]: https://github.com/linebender/peniko/compare/v0.4.0...v0.4.1
