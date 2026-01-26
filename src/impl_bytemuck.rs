@@ -387,9 +387,9 @@ mod tests {
     /// Tests that the [`Contiguous`] impl for [`Mix`] is not trivially incorrect.
     const _: () = {
         let mut value = 0;
-        while value <= ImageQuality::MAX_VALUE {
-            // Safety: In a const context, therefore if this makes an invalid ImageQuality, that will be detected.
-            let it: ImageQuality = unsafe { ptr::read((&raw const value).cast()) };
+        while value <= Mix::MAX_VALUE {
+            // Safety: In a const context, therefore if this makes an invalid Mix, that will be detected.
+            let it: Mix = unsafe { ptr::read((&raw const value).cast()) };
             // Evaluate the enum value to ensure it actually has a valid tag
             if it as u8 != value {
                 unreachable!();
