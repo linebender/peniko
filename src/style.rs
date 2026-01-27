@@ -5,7 +5,7 @@ use kurbo::Stroke;
 
 /// Describes the rule that determines the interior portion of a shape.
 ///
-/// This is only relevant for self-intersecting paths (e.g. a hourglass shape).
+/// This is only relevant for self-intersecting paths (e.g. an hourglass shape).
 /// For non-self-intersecting paths, both rules produce the same result.
 #[derive(Copy, Clone, Default, PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -22,9 +22,10 @@ pub enum Fill {
     ///
     /// All regions where the winding number of the path is odd will be filled.
     /// The most common use case for this rule is as an optimisation when the
-    /// paths are known to not be self-intersecting. There may also be cases where
-    /// this rendering is desired. <!-- TODO: Are there? -->
-    /// This can be implemented more efficiently than even-odd, as the winding
+    /// paths are known not to be self-intersecting. It is also useful for
+    /// creating intentional holes in self-intersecting shapes (e.g. star or
+    /// donut-like paths) or to match the SVG/Canvas even-odd fill rule.
+    /// This can be implemented more efficiently than non-zero, as the winding
     /// number state can be stored in only one bit (and so the winding numbers for
     /// several pixels can be packed extremely efficiently).
     EvenOdd = 1,
@@ -58,7 +59,7 @@ impl From<Stroke> for Style {
 /// Reference to a [draw style](Style).
 ///
 /// This is useful for methods that would like to accept draw styles by reference. Defining
-/// the type as `impl<Into<StyleRef>>` allows accepting types like `&Stroke` or `Fill`
+/// the type as `impl Into<StyleRef>` allows accepting types like `&Stroke` or `Fill`
 /// directly without cloning or allocating.
 #[derive(Debug, Copy, Clone)]
 pub enum StyleRef<'a> {
