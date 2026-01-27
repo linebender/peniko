@@ -466,6 +466,18 @@ pub trait ColorStopsSource {
     fn collect_stops(self, stops: &mut ColorStops);
 }
 
+impl ColorStopsSource for ColorStops {
+    fn collect_stops(self, stops: &mut ColorStops) {
+        stops.extend(self.0);
+    }
+}
+
+impl ColorStopsSource for &ColorStops {
+    fn collect_stops(self, stops: &mut ColorStops) {
+        stops.extend(self.iter().copied());
+    }
+}
+
 impl<T> ColorStopsSource for &'_ [T]
 where
     T: Into<ColorStop> + Copy,
