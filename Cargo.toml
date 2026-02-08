@@ -1,50 +1,16 @@
-[package]
-name = "peniko"
-version = "0.6.0"
-license = "Apache-2.0 OR MIT"
+[workspace]
+members = ["peniko"]
+resolver = "2"
+
+[workspace.package]
 edition = "2024"
-description = "Primitive types for styling vector graphics"
-keywords = ["graphics", "vector", "style"]
-categories = ["graphics"]
+license = "Apache-2.0 OR MIT"
 repository = "https://github.com/linebender/peniko"
-readme = "README.md"
-# Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files.
+# Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files,
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
 rust-version = "1.85"
-exclude = [".github", ".clippy.toml", ".gitignore", ".typos.toml", ".taplo.toml"]
 
-[package.metadata.docs.rs]
-all-features = true
-# There are no platform specific docs.
-default-target = "x86_64-unknown-linux-gnu"
-targets = []
-
-[features]
-default = ["std"]
-std = ["color/std", "kurbo/std", "linebender_resource_handle/std"]
-bytemuck = ["color/bytemuck", "dep:bytemuck"]
-libm = ["color/libm", "kurbo/libm"]
-mint = ["kurbo/mint"]
-serde = [
-    "color/serde",
-    "smallvec/serde",
-    "kurbo/serde",
-    "linebender_resource_handle/serde",
-    "dep:serde",
-]
-
-[dependencies]
-kurbo = { version = "0.13.0", default-features = false }
-smallvec = "1.15.1"
-bytemuck = { version = "1.24.0", default-features = false, optional = true }
-color = { version = "0.3.2", default-features = false }
-linebender_resource_handle = { version = "0.1.1", default-features = false }
-serde = { version = "1.0.228", default-features = false, optional = true, features = [
-    "alloc",
-    "derive",
-] }
-
-[lints]
+[workspace.lints]
 rust.unsafe_code = "deny"
 
 # LINEBENDER LINT SET - Cargo.toml - v8
