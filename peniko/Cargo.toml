@@ -1,0 +1,45 @@
+[package]
+name = "peniko"
+version = "0.6.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Primitive types for styling vector graphics"
+keywords = ["graphics", "vector", "style"]
+categories = ["graphics"]
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+# There are no platform specific docs.
+default-target = "x86_64-unknown-linux-gnu"
+targets = []
+
+[features]
+default = ["std"]
+std = ["color/std", "kurbo/std", "linebender_resource_handle/std"]
+bytemuck = ["color/bytemuck", "dep:bytemuck"]
+libm = ["color/libm", "kurbo/libm"]
+mint = ["kurbo/mint"]
+serde = [
+    "color/serde",
+    "smallvec/serde",
+    "kurbo/serde",
+    "linebender_resource_handle/serde",
+    "dep:serde",
+]
+
+[dependencies]
+kurbo = { version = "0.13.0", default-features = false }
+smallvec = "1.15.1"
+bytemuck = { version = "1.24.0", default-features = false, optional = true }
+color = { version = "0.3.2", default-features = false }
+linebender_resource_handle = { version = "0.1.1", default-features = false }
+serde = { version = "1.0.228", default-features = false, optional = true, features = [
+    "alloc",
+    "derive",
+] }
+
+[lints]
+workspace = true
