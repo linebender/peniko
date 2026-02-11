@@ -7,13 +7,14 @@
 #   -g "!src/special_directory"
 
 # Check all the standard Rust source files
-output=$(rg "^// Copyright (19|20)[\d]{2} (.+ and )?the Peniko Authors( and .+)?$\n^// SPDX-License-Identifier: Apache-2\.0 OR MIT$\n\n" --files-without-match --multiline -g "*.rs" .)
+output=$(rg "^// Copyright (19|20)[\d]{2} (.+ and )?the (Peniko|Imaging Model) Authors( and .+)?$\n^// SPDX-License-Identifier: Apache-2\.0 OR MIT$\n\n" --files-without-match --multiline -g "*.rs" .)
 
 if [ -n "$output" ]; then
 	echo -e "The following files lack the correct copyright header:\n"
 	echo $output
-	echo -e "\n\nPlease add the following header:\n"
+	echo -e "\n\nPlease add one of the following headers:\n"
 	echo "// Copyright $(date +%Y) the Peniko Authors"
+	echo "// Copyright $(date +%Y) the Imaging Model Authors"
 	echo "// SPDX-License-Identifier: Apache-2.0 OR MIT"
 	echo -e "\n... rest of the file ...\n"
 	exit 1
@@ -21,4 +22,3 @@ fi
 
 echo "All files have correct copyright headers."
 exit 0
-
