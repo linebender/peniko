@@ -31,7 +31,7 @@ serde = [
 ]
 
 [dependencies]
-kurbo = { version = "0.13.0", default-features = false }
+kurbo = { workspace = true }
 smallvec = "1.15.1"
 bytemuck = { version = "1.24.0", default-features = false, optional = true }
 color = { version = "0.3.2", default-features = false }

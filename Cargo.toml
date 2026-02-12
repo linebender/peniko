@@ -1,5 +1,5 @@
 [workspace]
-members = ["peniko"]
+members = ["imaging_model", "peniko"]
 resolver = "2"
 
 [workspace.package]
@@ -9,6 +9,10 @@ repository = "https://github.com/linebender/peniko"
 # Keep in sync with RUST_MIN_VER in .github/workflows/ci.yml and with the relevant README.md files,
 # and with the MSRV in the `Unreleased` section of CHANGELOG.md.
 rust-version = "1.85"
+
+[workspace.dependencies]
+kurbo = { version = "0.13.0", default-features = false }
+peniko = { version = "0.6.0", path = "peniko", default-features = false }
 
 [workspace.lints]
 rust.unsafe_code = "deny"

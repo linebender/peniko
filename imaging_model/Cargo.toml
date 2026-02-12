@@ -1,0 +1,29 @@
+[package]
+name = "imaging_model"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Core data model types for Linebender 2D Imaging Model"
+keywords = ["graphics"]
+categories = ["graphics"]
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+# There are no platform specific docs.
+default-target = "x86_64-unknown-linux-gnu"
+targets = []
+
+[features]
+default = ["std"]
+std = ["kurbo/std", "peniko/std"]
+libm = ["kurbo/libm", "peniko/libm"]
+
+[dependencies]
+kurbo = { version = "0.13.0", default-features = false }
+peniko = { workspace = true }
+
+[lints]
+workspace = true
