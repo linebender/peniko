@@ -170,6 +170,23 @@ impl BlendMode {
     pub const fn new(mix: Mix, compose: Compose) -> Self {
         Self { mix, compose }
     }
+
+    /// Returns whether this blend mode might cause destructive changes in the backdrop.
+    ///
+    /// Destructive blend modes disallow certain optimizations, such as skipping
+    /// transparent paints.
+    #[must_use]
+    pub const fn is_destructive(&self) -> bool {
+        matches!(
+            self.compose,
+            Compose::Clear
+                | Compose::Copy
+                | Compose::SrcIn
+                | Compose::DestIn
+                | Compose::SrcOut
+                | Compose::DestAtop
+        )
+    }
 }
 
 impl Default for BlendMode {
