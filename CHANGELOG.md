@@ -15,6 +15,15 @@ You can find its changes [documented below](#060-2026-01-09).
 
 This release has an [MSRV] of 1.85.
 
+### Added
+
+- `BlendMode::is_destructive` now reports whether a blend mode can make destructive changes to the backdrop. ([#166][] by [@waywardmonkeys][])
+- `Gradient::with_stops` now accepts `ColorStops` and `&ColorStops` directly. ([#161][] by [@no-materials][])
+
+### Changed
+
+- Update `kurbo` to 0.13.1, `color` to 0.3.3, and `bytemuck` to 1.25.0. ([#168][] by [@waywardmonkeys][])
+
 ## [0.6.0][] (2026-01-09)
 
 This release has an [MSRV] of 1.85.
@@ -204,11 +213,15 @@ This release has an [MSRV] of 1.70.
 [#147]: https://github.com/linebender/peniko/pull/147
 [#148]: https://github.com/linebender/peniko/pull/148
 [#155]: https://github.com/linebender/peniko/pull/155
+[#161]: https://github.com/linebender/peniko/pull/161
+[#166]: https://github.com/linebender/peniko/pull/166
+[#168]: https://github.com/linebender/peniko/pull/168
 
 [@dfrg]: https://github.com/dfrg
 [@DJMcNab]: https://github.com/DJMcNab
 [@liferooter]: https://github.com/liferooter
 [@nicoburns]: https://github.com/nicoburns
+[@no-materials]: https://github.com/no-materials
 [@ratmice]: https://github.com/ratmice
 [@sagudev]: https://github.com/sagudev
 [@tomcur]: https://github.com/tomcur
