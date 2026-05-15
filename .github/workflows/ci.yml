@@ -118,6 +118,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           save-if: ${{ github.event_name != 'merge_group' }}
+          cache-bin: ${{ matrix.os != 'macos-latest' }} # works around https://github.com/Swatinem/rust-cache/issues/341
 
       - name: cargo clippy (no_std)
         run: cargo hack clippy --workspace --locked --optional-deps --each-feature --ignore-unknown-features --features libm --exclude-features ${{ env.FEATURES_DEPENDING_ON_STD }} --target x86_64-unknown-none -- -D warnings
@@ -180,6 +181,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           save-if: ${{ github.event_name != 'merge_group' }}
+          cache-bin: ${{ matrix.os != 'macos-latest' }} # works around https://github.com/Swatinem/rust-cache/issues/341
 
       - name: cargo nextest
         run: cargo nextest run --workspace --locked --all-features --no-fail-fast
@@ -232,6 +234,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           save-if: ${{ github.event_name != 'merge_group' }}
+          cache-bin: ${{ matrix.os != 'macos-latest' }} # works around https://github.com/Swatinem/rust-cache/issues/341
 
       - name: cargo check (no_std)
         run: cargo hack check ${{ env.RUST_MIN_VER_PKGS }} --locked --optional-deps --each-feature --ignore-unknown-features --features libm --exclude-features ${{ env.FEATURES_DEPENDING_ON_STD }} --target x86_64-unknown-none
