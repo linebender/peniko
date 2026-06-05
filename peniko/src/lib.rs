@@ -25,6 +25,7 @@
 #![no_std]
 
 mod blend;
+mod blurred_rounded_rect;
 mod brush;
 mod gradient;
 mod image;
@@ -43,6 +44,7 @@ pub use kurbo;
 pub use linebender_resource_handle::{self, Blob, FontData, WeakBlob};
 
 pub use blend::{BlendMode, Compose, Mix};
+pub use blurred_rounded_rect::BlurredRoundedRectangle;
 pub use brush::{Brush, BrushRef, Extend};
 pub use gradient::{
     ColorStop, ColorStops, ColorStopsSource, Gradient, GradientKind, InterpolationAlphaSpace,
