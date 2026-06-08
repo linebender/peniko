@@ -8,7 +8,7 @@ use crate::kurbo::Rect;
 ///
 /// May be used in renderer APIs, as a fast path to render shadows for rounded rectangles.
 #[derive(Debug)]
-pub struct BlurredRoundedRectangle {
+pub struct BlurredRoundedRect {
     /// The base rectangle to use for the blur effect.
     pub rect: Rect,
     /// The color of the blurred rectangle.
