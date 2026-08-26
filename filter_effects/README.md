@@ -1,4 +1,27 @@
-TODO
+<div align="center">
+
+# Filter Effects
+
+**Rust definitions for SVG filter effects.**
+
+[![Linebender Zulip, #kurbo channel](https://img.shields.io/badge/Linebender-%23kurbo-blue?logo=Zulip)](https://xi.zulipchat.com/#narrow/channel/260979-kurbo)
+[![dependency status](https://deps.rs/repo/github/linebender/peniko/status.svg)](https://deps.rs/repo/github/linebender/peniko)
+[![Apache 2.0 or MIT license.](https://img.shields.io/badge/license-Apache--2.0_OR_MIT-blue.svg)](#license)
+[![Build status](https://github.com/linebender/peniko/workflows/CI/badge.svg)](https://github.com/linebender/peniko/actions)
+[![Crates.io](https://img.shields.io/crates/v/filter_effects.svg)](https://crates.io/crates/filter_effects)
+[![Docs](https://docs.rs/filter_effects/badge.svg)](https://docs.rs/filter_effects)
+
+</div>
+
+The `filter_effects` library builds on top of [`peniko`] and provides
+the [`FilterPrimitive`] vocabulary type to specify transformations as part of SVG filter graphs.
+
+This library doesn't include any code for computing these effects on the CPU or on the GPU,
+and doesn't include a definition of a filter graph.
+It only defines the effects themselves, and lets consumers decide how to compose
+and apply them.
+
+[`peniko`]: https://crates.io/crates/peniko
 
 ## Minimum supported Rust Version (MSRV)
 
