@@ -26,15 +26,15 @@ and apply them.
 
 ## Minimum supported Rust Version (MSRV)
 
-This version of Peniko has been verified to compile with **Rust 1.85** and later.
+This version of Filter Effects has been verified to compile with **Rust 1.85** and later.
 
-Future versions of Peniko might increase the Rust version requirement.
+Future versions of Filter Effects might increase the Rust version requirement.
 It will not be treated as a breaking change and as such can even happen with small patch releases.
 
 <details>
 <summary>Click here if compiling fails.</summary>
 
-As time has passed, some of Peniko's dependencies could have released versions with a higher Rust requirement.
+As time has passed, some of Filter Effects's dependencies could have released versions with a higher Rust requirement.
 If you encounter a compilation issue due to a dependency and don't want to upgrade your Rust toolchain, then you could downgrade the dependency.
 
 ```sh
