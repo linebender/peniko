@@ -17,6 +17,8 @@ default-target = "x86_64-unknown-linux-gnu"
 targets = []
 
 [features]
+std = ["peniko/std"]
+libm = ["peniko/libm"]
 
 [dependencies]
 peniko = { version = "0.6.1", path = "../peniko", default-features = false }
