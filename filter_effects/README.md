@@ -22,6 +22,7 @@ It only defines the effects themselves, and lets consumers decide how to compose
 and apply them.
 
 [`peniko`]: https://crates.io/crates/peniko
+[`FilterPrimitive`]: https://docs.rs/filter_effects/latest/filter_effects/struct.FilterPrimitive.html
 
 ## Minimum supported Rust Version (MSRV)
 
