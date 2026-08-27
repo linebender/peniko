@@ -41,6 +41,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "filter_effects"
+version = "0.1.0"
+dependencies = [
+ "peniko",
+]
+
+[[package]]
 name = "kurbo"
 version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

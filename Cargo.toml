@@ -1,5 +1,5 @@
 [workspace]
-members = ["peniko"]
+members = ["filter_effects", "peniko"]
 resolver = "2"
 
 [workspace.package]
