@@ -30,6 +30,7 @@ mod brush;
 mod gradient;
 mod image;
 mod style;
+mod ui_shape;
 
 #[cfg(feature = "bytemuck")]
 mod impl_bytemuck;
@@ -54,6 +55,7 @@ pub use image::{
     ImageAlphaType, ImageBrush, ImageBrushRef, ImageData, ImageFormat, ImageQuality, ImageSampler,
 };
 pub use style::{Fill, Style, StyleRef};
+pub use ui_shape::UiShape;
 
 /// A convenient alias for the color type used for [`Brush`].
 pub type Color = color::AlphaColor<color::Srgb>;
